@@ -14,6 +14,15 @@ namespace DialogMessaging.Platforms.iOS
         {
             return null;
         }
+
+        /// <summary>
+        /// Displays a confirm dialog to the user.
+        /// </summary>
+        /// <param name="config">The confirm configuration.</param>
+        public override IDisposable Confirm(IConfirmConfig config)
+        {
+            return null;
+        }
         #endregion
     }
 }

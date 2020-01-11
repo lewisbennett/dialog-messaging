@@ -1,20 +1,20 @@
 ﻿namespace DialogMessaging.Interactions
 {
-    public partial class ConfirmConfig
+    public partial interface IConfirmConfig
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the ID of the layout file to use.
+        /// Gets or sets whether the dialog is cancelable.
         /// </summary>
-        public int? LayoutID { get; set; } = DefaultLayoutID;
-
-        /// <summary>
-        /// Gets or sets the ID of the style to use.
-        /// </summary>
-        public int? StyleID { get; set; } = DefaultStyleID;
+        bool Cancelable { get; set; }
         #endregion
 
         #region Static Properties
+        /// <summary>
+        /// Gets or sets the default value for whether the dialog is cancelable.
+        /// </summary>
+        public static bool DefaultCancelable { get; set; } = true;
+
         /// <summary>
         /// Gets or sets the ID of the layout file to use by default.
         /// </summary>
@@ -24,6 +24,44 @@
         /// Gets or sets the ID of the style to use by default.
         /// </summary>
         public static int? DefaultStyleID { get; set; }
+        #endregion
+    }
+
+    public partial class ConfirmConfig
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets whether the dialog is cancelable.
+        /// </summary>
+        public bool Cancelable { get; set; }
+        #endregion
+
+        #region Constructors
+        public ConfirmConfig()
+        {
+            Cancelable = IConfirmConfig.DefaultCancelable;
+            LayoutID = IConfirmConfig.DefaultLayoutID;
+            StyleID = IConfirmConfig.DefaultStyleID;
+        }
+        #endregion
+    }
+
+    public partial class ConfirmAsyncConfig
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets whether the dialog is cancelable.
+        /// </summary>
+        public bool Cancelable { get; set; }
+        #endregion
+
+        #region Constructors
+        public ConfirmAsyncConfig()
+        {
+            Cancelable = IConfirmConfig.DefaultCancelable;
+            LayoutID = IConfirmConfig.DefaultLayoutID;
+            StyleID = IConfirmConfig.DefaultStyleID;
+        }
         #endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DialogMessaging.Interactions;
-using DialogMessaging.Schema;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +18,19 @@ namespace DialogMessaging
         /// Displays an alert to the user asynchronously.
         /// </summary>
         /// <param name="config">The alert configuration.</param>
-        Task<DismissalCause> AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default);
+        Task AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Displays a confirm dialog to the user.
+        /// </summary>
+        /// <param name="config">The confirm configuration.</param>
+        IDisposable Confirm(IConfirmConfig config);
+
+        /// <summary>
+        /// Displays a confirm dialog to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The confirm configuration.</param>
+        Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default);
         #endregion
     }
 }

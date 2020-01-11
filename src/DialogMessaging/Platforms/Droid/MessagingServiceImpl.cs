@@ -16,17 +16,33 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The alert configuration.</param>
         public override IDisposable Alert(IAlertConfig config)
         {
-            var activity = ActivityLifecycleCallbacks.CurrentActivity;
+            return ShowDialog<AlertDialogFragment, AlertAppCompatDialogFragment>(config);
+        }
 
-            if (activity is AppCompatActivity appCompatActivity)
-                return ShowDialogFragment<AlertAppCompatDialogFragment>(appCompatActivity, config);
-
-            return ShowDialogFragment<AlertDialogFragment>(activity, config);
+        /// <summary>
+        /// Displays a confirm dialog to the user.
+        /// </summary>
+        /// <param name="config">The confirm configuration.</param>
+        public override IDisposable Confirm(IConfirmConfig config)
+        {
+            return ShowDialog<ConfirmDialogFragment, ConfirmAppCompatDialogFragment>(config);
         }
         #endregion
 
         #region Private Methods
-        private IDisposable ShowDialogFragment<TDialog>(Activity activity, IBaseConfig config)
+        private IDisposable ShowDialog<TDialog, TAppCompatDialog>(IBaseConfig config)
+            where TDialog : AbstractDialogFragment
+            where TAppCompatDialog : AbstractAppCompatDialogFragment
+        {
+            var activity = ActivityLifecycleCallbacks.CurrentActivity;
+
+            if (activity is AppCompatActivity appCompatActivity)
+                return ShowDialog<TAppCompatDialog>(appCompatActivity, config);
+            
+            return ShowDialog<TDialog>(activity, config);
+        }
+
+        private IDisposable ShowDialog<TDialog>(Activity activity, IBaseConfig config)
             where TDialog : AbstractDialogFragment
         {
             var dialog = (TDialog)Activator.CreateInstance(typeof(TDialog), config);
@@ -42,7 +58,7 @@ namespace DialogMessaging.Platforms.Droid
             });
         }
 
-        private IDisposable ShowDialogFragment<TDialog>(AppCompatActivity activity, IBaseConfig config)
+        private IDisposable ShowDialog<TDialog>(AppCompatActivity activity, IBaseConfig config)
             where TDialog : AbstractAppCompatDialogFragment
         {
             var dialog = (TDialog)Activator.CreateInstance(typeof(TDialog), config);
