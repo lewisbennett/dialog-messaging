@@ -1,0 +1,40 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid90;monoandroid10.0</TargetFrameworks>
+    <LangVersion>8</LangVersion>
+
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <Version>0.1.0</Version>
+    <Authors>Lewis Bennett</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <UserSecretsId>f9fc9907-4aa0-4877-9a9d-e4bb4b36a006</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <DebugType>pdbonly</DebugType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Resources\**\*.xml" />
+    <Compile Include="Platforms\Shared\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
+    <Compile Include="Platforms\Droid\**\*.cs" />
+    <AndroidResource Include="Resources\**\*.xml" SubType="Designer" Generator="MSBuild:UpdateAndroidResources" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+    <Compile Include="Platforms\iOS\**\*.cs" />
+  </ItemGroup>
+
+</Project>
