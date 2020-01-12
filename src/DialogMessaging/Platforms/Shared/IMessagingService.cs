@@ -31,6 +31,18 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The confirm configuration.</param>
         Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Shows a delete dialog to the user.
+        /// </summary>
+        /// <param name="config">The delete configuration.</param>
+        IDisposable Delete(IDeleteConfig config);
+
+        /// <summary>
+        /// Displays a delete dialog to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The delete configuration.</param>
+        Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default);
         #endregion
     }
 }

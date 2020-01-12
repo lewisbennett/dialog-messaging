@@ -27,6 +27,15 @@ namespace DialogMessaging.Platforms.Droid
         {
             return ShowDialog<ConfirmDialogFragment, ConfirmAppCompatDialogFragment>(config);
         }
+
+        /// <summary>
+        /// Displays a delete dialog to the user.
+        /// </summary>
+        /// <param name="config">The delete configuration.</param>
+        public override IDisposable Delete(IDeleteConfig config)
+        {
+            return ShowDialog<DeleteDialogFragment, DeleteAppCompatDialogFragment>(config);
+        }
         #endregion
 
         #region Private Methods

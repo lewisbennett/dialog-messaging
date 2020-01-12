@@ -13,7 +13,7 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 Synchronous and asynchronous methods are available for the following:
 - Alert
 - Confirm
-- Delete (coming soon)
+- Delete
 - Loading (coming soon)
 - Action sheet (dialog and bottom sheet) (coming soon)
 - Toast (coming soon)

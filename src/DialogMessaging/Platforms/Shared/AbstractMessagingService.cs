@@ -38,7 +38,7 @@ namespace DialogMessaging
         /// <summary>
         /// Displays a confirm dialog to the user asynchronously.
         /// </summary>
-        /// <param name="config">The confirm configuration.</param>
+        /// <param name="config">The delete configuration.</param>
         public Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default)
         {
             var task = new TaskCompletionSource<bool>();
@@ -48,6 +48,28 @@ namespace DialogMessaging
             config.DismissedAction = () => task.TrySetResult(false);
 
             using (cancellationToken.Register(Confirm(config).Dispose))
+                return task.Task;
+        }
+
+        /// <summary>
+        /// Displays a delete dialog to the user.
+        /// </summary>
+        /// <param name="config">The delete configuration.</param>
+        public abstract IDisposable Delete(IDeleteConfig config);
+
+        /// <summary>
+        /// Displays a delete dialog to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The delete configuration.</param>
+        public Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default)
+        {
+            var task = new TaskCompletionSource<bool>();
+
+            config.DeleteButtonClickAction = () => task.TrySetResult(true);
+            config.CancelButtonClickAction = () => task.TrySetResult(false);
+            config.DismissedAction = () => task.TrySetResult(false);
+
+            using (cancellationToken.Register(Delete(config).Dispose))
                 return task.Task;
         }
         #endregion
