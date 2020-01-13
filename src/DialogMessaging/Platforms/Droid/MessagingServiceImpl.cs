@@ -2,7 +2,7 @@
 using Android.Support.V7.App;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
-using DialogMessaging.Platforms.Droid.DialogFragments;
+using DialogMessaging.Platforms.Droid.Dialogs;
 using System;
 
 namespace DialogMessaging.Platforms.Droid

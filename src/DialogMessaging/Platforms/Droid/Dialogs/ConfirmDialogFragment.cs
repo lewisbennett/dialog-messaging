@@ -1,14 +1,14 @@
-﻿using Android.Runtime;
-using Android.Support.V7.App;
+﻿using Android.App;
+using Android.Runtime;
 using Android.Views;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
 
-namespace DialogMessaging.Platforms.Droid.DialogFragments
+namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class ConfirmAppCompatDialogFragment : AbstractAppCompatDialogFragment<IConfirmConfig>
+    public class ConfirmDialogFragment : AbstractDialogFragment<IConfirmConfig>
     {
         #region Event Handlers
         public override void OnRegisteredViewClick(string dialogElement, View view)
@@ -83,17 +83,17 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
         #endregion
 
         #region Constructors
-        public ConfirmAppCompatDialogFragment()
+        public ConfirmDialogFragment()
             : base()
         {
         }
 
-        public ConfirmAppCompatDialogFragment(IConfirmConfig config)
+        public ConfirmDialogFragment(IConfirmConfig config)
             : base(config)
         {
         }
 
-        public ConfirmAppCompatDialogFragment(IntPtr handle, JniHandleOwnership transfer)
+        public ConfirmDialogFragment(IntPtr handle, JniHandleOwnership transfer)
             : base(handle, transfer)
         {
         }

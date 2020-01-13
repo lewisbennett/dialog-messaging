@@ -1,20 +1,20 @@
-﻿using Android.App;
-using Android.Runtime;
+﻿using Android.Runtime;
 using Android.Views;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
+using AppCompatDialog = Android.Support.V7.App.AlertDialog;
 
-namespace DialogMessaging.Platforms.Droid.DialogFragments
+namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class ConfirmDialogFragment : AbstractDialogFragment<IConfirmConfig>
+    public class DeleteAppCompatDialogFragment : AbstractAppCompatDialogFragment<IDeleteConfig>
     {
         #region Event Handlers
         public override void OnRegisteredViewClick(string dialogElement, View view)
         {
             if (dialogElement.Equals(DialogElement.ButtonPrimary))
-                Config.ConfirmButtonClickAction?.Invoke();
+                Config.DeleteButtonClickAction?.Invoke();
 
             if (dialogElement.Equals(DialogElement.ButtonSecondary))
                 Config.CancelButtonClickAction?.Invoke();
@@ -42,7 +42,7 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
 
             if (dialogElement.Key.Equals(DialogElement.ButtonPrimary))
             {
-                if (!string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && dialogElement.Value.Item1.TrySetText(Config.ConfirmButtonText))
+                if (!string.IsNullOrWhiteSpace(Config.DeleteButtonText) && dialogElement.Value.Item1.TrySetText(Config.DeleteButtonText))
                 {
                     RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
                     return;
@@ -72,28 +72,28 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
         /// <summary>
         /// Assigns configuration values to the dialog builder.
         /// </summary>
-        public override void CreateDialog(AlertDialog.Builder builder)
+        public override void CreateDialog(AppCompatDialog.Builder builder)
         {
             base.CreateDialog(builder);
 
             builder.SetTitle(Config.Title);
-            builder.SetPositiveButton(Config.ConfirmButtonText, (s, e) => Config.ConfirmButtonClickAction?.Invoke());
+            builder.SetPositiveButton(Config.DeleteButtonText, (s, e) => Config.DeleteButtonClickAction?.Invoke());
             builder.SetNegativeButton(Config.CancelButtonText, (s, e) => Config.CancelButtonClickAction?.Invoke());
         }
         #endregion
 
         #region Constructors
-        public ConfirmDialogFragment()
+        public DeleteAppCompatDialogFragment()
             : base()
         {
         }
 
-        public ConfirmDialogFragment(IConfirmConfig config)
+        public DeleteAppCompatDialogFragment(IDeleteConfig config)
             : base(config)
         {
         }
 
-        public ConfirmDialogFragment(IntPtr handle, JniHandleOwnership transfer)
+        public DeleteAppCompatDialogFragment(IntPtr handle, JniHandleOwnership transfer)
             : base(handle, transfer)
         {
         }

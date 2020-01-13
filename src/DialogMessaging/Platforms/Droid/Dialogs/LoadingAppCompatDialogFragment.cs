@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace DialogMessaging.Platforms.Droid.DialogFragments
+namespace DialogMessaging.Platforms.Droid.Dialogs
 {
     public class LoadingAppCompatDialogFragment : AbstractAppCompatDialogFragment<ILoadingConfig>
     {

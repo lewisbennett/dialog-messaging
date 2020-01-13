@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using AppCompatDialog = Android.Support.V7.App.AlertDialog;
 
-namespace DialogMessaging.Platforms.Droid.DialogFragments
+namespace DialogMessaging.Platforms.Droid.Dialogs
 {
     public abstract class AbstractAppCompatDialogFragment : AppCompatDialogFragment, View.IOnClickListener, IValueAssigner
     {

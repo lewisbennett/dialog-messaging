@@ -6,7 +6,7 @@ using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
 
-namespace DialogMessaging.Platforms.Droid.DialogFragments
+namespace DialogMessaging.Platforms.Droid.Dialogs
 {
     public class DeleteDialogFragment : AbstractDialogFragment<IDeleteConfig>
     {
