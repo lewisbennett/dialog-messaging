@@ -48,6 +48,14 @@ namespace DialogMessaging.Platforms.iOS
         {
             return null;
         }
+
+        /// <summary>
+        /// Displays a toast to the user.
+        /// </summary>
+        /// <param name="config">The toast configuration.</param>
+        public override void Toast(IToastConfig config)
+        {
+        }
         #endregion
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Support.V7.App;
+using Android.Views;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.Droid.Dialogs;
@@ -59,6 +60,38 @@ namespace DialogMessaging.Platforms.Droid
             _loadingDialog = ShowDialog<LoadingDialogFragment, LoadingAppCompatDialogFragment>(config);
 
             return _loadingDialog;
+        }
+
+        /// <summary>
+        /// Displays a toast to the user.
+        /// </summary>
+        /// <param name="config">The toast configuration.</param>
+        public override void Toast(IToastConfig config)
+        {
+            var activity = ActivityLifecycleCallbacks.CurrentActivity;
+
+            if (activity == null)
+            {
+                Log.Error("Toast", "Could not display toast - current activity is null.");
+                return;
+            }
+
+            activity.SafeRunOnUiThread(() =>
+            {
+                using var toast = Android.Widget.Toast.MakeText(activity, config.Message, config.Duration);
+
+                if (config.LayoutID != null)
+                {
+                    var view = LayoutInflater.From(activity).Inflate((int)config.LayoutID, null, false);
+
+                    if (view == null)
+                        Log.Error("Toast", "Could not display toast - custom layout was null after inflating.");
+                    else
+                        toast.View = view;
+                }
+
+                toast.Show();
+            });
         }
         #endregion
 

@@ -97,6 +97,12 @@ namespace DialogMessaging
             using(cancellationToken.Register(ShowLoading(config).Dispose))
                 return task;
         }
+
+        /// <summary>
+        /// Displays a toast to the user.
+        /// </summary>
+        /// <param name="config">The toast configuration.</param>
+        public abstract void Toast(IToastConfig config);
         #endregion
     }
 }

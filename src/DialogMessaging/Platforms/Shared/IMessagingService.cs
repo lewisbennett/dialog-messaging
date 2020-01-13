@@ -61,6 +61,12 @@ namespace DialogMessaging
         /// <param name="config">The loading configuration.</param>
         /// <param name="task">The task to execute.</param>
         TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
+
+        /// <summary>
+        /// Displays a toast to the user.
+        /// </summary>
+        /// <param name="config">The toast configuration.</param>
+        void Toast(IToastConfig config);
         #endregion
     }
 }

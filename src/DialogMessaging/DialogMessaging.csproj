@@ -37,4 +37,8 @@
     <Compile Include="Platforms\iOS\**\*.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Platforms\Shared\Interactions\ToastConfig.cs" />
+  </ItemGroup>
+
 </Project>
