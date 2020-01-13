@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Support.V7.App;
-using Android.Views;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.Droid.Dialogs;
@@ -63,6 +62,30 @@ namespace DialogMessaging.Platforms.Droid
         }
 
         /// <summary>
+        /// Displays a snackbar to the user.
+        /// </summary>
+        /// <param name="config">The snackbar configuration.</param>
+        public override void Snackbar(ISnackbarConfig config)
+        {
+            var activity = ActivityLifecycleCallbacks.CurrentActivity;
+
+            if (activity == null)
+            {
+                Log.Error("Toast", "Could not display snackbar - current activity is null.");
+                return;
+            }
+
+            activity.SafeRunOnUiThread(() =>
+            {
+                using var snackbar = Android.Support.Design.Widget.Snackbar.Make(activity.Window.DecorView, config.Message, config.Duration);
+
+                snackbar.ApplyStyling(config);
+
+                snackbar.Show();
+            });
+        }
+
+        /// <summary>
         /// Displays a toast to the user.
         /// </summary>
         /// <param name="config">The toast configuration.</param>
@@ -80,15 +103,7 @@ namespace DialogMessaging.Platforms.Droid
             {
                 using var toast = Android.Widget.Toast.MakeText(activity, config.Message, config.Duration);
 
-                if (config.LayoutID != null)
-                {
-                    var view = LayoutInflater.From(activity).Inflate((int)config.LayoutID, null, false);
-
-                    if (view == null)
-                        Log.Error("Toast", "Could not display toast - custom layout was null after inflating.");
-                    else
-                        toast.View = view;
-                }
+                toast.ApplyStyling(config);
 
                 toast.Show();
             });

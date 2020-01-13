@@ -50,6 +50,14 @@ namespace DialogMessaging.Platforms.iOS
         }
 
         /// <summary>
+        /// Displays a snackbar to the user.
+        /// </summary>
+        /// <param name="config">The snackbar configuration.</param>
+        public override void Snackbar(ISnackbarConfig config)
+        {
+        }
+
+        /// <summary>
         /// Displays a toast to the user.
         /// </summary>
         /// <param name="config">The toast configuration.</param>

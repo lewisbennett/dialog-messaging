@@ -18,7 +18,7 @@ Synchronous and asynchronous methods are available for the following:
 - Action sheet (dialog and bottom sheet) (coming soon)
 - Prompt (coming soon)
 - Toast
-- Snackbar (coming soon)
+- Snackbar
 
 ## Customization
 

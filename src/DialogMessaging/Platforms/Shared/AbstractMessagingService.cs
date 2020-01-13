@@ -99,6 +99,12 @@ namespace DialogMessaging
         }
 
         /// <summary>
+        /// Displays a snackbar to the user.
+        /// </summary>
+        /// <param name="config">The snackbar configuration.</param>
+        public abstract void Snackbar(ISnackbarConfig config);
+
+        /// <summary>
         /// Displays a toast to the user.
         /// </summary>
         /// <param name="config">The toast configuration.</param>

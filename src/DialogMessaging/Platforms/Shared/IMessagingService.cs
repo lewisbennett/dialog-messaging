@@ -63,6 +63,12 @@ namespace DialogMessaging
         TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
 
         /// <summary>
+        /// Displays a snackbar to the user.
+        /// </summary>
+        /// <param name="config">The snackbar configuration.</param>
+        void Snackbar(ISnackbarConfig config);
+
+        /// <summary>
         /// Displays a toast to the user.
         /// </summary>
         /// <param name="config">The toast configuration.</param>
