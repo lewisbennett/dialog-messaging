@@ -2,13 +2,6 @@
 {
     public partial interface IAlertConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        bool Cancelable { get; set; }
-        #endregion
-
         #region Static Properties
         /// <summary>
         /// Gets or sets the default value for whether the dialog is cancelable.
@@ -29,13 +22,6 @@
 
     public partial class AlertConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        public bool Cancelable { get; set; }
-        #endregion
-
         #region Constructors
         public AlertConfig()
         {
@@ -48,13 +34,6 @@
 
     public partial class AlertAsyncConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        public bool Cancelable { get; set; }
-        #endregion
-
         #region Constructors
         public AlertAsyncConfig()
         {

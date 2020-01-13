@@ -9,6 +9,10 @@ namespace DialogMessaging.Platforms.Droid
 {
     public class MessagingServiceImpl : AbstractMessagingService
     {
+        #region Fields
+        private IDisposable _loadingDialog;
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Displays an alert to the user.
@@ -36,6 +40,26 @@ namespace DialogMessaging.Platforms.Droid
         {
             return ShowDialog<DeleteDialogFragment, DeleteAppCompatDialogFragment>(config);
         }
+
+        /// <summary>
+        /// Hides the loading wheel from the user, if visible.
+        /// </summary>
+        public override void HideLoading()
+        {
+            if (_loadingDialog != null)
+                _loadingDialog.Dispose();
+        }
+
+        /// <summary>
+        /// Displays a loading wheel to the user.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        public override IDisposable ShowLoading(ILoadingConfig config)
+        {
+            _loadingDialog = ShowDialog<LoadingDialogFragment, LoadingAppCompatDialogFragment>(config);
+
+            return _loadingDialog;
+        }
         #endregion
 
         #region Private Methods
@@ -61,10 +85,7 @@ namespace DialogMessaging.Platforms.Droid
                 dialog.Show(activity.FragmentManager, FragmentTag);
             });
 
-            return new DisposableAction(() =>
-            {
-                activity.SafeRunOnUiThread(dialog.Dismiss);
-            });
+            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
         }
 
         private IDisposable ShowDialog<TDialog>(AppCompatActivity activity, IBaseConfig config)
@@ -77,10 +98,7 @@ namespace DialogMessaging.Platforms.Droid
                 dialog.Show(activity.SupportFragmentManager, FragmentTag);
             });
 
-            return new DisposableAction(() =>
-            {
-                activity.SafeRunOnUiThread(dialog.Dismiss);
-            });
+            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
         }
         #endregion
 

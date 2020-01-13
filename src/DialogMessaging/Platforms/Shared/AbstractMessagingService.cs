@@ -72,6 +72,31 @@ namespace DialogMessaging
             using (cancellationToken.Register(Delete(config).Dispose))
                 return task.Task;
         }
+
+        /// <summary>
+        /// Hides the loading wheel from the user, if visible.
+        /// </summary>
+        public abstract void HideLoading();
+
+        /// <summary>
+        /// Displays a loading wheel to the user.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        public abstract IDisposable ShowLoading(ILoadingConfig config);
+
+        /// <summary>
+        /// Displays a loading wheel to the user that is shown alongside execution of a task.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        /// <param name="task">The task to execute.</param>
+        public TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
+            where TTask : Task
+        {
+            task.ContinueWith((t) => HideLoading(), cancellationToken);
+
+            using(cancellationToken.Register(ShowLoading(config).Dispose))
+                return task;
+        }
         #endregion
     }
 }

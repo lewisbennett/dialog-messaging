@@ -43,6 +43,24 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The delete configuration.</param>
         Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Hides the loading wheel from the user, if visible.
+        /// </summary>
+        void HideLoading();
+
+        /// <summary>
+        /// Displays a loading wheel to the user.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        IDisposable ShowLoading(ILoadingConfig config);
+
+        /// <summary>
+        /// Displays a loading wheel to the user that is shown alongside execution of a task.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        /// <param name="task">The task to execute.</param>
+        TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
         #endregion
     }
 }

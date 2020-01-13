@@ -2,13 +2,6 @@
 {
     public partial interface IDeleteConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        bool Cancelable { get; set; }
-        #endregion
-
         #region Static Properties
         /// <summary>
         /// Gets or sets the default value for whether the dialog is cancelable.
@@ -29,13 +22,6 @@
 
     public partial class DeleteConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        public bool Cancelable { get; set; }
-        #endregion
-
         #region Constructors
         public DeleteConfig()
         {
@@ -48,13 +34,6 @@
 
     public partial class DeleteAsyncConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
-        /// </summary>
-        public bool Cancelable { get; set; }
-        #endregion
-
         #region Constructors
         public DeleteAsyncConfig()
         {

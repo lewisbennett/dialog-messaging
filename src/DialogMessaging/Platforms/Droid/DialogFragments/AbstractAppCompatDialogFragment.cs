@@ -134,6 +134,8 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
         {
             base.OnCreate(savedInstanceState);
 
+            RetainInstance = true;
+
             if (Config == null)
             {
                 Config = MessagingService.RetrieveInstance<TConfig>(savedInstanceState);
@@ -148,7 +150,11 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
             }
 
             _canRunDismiss = true;
-            SetStyle(StyleNoFrame, Config.StyleID ?? 0);
+
+            if (Config.StyleID != null)
+                SetStyle(StyleNoFrame, (int)Config.StyleID);
+
+            Cancelable = Config.Cancelable;   
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -156,7 +162,7 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
             if (Config.LayoutID == null)
                 return base.OnCreateView(inflater, container, savedInstanceState);
 
-            return new CustomLayoutInflater(Context, this).Inflate((int)Config.LayoutID, null, false);
+            return new CustomLayoutInflater(Context, this).Inflate((int)Config.LayoutID, container, false);
         }
 
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
@@ -185,6 +191,14 @@ namespace DialogMessaging.Platforms.Droid.DialogFragments
 
             _canRunDismiss = false;
             MessagingService.SaveInstance(outState, Config);
+        }
+
+        public override void OnDestroyView()
+        {
+            if (Dialog != null && RetainInstance)
+                Dialog.SetDismissMessage(null);
+
+            base.OnDestroyView();
         }
         #endregion
 

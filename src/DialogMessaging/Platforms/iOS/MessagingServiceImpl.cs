@@ -32,6 +32,22 @@ namespace DialogMessaging.Platforms.iOS
         {
             return null;
         }
+
+        /// <summary>
+        /// Hides the loading wheel from the user, if visible.
+        /// </summary>
+        public override void HideLoading()
+        {
+        }
+
+        /// <summary>
+        /// Displays a loading wheel to the user.
+        /// </summary>
+        /// <param name="config">The loading configuration.</param>
+        public override IDisposable ShowLoading(ILoadingConfig config)
+        {
+            return null;
+        }
         #endregion
     }
 }

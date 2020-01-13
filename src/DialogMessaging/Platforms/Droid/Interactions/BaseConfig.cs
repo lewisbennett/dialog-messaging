@@ -4,6 +4,11 @@
     {
         #region Properties
         /// <summary>
+        /// Gets or sets whether the dialog is cancelable.
+        /// </summary>
+        bool Cancelable { get; set; }
+
+        /// <summary>
         /// Gets or sets the ID of the layout file to use.
         /// </summary>
         int? LayoutID { get; set; }
@@ -19,6 +24,11 @@
     {
         #region Properties
         /// <summary>
+        /// Gets or sets whether the dialog is cancelable.
+        /// </summary>
+        public bool Cancelable { get; set; }
+
+        /// <summary>
         /// Gets or sets the ID of the layout file to use.
         /// </summary>
         public int? LayoutID { get; set; }
@@ -33,6 +43,11 @@
     public partial class BaseAsyncConfig
     {
         #region Properties
+        /// <summary>
+        /// Gets or sets whether the dialog is cancelable.
+        /// </summary>
+        public bool Cancelable { get; set; }
+
         /// <summary>
         /// Gets or sets the ID of the layout file to use.
         /// </summary>
