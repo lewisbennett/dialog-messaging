@@ -101,11 +101,7 @@ namespace DialogMessaging.Platforms.Droid
 
             activity.SafeRunOnUiThread(() =>
             {
-                using var toast = Android.Widget.Toast.MakeText(activity, config.Message, config.Duration);
-
-                toast.ApplyStyling(config);
-
-                toast.Show();
+                new CustomToast(activity, config).Toast.Show();
             });
         }
         #endregion

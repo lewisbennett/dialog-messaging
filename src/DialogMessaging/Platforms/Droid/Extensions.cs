@@ -5,7 +5,6 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using DialogMessaging.Interactions;
-using DialogMessaging.Platforms.Droid.Helper;
 using System;
 using System.Collections.Generic;
 using DM_Log = DialogMessaging.Infrastructure.Log;
@@ -24,7 +23,7 @@ namespace DialogMessaging
             if (snackbar == null || config == null)
                 return;
 
-            var backgroundColor = ColorUtils.TryParseColor(config.BackgroundColorCalculator != null ? config.BackgroundColorCalculator.Invoke() : config.BackgroundColor);
+            var backgroundColor = config.BackgroundColor ?? config.BackgroundColorCalculator?.Invoke();
 
             if (backgroundColor != null)
                 snackbar.View.SetBackgroundColor((Color)backgroundColor);
@@ -33,7 +32,7 @@ namespace DialogMessaging
             {
                 snackbar.SetAction(config.ActionButtonText, (v) => config?.ActionButtonClickAction());
 
-                var actionButtonTextColor = ColorUtils.TryParseColor(config.ActionButtonTextColorCalculator != null ? config.ActionButtonTextColorCalculator.Invoke() : config.ActionButtonTextColor);
+                var actionButtonTextColor = config.ActionButtonTextColor ?? config.ActionButtonTextColorCalculator?.Invoke();
 
                 if (actionButtonTextColor != null)
                     snackbar.SetActionTextColor((Color)actionButtonTextColor);
@@ -44,30 +43,13 @@ namespace DialogMessaging
             if (textView == null)
                 return;
 
-            var textColor = ColorUtils.TryParseColor(config.TextColorCalculator != null ? config.TextColorCalculator.Invoke() : config.TextColor);
+            var textColor = config.MessageTextColor ?? config.MessageTextColorCalculator?.Invoke();
 
             if (textColor != null)
-                snackbar.View.SetBackgroundColor((Color)textColor);
-        }
+                textView.SetTextColor((Color)textColor);
 
-        /// <summary>
-        /// Applies styling to the toast based on configuration values.
-        /// </summary>
-        /// <param name="config">The toast configuration.</param>
-        public static void ApplyStyling(this Toast toast, IToastConfig config)
-        {
-            if (toast == null || config == null || config.LayoutID == null)
-                return;
-
-            var view = LayoutInflater.From(Application.Context).Inflate((int)config.LayoutID, null, false);
-
-            if (view == null)
-            {
-                Log.Error("Toast", "Could not display toast - custom layout was null after inflating.");
-                return;
-            }
-
-            toast.View = view;
+            if (config.MessageTypeface != null)
+                textView.SetTypeface(config.MessageTypeface, config.MessageTypefaceStyle);
         }
 
         /// <summary>
