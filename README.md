@@ -10,15 +10,16 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 
 ## Dialogs
 
-Synchronous and asynchronous methods are available for the following:
-- Alert
-- Confirm
-- Delete
-- Loading
-- Action sheet (dialog and bottom sheet) (coming soon)
-- Prompt
+- Alert*
+- Confirm*
+- Delete*
+- Loading*
+- Action sheet* (dialog and bottom sheet) (coming soon)
+- Prompt*
 - Toast
 - Snackbar
+
+\*Synchronous and Asynchronous methods are available.
 
 ## Getting Started
 
