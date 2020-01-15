@@ -7,6 +7,24 @@ namespace DialogMessaging.Platforms.iOS
     {
         #region Public Methods
         /// <summary>
+        /// Displays an action sheet to the user.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        public override IDisposable ActionSheet(IActionSheetConfig config)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
+        {
+            return null;
+        }
+
+        /// <summary>
         /// Displays an alert to the user.
         /// </summary>
         /// <param name="config">The alert configuration.</param>

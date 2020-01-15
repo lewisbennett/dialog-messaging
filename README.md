@@ -14,7 +14,8 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 - Confirm*
 - Delete*
 - Loading*
-- Action sheet* (dialog and bottom sheet) (coming soon)
+- Action sheet*
+- Action sheet bottom*
 - Prompt*
 - Toast
 - Snackbar
@@ -27,7 +28,7 @@ Get started by calling `DialogMessaging.MessagingService.Init()`. `Init()` has o
 
 ## Customization
 
-You can access and set a custom `IMessagingDelegate` via `DialogMessaging.MessagingService.Delegate`. These delegate methods are called by their respective display methods and allow you to customise the display process. By returning `true` or `false` you can optionally cancel dialogs from being shown. **If you set a custom** `IMessagingService` **you are responsible for calling and handling delegate methods.**
+You can access and set a custom `IMessagingDelegate` via `DialogMessaging.MessagingService.Delegate`. These delegate methods are called by their respective display methods and allow you to customize the display process. By returning `true` or `false` you can optionally cancel dialogs from being shown. **If you set a custom** `IMessagingService` **you are responsible for calling and handling delegate methods.**
 
 ### Android
 

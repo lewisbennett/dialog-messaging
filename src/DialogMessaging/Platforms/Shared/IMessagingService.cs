@@ -9,6 +9,30 @@ namespace DialogMessaging
     {
         #region Public Methods
         /// <summary>
+        /// Displays an action sheet to the user.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        IDisposable ActionSheet(IActionSheetConfig config);
+
+        /// <summary>
+        /// Displays an action sheet to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Displays an alert to the user.
         /// </summary>
         /// <param name="config">The alert configuration.</param>

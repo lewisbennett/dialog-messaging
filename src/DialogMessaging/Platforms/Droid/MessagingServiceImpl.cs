@@ -15,6 +15,66 @@ namespace DialogMessaging.Platforms.Droid
 
         #region Public Methods
         /// <summary>
+        /// Displays an action sheet to the user.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        public override IDisposable ActionSheet(IActionSheetConfig config)
+        {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
+
+            if (!proceed)
+                return null;
+
+            return ShowDialog<ActionSheetDialogFragment, ActionSheetAppCompatDialogFragment>(config);
+        }
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
+        {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
+
+            if (!proceed)
+                return null;
+
+            var activity = ActivityLifecycleCallbacks.CurrentActivity;
+
+            if (!(activity is AppCompatActivity appCompatActivity))
+            {
+                var newConfig = new ActionSheetConfig
+                {
+                    Cancelable = config.Cancelable,
+                    CancelButtonClickAction = config.CancelButtonClickAction,
+                    CancelButtonText = config.CancelButtonText,
+                    Data = config.Data,
+                    DismissedAction = config.DismissedAction,
+                    ItemClickAction = config.ItemClickAction,
+                    ItemLayoutResID = config.ItemLayoutResID,
+                    LayoutID = config.LayoutID,
+                    Message = config.Message,
+                    StyleID = config.StyleID,
+                    Title = config.Title
+                };
+
+                foreach (var item in config.Items)
+                    newConfig.Items.Add(item);
+
+                return ActionSheet(newConfig);
+            }
+
+            var dialog = new ActionSheetBottomBottomSheetDialogFragment(config);
+
+            appCompatActivity.SafeRunOnUiThread(() =>
+            {
+                dialog.Show(appCompatActivity.SupportFragmentManager, FragmentTag);
+            });
+
+            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
+        }
+
+        /// <summary>
         /// Displays an alert to the user.
         /// </summary>
         /// <param name="config">The alert configuration.</param>

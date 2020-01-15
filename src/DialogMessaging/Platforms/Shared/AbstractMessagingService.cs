@@ -9,6 +9,60 @@ namespace DialogMessaging
     {
         #region Public Methods
         /// <summary>
+        /// Displays an action sheet to the user.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        public abstract IDisposable ActionSheet(IActionSheetConfig config);
+
+        /// <summary>
+        /// Displays an action sheet to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The action sheet configuration.</param>
+        public Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
+        {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
+
+            if (!proceed)
+                return Task.FromResult<IActionSheetItemConfig>(null);
+
+            var task = new TaskCompletionSource<IActionSheetItemConfig>();
+
+            config.ItemClickAction = (item) => task.TrySetResult(item);
+            config.CancelButtonClickAction = () => task.TrySetResult(null);
+            config.DismissedAction = () => task.TrySetResult(null);
+
+            using (cancellationToken.Register(ActionSheet(config).Dispose))
+                return task.Task;
+        }
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        public abstract IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
+
+        /// <summary>
+        /// Displays a bottom action sheet to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The bottom action sheet configuration.</param>
+        public Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
+        {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
+
+            if (!proceed)
+                return Task.FromResult<IActionSheetItemConfig>(null);
+
+            var task = new TaskCompletionSource<IActionSheetItemConfig>();
+
+            config.ItemClickAction = (item) => task.TrySetResult(item);
+            config.CancelButtonClickAction = () => task.TrySetResult(null);
+            config.DismissedAction = () => task.TrySetResult(null);
+
+            using (cancellationToken.Register(ActionSheetBottom(config).Dispose))
+                return task.Task;
+        }
+
+        /// <summary>
         /// Displays an alert to the user.
         /// </summary>
         /// <param name="config">The alert configuration.</param>
