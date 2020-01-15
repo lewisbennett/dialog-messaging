@@ -20,6 +20,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The alert configuration.</param>
         public override IDisposable Alert(IAlertConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnAlertRequested(config);
+
+            if (!proceed)
+                return null;
+
             return ShowDialog<AlertDialogFragment, AlertAppCompatDialogFragment>(config);
         }
 
@@ -29,6 +34,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The confirm configuration.</param>
         public override IDisposable Confirm(IConfirmConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnConfirmRequested(config);
+
+            if (!proceed)
+                return null;
+
             return ShowDialog<ConfirmDialogFragment, ConfirmAppCompatDialogFragment>(config);
         }
 
@@ -38,6 +48,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The delete configuration.</param>
         public override IDisposable Delete(IDeleteConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnDeleteRequested(config);
+
+            if (!proceed)
+                return null;
+
             return ShowDialog<DeleteDialogFragment, DeleteAppCompatDialogFragment>(config);
         }
 
@@ -46,6 +61,11 @@ namespace DialogMessaging.Platforms.Droid
         /// </summary>
         public override void HideLoading()
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnHideLoadingRequested();
+
+            if (!proceed)
+                return;
+
             if (_loadingDialog != null)
                 _loadingDialog.Dispose();
         }
@@ -56,6 +76,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The prompt configuration.</param>
         public override IDisposable Prompt(IPromptConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnPromptRequested(config);
+
+            if (!proceed)
+                return null;
+
             return ShowDialog<PromptDialogFragment, PromptAppCompatDialogFragment>(config);
         }
 
@@ -65,6 +90,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The loading configuration.</param>
         public override IDisposable ShowLoading(ILoadingConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);
+
+            if (!proceed)
+                return null;
+
             _loadingDialog = ShowDialog<LoadingDialogFragment, LoadingAppCompatDialogFragment>(config);
 
             return _loadingDialog;
@@ -76,6 +106,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The snackbar configuration.</param>
         public override void Snackbar(ISnackbarConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnSnackbarRequested(config);
+
+            if (!proceed)
+                return;
+
             var activity = ActivityLifecycleCallbacks.CurrentActivity;
 
             if (activity == null)
@@ -100,6 +135,11 @@ namespace DialogMessaging.Platforms.Droid
         /// <param name="config">The toast configuration.</param>
         public override void Toast(IToastConfig config)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnToastRequested(config);
+
+            if (!proceed)
+                return;
+
             var activity = ActivityLifecycleCallbacks.CurrentActivity;
 
             if (activity == null)

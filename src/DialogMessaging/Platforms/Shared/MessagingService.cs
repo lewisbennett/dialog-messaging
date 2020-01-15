@@ -4,6 +4,11 @@
     {
         #region Static Properties
         /// <summary>
+        /// Gets or sets the message delegate, if any.
+        /// </summary>
+        public static IMessagingDelegate Delegate { get; set; }
+
+        /// <summary>
         /// Gets the current MessagingService instance, if any.
         /// </summary>
         public static IMessagingService Instance { get; private set; }

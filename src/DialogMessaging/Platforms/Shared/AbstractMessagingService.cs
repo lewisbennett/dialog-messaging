@@ -20,6 +20,11 @@ namespace DialogMessaging
         /// <param name="config">The alert configuration.</param>
         public Task AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnAlertRequested(config);
+
+            if (!proceed)
+                return Task.FromResult(false);
+
             var task = new TaskCompletionSource<bool>();
 
             config.OkButtonClickAction = () => task.TrySetResult(true);
@@ -41,6 +46,11 @@ namespace DialogMessaging
         /// <param name="config">The delete configuration.</param>
         public Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnConfirmRequested(config);
+
+            if (!proceed)
+                return Task.FromResult(false);
+
             var task = new TaskCompletionSource<bool>();
 
             config.ConfirmButtonClickAction = () => task.TrySetResult(true);
@@ -63,6 +73,11 @@ namespace DialogMessaging
         /// <param name="config">The delete configuration.</param>
         public Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnDeleteRequested(config);
+
+            if (!proceed)
+                return Task.FromResult(false);
+
             var task = new TaskCompletionSource<bool>();
 
             config.DeleteButtonClickAction = () => task.TrySetResult(true);
@@ -90,6 +105,11 @@ namespace DialogMessaging
         /// <param name="config">The prompt configuration.</param>
         public Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default)
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnPromptRequested(config);
+
+            if (!proceed)
+                return Task.FromResult(string.Empty);
+
             var task = new TaskCompletionSource<string>();
 
             config.ConfirmButtonClickAction = () => task.TrySetResult(config.InputText);
@@ -114,6 +134,11 @@ namespace DialogMessaging
         public TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
             where TTask : Task
         {
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);
+
+            if (!proceed)
+                return default;
+
             task.ContinueWith((t) => HideLoading(), cancellationToken);
 
             using(cancellationToken.Register(ShowLoading(config).Dispose))
