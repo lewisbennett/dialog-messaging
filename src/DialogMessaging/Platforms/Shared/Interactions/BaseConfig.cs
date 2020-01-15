@@ -14,6 +14,11 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the message.
         /// </summary>
         string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        string Title { get; set; }
         #endregion
     }
 
@@ -29,6 +34,11 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        public string Title { get; set; }
         #endregion
     }
 
@@ -44,6 +54,11 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the message.
         /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        public string Title { get; set; }
         #endregion
     }
 }

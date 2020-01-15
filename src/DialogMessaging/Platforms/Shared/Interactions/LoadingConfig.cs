@@ -9,11 +9,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the progress.
         /// </summary>
         int? Progress { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        string Title { get; set; }
         #endregion
     }
 
@@ -41,11 +36,6 @@ namespace DialogMessaging.Interactions
                 OnPropertyChanged(nameof(Progress));
             }
         }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
 
         #region Private Methods
@@ -80,11 +70,6 @@ namespace DialogMessaging.Interactions
                 OnPropertyChanged(nameof(Progress));
             }
         }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
 
         #region Private Methods

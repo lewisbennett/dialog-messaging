@@ -51,6 +51,15 @@ namespace DialogMessaging.Platforms.Droid
         }
 
         /// <summary>
+        /// Displays a prompt to the user.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        public override IDisposable Prompt(IPromptConfig config)
+        {
+            return ShowDialog<PromptDialogFragment, PromptAppCompatDialogFragment>(config);
+        }
+
+        /// <summary>
         /// Displays a loading wheel to the user.
         /// </summary>
         /// <param name="config">The loading configuration.</param>

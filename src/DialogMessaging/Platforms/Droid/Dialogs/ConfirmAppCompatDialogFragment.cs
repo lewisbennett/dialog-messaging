@@ -13,11 +13,16 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         #region Event Handlers
         public override void OnRegisteredViewClick(string dialogElement, View view)
         {
-            if (dialogElement.Equals(DialogElement.ButtonPrimary))
-                Config.ConfirmButtonClickAction?.Invoke();
+            switch (dialogElement)
+            {
+                case DialogElement.ButtonPrimary:
+                    Config.ConfirmButtonClickAction?.Invoke();
+                    break;
 
-            if (dialogElement.Equals(DialogElement.ButtonSecondary))
-                Config.CancelButtonClickAction?.Invoke();
+                case DialogElement.ButtonSecondary:
+                    Config.CancelButtonClickAction?.Invoke();
+                    break;
+            }
 
             Dismiss();
         }
@@ -30,43 +35,34 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <param name="dialogElement">The dialog element extracted from the view.</param>
         public override void AssignValue(KeyValuePair<string, Tuple<View, bool>> dialogElement)
         {
-            if (dialogElement.Key.Equals(DialogElement.Title))
+            switch (dialogElement.Key)
             {
-                if (!string.IsNullOrWhiteSpace(Config.Title) && dialogElement.Value.Item1.TrySetText(Config.Title))
+                case DialogElement.ButtonPrimary:
+
+                    if (!string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && dialogElement.Value.Item1.TrySetText(Config.ConfirmButtonText))
+                    {
+                        RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
+                        return;
+                    }
+
+                    break;
+
+                case DialogElement.ButtonSecondary:
+
+                    if (!string.IsNullOrWhiteSpace(Config.CancelButtonText) && dialogElement.Value.Item1.TrySetText(Config.CancelButtonText))
+                    {
+                        RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
+                        return;
+                    }
+
+                    break;
+
+                default:
+                    base.AssignValue(dialogElement);
                     return;
-
-                dialogElement.HideElementIfNeeded();
-
-                return;
             }
 
-            if (dialogElement.Key.Equals(DialogElement.ButtonPrimary))
-            {
-                if (!string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && dialogElement.Value.Item1.TrySetText(Config.ConfirmButtonText))
-                {
-                    RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
-                    return;
-                }
-
-                dialogElement.HideElementIfNeeded();
-
-                return;
-            }
-
-            if (dialogElement.Key.Equals(DialogElement.ButtonSecondary))
-            {
-                if (!string.IsNullOrWhiteSpace(Config.CancelButtonText) && dialogElement.Value.Item1.TrySetText(Config.CancelButtonText))
-                {
-                    RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
-                    return;
-                }
-
-                dialogElement.HideElementIfNeeded();
-
-                return;
-            }
-
-            base.AssignValue(dialogElement);
+            dialogElement.HideElementIfNeeded();
         }
 
         /// <summary>
@@ -76,9 +72,8 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.CreateDialog(builder);
 
-            builder.SetTitle(Config.Title);
-            builder.SetPositiveButton(Config.ConfirmButtonText, (s, e) => Config.ConfirmButtonClickAction?.Invoke());
-            builder.SetNegativeButton(Config.CancelButtonText, (s, e) => Config.CancelButtonClickAction?.Invoke());
+            builder.SetPositiveButton(Config.ConfirmButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
+            builder.SetNegativeButton(Config.CancelButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonSecondary, s as View));
         }
         #endregion
 

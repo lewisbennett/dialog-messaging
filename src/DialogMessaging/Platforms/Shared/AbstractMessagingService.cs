@@ -79,6 +79,28 @@ namespace DialogMessaging
         public abstract void HideLoading();
 
         /// <summary>
+        /// Displays a prompt to the user.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        public abstract IDisposable Prompt(IPromptConfig config);
+
+        /// <summary>
+        /// Displays a prompt to the user.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        public Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default)
+        {
+            var task = new TaskCompletionSource<string>();
+
+            config.ConfirmButtonClickAction = () => task.TrySetResult(config.InputText);
+            config.CancelButtonClickAction = () => task.TrySetResult(string.Empty);
+            config.DismissedAction = () => task.TrySetResult(string.Empty);
+
+            using (cancellationToken.Register(Prompt(config).Dispose))
+                return task.Task;
+        }
+
+        /// <summary>
         /// Displays a loading wheel to the user.
         /// </summary>
         /// <param name="config">The loading configuration.</param>

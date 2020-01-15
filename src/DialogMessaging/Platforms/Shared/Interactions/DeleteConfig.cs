@@ -24,11 +24,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the delete button text.
         /// </summary>
         string DeleteButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        string Title { get; set; }
         #endregion
     }
 
@@ -54,11 +49,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the delete button text.
         /// </summary>
         public string DeleteButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
     }
 
@@ -84,11 +74,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the delete button text.
         /// </summary>
         public string DeleteButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
     }
 }

@@ -41,6 +41,15 @@ namespace DialogMessaging.Platforms.iOS
         }
 
         /// <summary>
+        /// Displays a prompt to the user.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        public override IDisposable Prompt(IPromptConfig config)
+        {
+            return null;
+        }
+
+        /// <summary>
         /// Displays a loading wheel to the user.
         /// </summary>
         /// <param name="config">The loading configuration.</param>

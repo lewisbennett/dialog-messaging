@@ -14,11 +14,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the ok button text.
         /// </summary>
         string OkButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        string Title { get; set; }
         #endregion
     }
 
@@ -34,11 +29,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the ok button text.
         /// </summary>
         public string OkButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
     }
 
@@ -54,11 +44,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the ok button text.
         /// </summary>
         public string OkButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title.
-        /// </summary>
-        public string Title { get; set; }
         #endregion
     }
 }

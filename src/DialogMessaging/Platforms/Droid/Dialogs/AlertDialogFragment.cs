@@ -13,8 +13,14 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         #region Event Handlers
         public override void OnRegisteredViewClick(string dialogElement, View view)
         {
-            if (dialogElement.Equals(DialogElement.ButtonPrimary))
-                Config.OkButtonClickAction?.Invoke();
+            base.OnRegisteredViewClick(dialogElement, view);
+
+            switch (dialogElement)
+            {
+                case DialogElement.ButtonPrimary:
+                    Config.OkButtonClickAction?.Invoke();
+                    break;
+            }
 
             Dismiss();
         }
@@ -26,31 +32,25 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// </summary>
         /// <param name="dialogElement">The dialog element extracted from the view.</param>
         public override void AssignValue(KeyValuePair<string, Tuple<View, bool>> dialogElement)
-        {   
-            if (dialogElement.Key.Equals(DialogElement.Title))
+        {
+            switch (dialogElement.Key)
             {
-                if (!string.IsNullOrWhiteSpace(Config.Title) && dialogElement.Value.Item1.TrySetText(Config.Title))
+                case DialogElement.ButtonPrimary:
+
+                    if (!string.IsNullOrWhiteSpace(Config.OkButtonText) && dialogElement.Value.Item1.TrySetText(Config.OkButtonText))
+                    {
+                        RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
+                        return;
+                    }
+
+                    break;
+
+                default:
+                    base.AssignValue(dialogElement);
                     return;
-
-                dialogElement.HideElementIfNeeded();
-
-                return;
             }
 
-            if (dialogElement.Key.Equals(DialogElement.ButtonPrimary))
-            {
-                if (!string.IsNullOrWhiteSpace(Config.OkButtonText) && dialogElement.Value.Item1.TrySetText(Config.OkButtonText))
-                {
-                    RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
-                    return;
-                }
-
-                dialogElement.HideElementIfNeeded();
-
-                return;
-            }
-
-            base.AssignValue(dialogElement);
+            dialogElement.HideElementIfNeeded();
         }
 
         /// <summary>
@@ -60,7 +60,6 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.CreateDialog(builder);
 
-            builder.SetTitle(Config.Title);
             builder.SetPositiveButton(Config.OkButtonText, (s, e) => Config.OkButtonClickAction?.Invoke());
         }
         #endregion

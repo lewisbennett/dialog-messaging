@@ -16,7 +16,7 @@ Synchronous and asynchronous methods are available for the following:
 - Delete
 - Loading
 - Action sheet (dialog and bottom sheet) (coming soon)
-- Prompt (coming soon)
+- Prompt
 - Toast
 - Snackbar
 

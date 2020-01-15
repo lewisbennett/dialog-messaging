@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DialogMessaging.Schema;
+using System;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface IConfirmConfig : IBaseConfig
+    public partial interface IPromptConfig : IBaseConfig
     {
         #region Properties
         /// <summary>
@@ -24,10 +25,25 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the confirm button text.
         /// </summary>
         string ConfirmButtonText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint displayed in the text field.
+        /// </summary>
+        string Hint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input text.
+        /// </summary>
+        string InputText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input type.
+        /// </summary>
+        InputType InputType { get; set; }
         #endregion
     }
 
-    public partial class ConfirmConfig : BaseConfig, IConfirmConfig
+    public partial class PromptConfig : BaseConfig, IPromptConfig
     {
         #region Properties
         /// <summary>
@@ -49,10 +65,25 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the confirm button text.
         /// </summary>
         public string ConfirmButtonText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint displayed in the text field.
+        /// </summary>
+        public string Hint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input text.
+        /// </summary>
+        public string InputText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input type.
+        /// </summary>
+        public InputType InputType { get; set; }
         #endregion
     }
 
-    public partial class ConfirmAsyncConfig : BaseAsyncConfig, IConfirmConfig
+    public partial class PromptAsyncConfig : BaseAsyncConfig, IPromptConfig
     {
         #region Properties
         /// <summary>
@@ -74,6 +105,21 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the confirm button text.
         /// </summary>
         public string ConfirmButtonText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint displayed in the text field.
+        /// </summary>
+        public string Hint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input text.
+        /// </summary>
+        public string InputText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the input type.
+        /// </summary>
+        public InputType InputType { get; set; }
         #endregion
     }
 }

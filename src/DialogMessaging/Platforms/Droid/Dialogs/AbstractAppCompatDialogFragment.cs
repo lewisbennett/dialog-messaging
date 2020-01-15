@@ -97,7 +97,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <summary>
         /// Gets the config being used for the dialog.
         /// </summary>
-        public TConfig Config { get; private set; }
+        public TConfig Config { get; internal set; }
         #endregion
 
         #region Public Methods
@@ -109,15 +109,24 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.AssignValue(dialogElement);
 
-            if (dialogElement.Key.Equals(DialogElement.Message))
+            switch (dialogElement.Key)
             {
-                if (!string.IsNullOrWhiteSpace(Config.Message) && dialogElement.Value.Item1.TrySetText(Config.Message))
-                    return;
+                case DialogElement.Title:
 
-                dialogElement.HideElementIfNeeded();
+                    if (!string.IsNullOrWhiteSpace(Config.Title) && dialogElement.Value.Item1.TrySetText(Config.Title))
+                        return;
 
-                return;
+                    break;
+
+                case DialogElement.Message:
+
+                    if (!string.IsNullOrWhiteSpace(Config.Message) && dialogElement.Value.Item1.TrySetText(Config.Message))
+                        return;
+
+                    break;
             }
+
+            dialogElement.HideElementIfNeeded();
         }
 
         /// <summary>
@@ -125,6 +134,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// </summary>
         public virtual void CreateDialog(AppCompatDialog.Builder builder)
         {
+            builder.SetTitle(Config.Title);
             builder.SetMessage(Config.Message);
         }
         #endregion

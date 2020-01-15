@@ -32,25 +32,19 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <param name="dialogElement">The dialog element extracted from the view.</param>
         public override void AssignValue(KeyValuePair<string, Tuple<View, bool>> dialogElement)
         {
-            if (dialogElement.Key.Equals(DialogElement.Title))
+            switch (dialogElement.Key)
             {
-                if (!string.IsNullOrWhiteSpace(Config.Title) && dialogElement.Value.Item1.TrySetText(Config.Title))
+                case DialogElement.Progress:
+
+                    _progressView = dialogElement.Value.Item1;
+                    SetProgress();
+
                     return;
 
-                dialogElement.HideElementIfNeeded();
-
-                return;
+                default:
+                    base.AssignValue(dialogElement);
+                    return;
             }
-
-            if (dialogElement.Key.Equals(DialogElement.Progress))
-            {
-                _progressView = dialogElement.Value.Item1;
-                SetProgress();
-
-                return;
-            }
-
-            base.AssignValue(dialogElement);
         }
 
         /// <summary>

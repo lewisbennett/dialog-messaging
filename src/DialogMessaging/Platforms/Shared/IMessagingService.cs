@@ -50,6 +50,18 @@ namespace DialogMessaging
         void HideLoading();
 
         /// <summary>
+        /// Displays a prompt to the user.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        IDisposable Prompt(IPromptConfig config);
+
+        /// <summary>
+        /// Displaus a prompt to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The prompt configuration.</param>
+        Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Displays a loading wheel to the user.
         /// </summary>
         /// <param name="config">The loading configuration.</param>

@@ -1,10 +1,12 @@
 ﻿using Android.App;
 using Android.Graphics;
 using Android.Support.Design.Widget;
+using Android.Text;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using DialogMessaging.Interactions;
+using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
 using DM_Log = DialogMessaging.Infrastructure.Log;
@@ -135,9 +137,35 @@ namespace DialogMessaging
             if (textProperty == null)
                 return false;
 
-            textProperty.SetValue(view, text, null);
+            try
+            {
+                textProperty.SetValue(view, text, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                DM_Log.Error("TrySetText", $"Could not set text.\n{e.ToString()}");
+                return false;
+            }
+        }
 
-            return true;
+        /// <summary>
+        /// Gets the InputType as an Android InputTypes.
+        /// </summary>
+        public static InputTypes ToInputTypes(this InputType inputType)
+        {
+            return inputType switch
+            {
+                InputType.Decimal => InputTypes.ClassNumber | InputTypes.NumberFlagDecimal,
+                InputType.Default => InputTypes.ClassText,
+                InputType.EmailAddress => InputTypes.ClassText | InputTypes.TextVariationEmailAddress,
+                InputType.Integer => InputTypes.ClassNumber,
+                InputType.Name => InputTypes.ClassText | InputTypes.TextFlagCapWords,
+                InputType.Password => InputTypes.ClassText | InputTypes.TextVariationPassword,
+                InputType.PhoneNumber => InputTypes.ClassPhone,
+                InputType.URI => InputTypes.ClassText | InputTypes.TextVariationUri,
+                _ => InputTypes.ClassText,
+            };
         }
         #endregion
     }

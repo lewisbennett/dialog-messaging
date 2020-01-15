@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Runtime;
 using Android.Views;
+using Android.Widget;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
@@ -8,15 +10,24 @@ using System.Collections.Generic;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class DeleteDialogFragment : AbstractDialogFragment<IDeleteConfig>
+    public class PromptDialogFragment : AbstractDialogFragment<IPromptConfig>
     {
+        #region Fields
+        private EditText _textField;
+        #endregion
+
         #region Event Handlers
         public override void OnRegisteredViewClick(string dialogElement, View view)
         {
+            base.OnRegisteredViewClick(dialogElement, view);
+
             switch (dialogElement)
             {
                 case DialogElement.ButtonPrimary:
-                    Config.DeleteButtonClickAction?.Invoke();
+
+                    Config.InputText = _textField?.Text ?? string.Empty;
+                    Config.ConfirmButtonClickAction?.Invoke();
+
                     break;
 
                 case DialogElement.ButtonSecondary:
@@ -37,9 +48,25 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             switch (dialogElement.Key)
             {
+                case DialogElement.InputText:
+
+                    if (!(dialogElement.Value.Item1 is EditText textField))
+                        break;
+
+                    _textField = textField;
+
+                    _textField.Text = Config.InputText;
+                    _textField.Hint = Config.Hint;
+                    _textField.InputType = Config.InputType.ToInputTypes();
+
+                    if (Config.IconResID != null)
+                        _textField.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, (int)Config.IconResID, 0);
+
+                    return;
+
                 case DialogElement.ButtonPrimary:
 
-                    if (!string.IsNullOrWhiteSpace(Config.DeleteButtonText) && dialogElement.Value.Item1.TrySetText(Config.DeleteButtonText))
+                    if (!string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && dialogElement.Value.Item1.TrySetText(Config.ConfirmButtonText))
                     {
                         RegisterForClickEvents(dialogElement.Key, dialogElement.Value.Item1);
                         return;
@@ -72,23 +99,41 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.CreateDialog(builder);
 
-            builder.SetPositiveButton(Config.DeleteButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
+            var view = new CustomLayoutInflater(Context, this).Inflate(Resource.Layout.dialog_default_prompt, null, false);
+
+            if (view != null)
+                builder.SetView(view);
+
+            builder.SetPositiveButton(Config.ConfirmButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
             builder.SetNegativeButton(Config.CancelButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonSecondary, s as View));
         }
         #endregion
 
+        #region Lifecycle
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            if (Dialog == null || _textField == null)
+                return;
+
+            Dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+            _textField.RequestFocus();
+        }
+        #endregion
+
         #region Constructors
-        public DeleteDialogFragment()
+        public PromptDialogFragment()
             : base()
         {
         }
-
-        public DeleteDialogFragment(IDeleteConfig config)
+        
+        public PromptDialogFragment(IPromptConfig config)
             : base(config)
         {
         }
 
-        public DeleteDialogFragment(IntPtr handle, JniHandleOwnership transfer)
+        public PromptDialogFragment(IntPtr handle, JniHandleOwnership transfer)
             : base(handle, transfer)
         {
         }

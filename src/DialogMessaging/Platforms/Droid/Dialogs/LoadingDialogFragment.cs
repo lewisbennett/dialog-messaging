@@ -1,16 +1,30 @@
 ﻿using Android.App;
 using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
     public class LoadingDialogFragment : AbstractDialogFragment<ILoadingConfig>
     {
+        #region Fields
+        private View _progressView;
+        #endregion
+
+        #region Event Handlers
+        private void Config_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals(nameof(ILoadingConfig.Progress)))
+                SetProgress();
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Assigns configuration values to UI elements.
@@ -18,17 +32,19 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <param name="dialogElement">The dialog element extracted from the view.</param>
         public override void AssignValue(KeyValuePair<string, Tuple<View, bool>> dialogElement)
         {
-            if (dialogElement.Key.Equals(DialogElement.Title))
+            switch (dialogElement.Key)
             {
-                if (!string.IsNullOrWhiteSpace(Config.Title) && dialogElement.Value.Item1.TrySetText(Config.Title))
+                case DialogElement.Progress:
+
+                    _progressView = dialogElement.Value.Item1;
+                    SetProgress();
+
                     return;
 
-                dialogElement.HideElementIfNeeded();
-
-                return;
+                default:
+                    base.AssignValue(dialogElement);
+                    return;
             }
-
-            base.AssignValue(dialogElement);
         }
 
         /// <summary>
@@ -42,6 +58,22 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
             if (view != null)
                 builder.SetView(view);
+        }
+        #endregion
+
+        #region Lifecycle
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            Config.PropertyChanged += Config_PropertyChanged;
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
+
+            Config.PropertyChanged -= Config_PropertyChanged;
         }
         #endregion
 
@@ -59,6 +91,22 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         public LoadingDialogFragment(IntPtr handle, JniHandleOwnership transfer)
             : base(handle, transfer)
         {
+        }
+        #endregion
+
+        #region Private Methods
+        private void SetProgress()
+        {
+            if (!(_progressView is ProgressBar progressBar) || Config.Progress == null)
+                return;
+
+            if (progressBar.Max != 100)
+                progressBar.Max = 100;
+
+            if (progressBar.Min != 0)
+                progressBar.Min = 0;
+
+            progressBar.Progress = (int)Config.Progress;
         }
         #endregion
     }
