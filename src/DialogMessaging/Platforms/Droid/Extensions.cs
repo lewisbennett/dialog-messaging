@@ -25,19 +25,15 @@ namespace DialogMessaging
             if (snackbar == null || config == null)
                 return;
 
-            var backgroundColor = config.BackgroundColor ?? config.BackgroundColorCalculator?.Invoke();
-
-            if (backgroundColor != null)
-                snackbar.View.SetBackgroundColor((Color)backgroundColor);
+            if (config.BackgroundColor != null)
+                snackbar.View.SetBackgroundColor((Color)config.BackgroundColor);
 
             if (!string.IsNullOrWhiteSpace(config.ActionButtonText))
             {
                 snackbar.SetAction(config.ActionButtonText, (v) => config?.ActionButtonClickAction());
 
-                var actionButtonTextColor = config.ActionButtonTextColor ?? config.ActionButtonTextColorCalculator?.Invoke();
-
-                if (actionButtonTextColor != null)
-                    snackbar.SetActionTextColor((Color)actionButtonTextColor);
+                if (config.ActionButtonTextColor != null)
+                    snackbar.SetActionTextColor((Color)config.ActionButtonTextColor);
             }
 
             var textView = snackbar.View.FindViewById<TextView>(Resource.Id.snackbar_text);
@@ -45,10 +41,8 @@ namespace DialogMessaging
             if (textView == null)
                 return;
 
-            var textColor = config.MessageTextColor ?? config.MessageTextColorCalculator?.Invoke();
-
-            if (textColor != null)
-                textView.SetTextColor((Color)textColor);
+            if (config.MessageTextColor != null)
+                textView.SetTextColor((Color)config.MessageTextColor);
 
             if (config.MessageTypeface != null)
                 textView.SetTypeface(config.MessageTypeface, config.MessageTypefaceStyle);

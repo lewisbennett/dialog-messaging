@@ -13,19 +13,9 @@ namespace DialogMessaging.Interactions
         Color? ActionButtonTextColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the function to calculate the action text color.
-        /// </summary>
-        Func<Color> ActionButtonTextColorCalculator { get; set; }
-
-        /// <summary>
         /// Gets or sets the background color.
         /// </summary>
         Color? BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the function to calcaulate the background color.
-        /// </summary>
-        Func<Color> BackgroundColorCalculator { get; set; }
 
         /// <summary>
         /// Gets or sets the snackbar duration.
@@ -36,11 +26,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the message text color.
         /// </summary>
         Color? MessageTextColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the function to calculate the message text color.
-        /// </summary>
-        Func<Color> MessageTextColorCalculator { get; set; }
 
         /// <summary>
         /// Gets or sets the message typeface.
@@ -60,11 +45,6 @@ namespace DialogMessaging.Interactions
         public static Color? DefaultActionButtonTextColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the default function to calculate the action button text color.
-        /// </summary>
-        public static Func<Color> DefaultActionButtonTextColorCalculator { get; set; }
-
-        /// <summary>
         /// Gets or sets the default snackbar duration. Default value: Snackbar.LengthLong.
         /// </summary>
         public static int DefaultDuration { get; set; } = Snackbar.LengthLong;
@@ -75,19 +55,9 @@ namespace DialogMessaging.Interactions
         public static Color? DefaultBackgroundColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the default function to calculate the background color.
-        /// </summary>
-        public static Func<Color> DefaultBackgroundColorCalculator { get; set; }
-
-        /// <summary>
         /// Gets or sets the default message text color.
         /// </summary>
         public static Color? DefaultMessageTextColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default function to calculate the message text color.
-        /// </summary>
-        public static Func<Color> DefaultMessageTextColorCalculator { get; set; }
 
         /// <summary>
         /// Gets or sets the default message typeface.
@@ -154,12 +124,9 @@ namespace DialogMessaging.Interactions
         public SnackbarConfig()
         {
             ActionButtonTextColor = ISnackbarConfig.DefaultActionButtonTextColor;
-            ActionButtonTextColorCalculator = ISnackbarConfig.DefaultActionButtonTextColorCalculator;
             BackgroundColor = ISnackbarConfig.DefaultBackgroundColor;
-            BackgroundColorCalculator = ISnackbarConfig.DefaultBackgroundColorCalculator;
             Duration = ISnackbarConfig.DefaultDuration;
             MessageTextColor = ISnackbarConfig.DefaultMessageTextColor;
-            MessageTextColorCalculator = ISnackbarConfig.DefaultMessageTextColorCalculator;
             MessageTypeface = ISnackbarConfig.DefaultMessageTypeface;
             MessageTypefaceStyle = ISnackbarConfig.DefaultMessageTypefaceStyle;
         }
