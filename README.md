@@ -45,6 +45,7 @@ var alertConfig = new AlertConfig
     StyleID = Resource.Style.MyAppTheme
 };
 ```
+In your custom layouts, assign dialog elements using the `app:DialogElement` tag. Any part of the layout that uses this tag will be hidden if the corresponding data inside of the configuration holds no value. For example: if `Title` within the configuration object is null or empty any layout element that uses `app:DialogElement="Title"` will be hidden. This can be customised using the `app:HideWhenNotInUse` tag which by default is set to `true`.
 
 ### iOS
 Coming soon!
