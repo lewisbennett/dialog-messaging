@@ -18,7 +18,7 @@ namespace DialogMessaging.Platforms.Droid
         /// Displays an action sheet to the user.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public override IDisposable ActionSheet(IActionSheetConfig config)
+        public override IDisposable ActionSheet(IActionSheetConfig<IActionSheetItemConfig> config)
         {
             var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
 

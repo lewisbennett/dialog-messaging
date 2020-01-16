@@ -12,7 +12,7 @@ namespace DialogMessaging
         /// Displays an action sheet to the user.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public abstract IDisposable ActionSheet(IActionSheetConfig config);
+        public abstract IDisposable ActionSheet(IActionSheetConfig<IActionSheetItemConfig> config);
 
         /// <summary>
         /// Displays an action sheet to the user asynchronously.
@@ -20,7 +20,7 @@ namespace DialogMessaging
         /// <param name="config">The action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested((IActionSheetConfig<IActionSheetItemConfig>)config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -31,7 +31,7 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(ActionSheet(config).Dispose))
+            using (cancellationToken.Register(ActionSheet((IActionSheetConfig<IActionSheetItemConfig>)config).Dispose))
                 return task.Task;
         }
 

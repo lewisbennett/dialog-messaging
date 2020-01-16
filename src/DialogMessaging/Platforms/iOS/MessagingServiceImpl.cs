@@ -10,7 +10,7 @@ namespace DialogMessaging.Platforms.iOS
         /// Displays an action sheet to the user.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public override IDisposable ActionSheet(IActionSheetConfig config)
+        public override IDisposable ActionSheet(IActionSheetConfig<IActionSheetItemConfig> config)
         {
             return null;
         }

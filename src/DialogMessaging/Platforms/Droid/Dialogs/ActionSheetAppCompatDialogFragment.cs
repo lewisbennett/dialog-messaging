@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<IActionSheetConfig>
+    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<IActionSheetConfig<IActionSheetItemConfig>>
     {
         #region Fields
         private ListView _listView;
@@ -122,7 +122,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
         }
 
-        public ActionSheetAppCompatDialogFragment(IActionSheetConfig config)
+        public ActionSheetAppCompatDialogFragment(IActionSheetConfig<IActionSheetItemConfig> config)
             : base(config)
         {
         }
