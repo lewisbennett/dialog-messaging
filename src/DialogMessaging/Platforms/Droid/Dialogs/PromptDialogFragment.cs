@@ -26,7 +26,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                 case DialogElement.ButtonPrimary:
 
                     Config.InputText = _textField?.Text ?? string.Empty;
-                    Config.ConfirmButtonClickAction?.Invoke();
+                    Config.ConfirmButtonClickAction?.Invoke(Config.InputText);
 
                     break;
 

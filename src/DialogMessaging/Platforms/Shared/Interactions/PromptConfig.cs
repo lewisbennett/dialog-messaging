@@ -19,7 +19,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the confirm button is clicked.
         /// </summary>
-        Action ConfirmButtonClickAction { get; }
+        Action<string> ConfirmButtonClickAction { get; }
 
         /// <summary>
         /// Gets or sets the confirm button text.
@@ -59,7 +59,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets or sets the action invoked when the confirm button is clicked.
         /// </summary>
-        public Action ConfirmButtonClickAction { get; set; }
+        public Action<string> ConfirmButtonClickAction { get; set; }
 
         /// <summary>
         /// Gets or sets the confirm button text.
@@ -99,7 +99,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the confirm button is clicked.
         /// </summary>
-        public Action ConfirmButtonClickAction { get; internal set; }
+        public Action<string> ConfirmButtonClickAction { get; internal set; }
 
         /// <summary>
         /// Gets or sets the confirm button text.

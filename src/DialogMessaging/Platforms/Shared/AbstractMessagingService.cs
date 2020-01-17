@@ -166,7 +166,7 @@ namespace DialogMessaging
 
             var task = new TaskCompletionSource<string>();
 
-            config.ConfirmButtonClickAction = () => task.TrySetResult(config.InputText);
+            config.ConfirmButtonClickAction = (inputText) => task.TrySetResult(inputText);
             config.CancelButtonClickAction = () => task.TrySetResult(string.Empty);
             config.DismissedAction = () => task.TrySetResult(string.Empty);
 
