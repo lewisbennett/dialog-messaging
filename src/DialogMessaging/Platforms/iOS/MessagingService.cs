@@ -9,6 +9,11 @@ namespace DialogMessaging
         {
             Instance = new MessagingServiceImpl();
         }
+
+        public static void Init(IMessagingService messagingService)
+        {
+            Instance = messagingService;
+        }
         #endregion
     }
 }

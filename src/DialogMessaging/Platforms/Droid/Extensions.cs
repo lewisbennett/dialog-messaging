@@ -108,7 +108,7 @@ namespace DialogMessaging
             {
                 try
                 {
-                    action.Invoke();
+                    action?.Invoke();
                 }
                 catch (Exception e)
                 {
