@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetBottomConfig : IBaseConfig
+    public partial interface IActionSheetBottomConfig<TItemConfig> : IBaseConfig
+        where TItemConfig : IActionSheetItemConfig
     {
         #region Properties
         /// <summary>
@@ -19,7 +20,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the items.
         /// </summary>
-        IList<IActionSheetItemConfig> Items { get; }
+        IList<TItemConfig> Items { get; }
 
         /// <summary>
         /// Gets the action invoked when an item is clicked.
@@ -28,7 +29,7 @@ namespace DialogMessaging.Interactions
         #endregion
     }
 
-    public partial class ActionSheetBottomConfig : BaseConfig, IActionSheetBottomConfig
+    public partial class ActionSheetBottomConfig : BaseConfig, IActionSheetBottomConfig<IActionSheetItemConfig>
     {
         #region Properties
         /// <summary>
@@ -53,7 +54,7 @@ namespace DialogMessaging.Interactions
         #endregion
     }
 
-    public partial class ActionSheetBottomAsyncConfig : BaseAsyncConfig, IActionSheetBottomConfig
+    public partial class ActionSheetBottomAsyncConfig : BaseAsyncConfig, IActionSheetBottomConfig<ActionSheetItemAsyncConfig>
     {
         #region Properties
         /// <summary>
@@ -69,7 +70,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public IList<IActionSheetItemConfig> Items { get; } = new List<IActionSheetItemConfig>();
+        public IList<ActionSheetItemAsyncConfig> Items { get; } = new List<ActionSheetItemAsyncConfig>();
 
         /// <summary>
         /// Gets the action invoked when an item is clicked.

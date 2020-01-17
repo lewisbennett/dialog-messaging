@@ -32,7 +32,7 @@ namespace DialogMessaging.Platforms.Droid
         /// Displays a bottom action sheet to the user.
         /// </summary>
         /// <param name="config">The bottom action sheet configuration.</param>
-        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
+        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig<IActionSheetItemConfig> config)
         {
             var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
 

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class ActionSheetBottomBottomSheetDialogFragment : AbstractBottomSheetDialogFragment<IActionSheetBottomConfig>
+    public class ActionSheetBottomBottomSheetDialogFragment : AbstractBottomSheetDialogFragment<IActionSheetBottomConfig<IActionSheetItemConfig>>
     {
         #region Fields
         private ListView _listView;
@@ -105,7 +105,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
         }
 
-        public ActionSheetBottomBottomSheetDialogFragment(IActionSheetBottomConfig config)
+        public ActionSheetBottomBottomSheetDialogFragment(IActionSheetBottomConfig<IActionSheetItemConfig> config)
             : base(config)
         {
         }

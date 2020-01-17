@@ -39,7 +39,7 @@ namespace DialogMessaging
         /// Displays a bottom action sheet to the user.
         /// </summary>
         /// <param name="config">The bottom action sheet configuration.</param>
-        public abstract IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
+        public abstract IDisposable ActionSheetBottom(IActionSheetBottomConfig<IActionSheetItemConfig> config);
 
         /// <summary>
         /// Displays a bottom action sheet to the user asynchronously.
@@ -47,7 +47,7 @@ namespace DialogMessaging
         /// <param name="config">The bottom action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested((IActionSheetBottomConfig<IActionSheetItemConfig>)config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -58,7 +58,7 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(ActionSheetBottom(config).Dispose))
+            using (cancellationToken.Register(ActionSheetBottom((IActionSheetBottomConfig<IActionSheetItemConfig>)config).Dispose))
                 return task.Task;
         }
 

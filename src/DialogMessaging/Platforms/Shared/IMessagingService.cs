@@ -24,7 +24,7 @@ namespace DialogMessaging
         /// Displays a bottom action sheet to the user.
         /// </summary>
         /// <param name="config">The bottom action sheet configuration.</param>
-        IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
+        IDisposable ActionSheetBottom(IActionSheetBottomConfig<IActionSheetItemConfig> config);
 
         /// <summary>
         /// Displays a bottom action sheet to the user asynchronously.

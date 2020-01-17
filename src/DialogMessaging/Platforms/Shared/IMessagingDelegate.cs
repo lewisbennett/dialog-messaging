@@ -6,7 +6,7 @@ namespace DialogMessaging
     {
         #region Public Methods
         bool OnActionSheetRequested(IActionSheetConfig<IActionSheetItemConfig> config);
-        bool OnActionSheetBottomRequested(IActionSheetBottomConfig config);
+        bool OnActionSheetBottomRequested(IActionSheetBottomConfig<IActionSheetItemConfig> config);
         bool OnAlertRequested(IAlertConfig config);
         bool OnConfirmRequested(IConfirmConfig config);
         bool OnDeleteRequested(IDeleteConfig config);
