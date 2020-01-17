@@ -12,7 +12,7 @@ namespace DialogMessaging
         /// Displays an action sheet to the user.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public abstract IDisposable ActionSheet(IActionSheetConfig<IActionSheetItemConfig> config);
+        public abstract IDisposable ActionSheet(IActionSheetConfig config);
 
         /// <summary>
         /// Displays an action sheet to the user asynchronously.
@@ -20,7 +20,7 @@ namespace DialogMessaging
         /// <param name="config">The action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested((IActionSheetConfig<IActionSheetItemConfig>)config);
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -31,7 +31,7 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(ActionSheet((IActionSheetConfig<IActionSheetItemConfig>)config).Dispose))
+            using (cancellationToken.Register(ActionSheet(config).Dispose))
                 return task.Task;
         }
 
@@ -39,7 +39,7 @@ namespace DialogMessaging
         /// Displays a bottom action sheet to the user.
         /// </summary>
         /// <param name="config">The bottom action sheet configuration.</param>
-        public abstract IDisposable ActionSheetBottom(IActionSheetBottomConfig<IActionSheetItemConfig> config);
+        public abstract IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
 
         /// <summary>
         /// Displays a bottom action sheet to the user asynchronously.
@@ -47,7 +47,7 @@ namespace DialogMessaging
         /// <param name="config">The bottom action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested((IActionSheetBottomConfig<IActionSheetItemConfig>)config);
+            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -58,7 +58,7 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(ActionSheetBottom((IActionSheetBottomConfig<IActionSheetItemConfig>)config).Dispose))
+            using (cancellationToken.Register(ActionSheetBottom(config).Dispose))
                 return task.Task;
         }
 

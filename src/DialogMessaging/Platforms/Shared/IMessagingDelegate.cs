@@ -5,8 +5,8 @@ namespace DialogMessaging
     public interface IMessagingDelegate
     {
         #region Public Methods
-        bool OnActionSheetRequested(IActionSheetConfig<IActionSheetItemConfig> config);
-        bool OnActionSheetBottomRequested(IActionSheetBottomConfig<IActionSheetItemConfig> config);
+        bool OnActionSheetRequested(IActionSheetConfig config);
+        bool OnActionSheetBottomRequested(IActionSheetBottomConfig config);
         bool OnAlertRequested(IAlertConfig config);
         bool OnConfirmRequested(IConfirmConfig config);
         bool OnDeleteRequested(IDeleteConfig config);

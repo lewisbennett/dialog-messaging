@@ -10,7 +10,7 @@ namespace DialogMessaging.Platforms.iOS
         /// Displays an action sheet to the user.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public override IDisposable ActionSheet(IActionSheetConfig<IActionSheetItemConfig> config)
+        public override IDisposable ActionSheet(IActionSheetConfig config)
         {
             return null;
         }
@@ -19,7 +19,7 @@ namespace DialogMessaging.Platforms.iOS
         /// Displays a bottom action sheet to the user.
         /// </summary>
         /// <param name="config">The bottom action sheet configuration.</param>
-        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig<IActionSheetItemConfig> config)
+        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
         {
             return null;
         }

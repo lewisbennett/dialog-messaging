@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetConfig<TItemConfig> : IBaseConfig
-        where TItemConfig : IActionSheetItemConfig
+    public partial interface IActionSheetConfig : IBaseConfig
     {
         #region Properties
         /// <summary>
@@ -20,7 +20,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the items.
         /// </summary>
-        IList<TItemConfig> Items { get; }
+        IList<IActionSheetItemConfig> Items { get; }
 
         /// <summary>
         /// Gets the action invoked when an item is clicked.
@@ -29,7 +29,7 @@ namespace DialogMessaging.Interactions
         #endregion
     }
 
-    public partial class ActionSheetConfig : BaseConfig, IActionSheetConfig<IActionSheetItemConfig>
+    public partial class ActionSheetConfig : BaseConfig, IActionSheetConfig
     {
         #region Properties
         /// <summary>
@@ -54,8 +54,12 @@ namespace DialogMessaging.Interactions
         #endregion
     }
 
-    public partial class ActionSheetAsyncConfig : BaseAsyncConfig, IActionSheetConfig<ActionSheetItemAsyncConfig>
+    public partial class ActionSheetAsyncConfig : BaseAsyncConfig, IActionSheetConfig
     {
+        #region Fields
+        IList<IActionSheetItemConfig> IActionSheetConfig.Items => Items.Cast<IActionSheetItemConfig>().ToList();
+        #endregion
+
         #region Properties
         /// <summary>
         /// Gets the action invoked when the cancel button is clicked.

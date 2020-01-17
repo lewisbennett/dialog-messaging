@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
-    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<IActionSheetConfig<IActionSheetItemConfig>>
+    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<IActionSheetConfig>
     {
         #region Fields
         private ListView _listView;
@@ -20,7 +20,10 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         #region Event Handlers
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Config.ItemClickAction?.Invoke(Config.Items[e.Position]);
+            var item = Config.Items[e.Position];
+
+            Config.ItemClickAction?.Invoke(item);
+            item.ClickAction?.Invoke();
 
             Dismiss();
         }
@@ -122,7 +125,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
         }
 
-        public ActionSheetAppCompatDialogFragment(IActionSheetConfig<IActionSheetItemConfig> config)
+        public ActionSheetAppCompatDialogFragment(IActionSheetConfig config)
             : base(config)
         {
         }

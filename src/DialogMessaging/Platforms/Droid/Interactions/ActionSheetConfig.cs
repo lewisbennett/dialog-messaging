@@ -1,7 +1,6 @@
 ﻿namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetConfig<TItemConfig>
-        where TItemConfig : IActionSheetItemConfig
+    public partial interface IActionSheetConfig
     {
         #region Properties
         /// <summary>
@@ -45,10 +44,10 @@
         #region Constructors
         public ActionSheetConfig()
         {
-            Cancelable = IActionSheetConfig<IActionSheetItemConfig>.DefaultCancelable;
-            ItemLayoutResID = IActionSheetConfig<IActionSheetItemConfig>.DefaultItemLayoutResID;
-            LayoutID = IActionSheetConfig<IActionSheetItemConfig>.DefaultLayoutResID;
-            StyleID = IActionSheetConfig<IActionSheetItemConfig>.DefaultStyleResID;
+            Cancelable = IActionSheetConfig.DefaultCancelable;
+            ItemLayoutResID = IActionSheetConfig.DefaultItemLayoutResID;
+            LayoutID = IActionSheetConfig.DefaultLayoutResID;
+            StyleID = IActionSheetConfig.DefaultStyleResID;
         }
         #endregion
     }
@@ -65,10 +64,10 @@
         #region Constructors
         public ActionSheetAsyncConfig()
         {
-            Cancelable = IActionSheetConfig<IActionSheetItemConfig>.DefaultCancelable;
-            ItemLayoutResID = IActionSheetConfig<IActionSheetItemConfig>.DefaultItemLayoutResID;
-            LayoutID = IActionSheetConfig<IActionSheetItemConfig>.DefaultLayoutResID;
-            StyleID = IActionSheetConfig<IActionSheetItemConfig>.DefaultStyleResID;
+            Cancelable = IActionSheetConfig.DefaultCancelable;
+            ItemLayoutResID = IActionSheetConfig.DefaultItemLayoutResID;
+            LayoutID = IActionSheetConfig.DefaultLayoutResID;
+            StyleID = IActionSheetConfig.DefaultStyleResID;
         }
         #endregion
     }
