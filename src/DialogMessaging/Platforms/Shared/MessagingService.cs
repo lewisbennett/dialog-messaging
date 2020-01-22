@@ -4,7 +4,7 @@
     {
         #region Static Properties
         /// <summary>
-        /// Gets or sets the message delegate, if any.
+        /// Gets or sets the messaging delegate, if any.
         /// </summary>
         public static IMessagingDelegate Delegate { get; set; }
 

@@ -1,6 +1,10 @@
-﻿using DialogMessaging.Infrastructure;
+﻿using DialogMessaging.Attributes;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
+using DialogMessaging.Platforms.iOS.Alerts;
+using Foundation;
 using System;
+using System.Linq;
 using UIKit;
 
 namespace DialogMessaging.Platforms.iOS
@@ -51,18 +55,25 @@ namespace DialogMessaging.Platforms.iOS
             if (!proceed)
                 return null;
 
-            var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+            UIAlertController alert = null;
 
-            if (!string.IsNullOrWhiteSpace(config.OkButtonText))
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                alert.AddAction(UIAlertAction.Create(config.OkButtonText, UIAlertActionStyle.Default, (a) =>
-                {
-                    config.OkButtonClickAction?.Invoke();
-                    config.DismissedAction?.Invoke();
-                }));
-            }
+                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
 
-            return ShowAlert(alert);
+                if (!string.IsNullOrWhiteSpace(config.OkButtonText))
+                {
+                    alert.AddAction(UIAlertAction.Create(config.OkButtonText, UIAlertActionStyle.Default, (a) =>
+                    {
+                        config.OkButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
         /// <summary>
@@ -76,30 +87,35 @@ namespace DialogMessaging.Platforms.iOS
             if (!proceed)
                 return null;
 
-            var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+            UIAlertController alert = null;
 
-            if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                var action = UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (a) =>
+                alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
-                    config.ConfirmButtonClickAction?.Invoke();
-                    config.DismissedAction?.Invoke();
-                });
+                    var action = UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (a) =>
+                    {
+                        config.ConfirmButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    });
 
-                alert.AddAction(action);
-                alert.PreferredAction = action;
-            }
+                    alert.AddAction(action);
+                    alert.PreferredAction = action;
+                }
 
-            if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-            {
-                alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    config.CancelButtonClickAction?.Invoke();
-                    config.DismissedAction?.Invoke();
-                }));
-            }
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+            });
 
-            return ShowAlert(alert);
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
         /// <summary>
@@ -113,30 +129,35 @@ namespace DialogMessaging.Platforms.iOS
             if (!proceed)
                 return null;
 
-            var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+            UIAlertController alert = null;
 
-            if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                var action = UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (a) =>
+                alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
                 {
-                    config.DeleteButtonClickAction?.Invoke();
-                    config.DismissedAction?.Invoke();
-                });
+                    var action = UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (a) =>
+                    {
+                        config.DeleteButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    });
 
-                alert.AddAction(action);
-                alert.PreferredAction = action;
-            }
+                    alert.AddAction(action);
+                    alert.PreferredAction = action;
+                }
 
-            if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-            {
-                alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    config.CancelButtonClickAction?.Invoke();
-                    config.DismissedAction?.Invoke();
-                }));
-            }
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+            });
 
-            return ShowAlert(alert);
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
         /// <summary>
@@ -149,8 +170,7 @@ namespace DialogMessaging.Platforms.iOS
             if (!proceed)
                 return;
 
-            if (_loadingAlert != null)
-                _loadingAlert.Dispose();
+            _loadingAlert?.Dispose();
         }
 
         /// <summary>
@@ -178,7 +198,9 @@ namespace DialogMessaging.Platforms.iOS
             if (!proceed)
                 return null;
 
-            return null;
+            _loadingAlert = ShowAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
+
+            return _loadingAlert;
         }
 
         /// <summary>
@@ -207,11 +229,52 @@ namespace DialogMessaging.Platforms.iOS
         #endregion
 
         #region Private Methods
-        private IDisposable ShowAlert(UIViewController viewController)
+        private IDisposable ShowAlert(Type type, object config)
         {
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => UIApplication.SharedApplication.GetTopViewController().PresentViewController(viewController, true, null));
+            DialogViewAttribute dialogViewAttribute = null;
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => viewController.DismissViewController(true, null)));
+            var attributes = type.GetCustomAttributes(typeof(DialogViewAttribute), true);
+
+            if (attributes != null && attributes.Length > 0)
+                dialogViewAttribute = attributes.FirstOrDefault(a => a is DialogViewAttribute) as DialogViewAttribute;
+
+            UIView view = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                if (dialogViewAttribute == null || string.IsNullOrWhiteSpace(dialogViewAttribute.NibName))
+                    view = (UIView)Activator.CreateInstance(type);
+                else
+                    view = NSBundle.MainBundle.LoadNib(dialogViewAttribute.NibName, null, null).GetItem<UIView>(0);
+
+                if (view == null)
+                    throw new ArgumentNullException("view");
+
+                var keyWindow = UIApplication.SharedApplication.KeyWindow;
+
+                void showNewAlert()
+                {
+                    if (view is IValueAssigner valueAssigner)
+                        valueAssigner.AssignValues(config);
+
+                    keyWindow.AddSubview(view);
+                    view.FadeIn(0.2f);
+                }
+
+                var existingView = keyWindow.ViewWithTag(view.Tag);
+
+                if (existingView != null)
+                {
+                    _loadingAlert = null;
+                    existingView.FadeOut(0.2f, finishedAction: showNewAlert);
+
+                    return;
+                }
+
+                showNewAlert();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => view.FadeOut(0.2f, finishedAction: () => view?.RemoveFromSuperview())));
         }
         #endregion
     }

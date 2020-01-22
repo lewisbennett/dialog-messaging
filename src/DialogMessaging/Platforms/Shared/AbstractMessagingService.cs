@@ -195,7 +195,7 @@ namespace DialogMessaging
 
             task.ContinueWith((t) => HideLoading(), cancellationToken);
 
-            using(cancellationToken.Register(() => ShowLoading(config)?.Dispose()))
+            using (cancellationToken.Register(() => ShowLoading(config)?.Dispose()))
                 return task;
         }
 

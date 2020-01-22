@@ -126,8 +126,7 @@ namespace DialogMessaging.Platforms.Droid
             if (!proceed)
                 return;
 
-            if (_loadingDialog != null)
-                _loadingDialog.Dispose();
+            _loadingDialog?.Dispose();
         }
 
         /// <summary>
