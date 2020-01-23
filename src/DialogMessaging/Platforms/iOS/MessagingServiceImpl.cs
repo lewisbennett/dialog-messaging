@@ -2,10 +2,12 @@
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.iOS.Alerts;
+using DialogMessaging.Platforms.iOS.Infrastructure;
 using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace DialogMessaging.Platforms.iOS
@@ -240,11 +242,60 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentLoading(ILoadingConfig config)
         {
-            return ShowAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
+            var loadingView = BuildCustomAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
+
+            if (loadingView == null)
+                return null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var keyWindow = UIApplication.SharedApplication.KeyWindow;
+
+                void showNewAlert()
+                {
+                    keyWindow.AddSubview(loadingView);
+                    loadingView.FadeIn(0.2f);
+                }
+
+                var existingView = keyWindow.ViewWithTag(loadingView.Tag);
+
+                if (existingView != null)
+                {
+                    Loading = null;
+                    existingView.FadeOut(0.2f, finishedAction: showNewAlert);
+
+                    return;
+                }
+
+                showNewAlert();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => loadingView.FadeOut(0.2f, finishedAction: () => loadingView?.RemoveFromSuperview())));
         }
 
-        internal override void PresentSnackbar(ISnackbarConfig config)
+        internal override async void PresentSnackbar(ISnackbarConfig config)
         {
+            var snackbarView = BuildCustomAlert(typeof(DefaultSnackbar), config);
+
+            if (!(snackbarView is IShowable snackbarShowable))
+                return;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var existingView = UIApplication.SharedApplication.KeyWindow.ViewWithTag(snackbarView.Tag);
+
+                if (existingView is IShowable existingShowable)
+                {
+                    existingShowable.Hide(() => snackbarShowable.Show());
+                    return;
+                }
+
+                snackbarShowable.Show();
+            });
+
+            await Task.Delay(config.Duration ?? TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => snackbarShowable.Hide());
         }
 
         internal override void PresentToast(IToastConfig config)
@@ -253,7 +304,7 @@ namespace DialogMessaging.Platforms.iOS
         #endregion
 
         #region Private Methods
-        private IDisposable ShowAlert(Type type, object config)
+        private UIView BuildCustomAlert(Type type, object config)
         {
             DialogViewAttribute dialogViewAttribute = null;
 
@@ -272,36 +323,16 @@ namespace DialogMessaging.Platforms.iOS
                     view = NSBundle.MainBundle.LoadNib(dialogViewAttribute.NibName, null, null).GetItem<UIView>(0);
 
                 if (view == null)
-                    throw new ArgumentNullException("view");
-
-                var keyWindow = UIApplication.SharedApplication.KeyWindow;
-
-                void showNewAlert()
-                {
-                    view.Frame = keyWindow.Bounds;
-                    view.LayoutIfNeeded();
-
-                    if (view is IValueAssigner valueAssigner)
-                        valueAssigner.AssignValues(config);
-
-                    keyWindow.AddSubview(view);
-                    view.FadeIn(0.2f);
-                }
-
-                var existingView = keyWindow.ViewWithTag(view.Tag);
-
-                if (existingView != null)
-                {
-                    Loading = null;
-                    existingView.FadeOut(0.2f, finishedAction: showNewAlert);
-
                     return;
-                }
 
-                showNewAlert();
+                view.Frame = UIApplication.SharedApplication.KeyWindow.Bounds;
+                view.LayoutIfNeeded();
+
+                if (view is IValueAssigner valueAssigner)
+                    valueAssigner.AssignValues(config);
             });
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => view.FadeOut(0.2f, finishedAction: () => view?.RemoveFromSuperview())));
+            return view;
         }
         #endregion
     }

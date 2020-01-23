@@ -267,7 +267,7 @@ namespace DialogMessaging
         {
             var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnSnackbarRequested(config);
 
-            if (proceed)
+            if (proceed && !string.IsNullOrWhiteSpace(config.Message))
                 PresentSnackbar(config);
         }
 
@@ -279,7 +279,7 @@ namespace DialogMessaging
         {
             var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnToastRequested(config);
 
-            if (proceed)
+            if (proceed && !string.IsNullOrWhiteSpace(config.Message))
                 PresentToast(config);
         }
         #endregion

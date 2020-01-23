@@ -158,6 +158,23 @@ namespace DialogMessaging
         /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
+        public static void ResizeForTextHeight(this UIButton button, float maxHeight = 960f)
+        {
+            var buttonWidth = button.Frame.Width;
+
+            var intrinsicSize = ((NSString)button.Title(UIControlState.Normal) ?? string.Empty).StringSize(button.Font, new CGSize(buttonWidth, maxHeight), UILineBreakMode.WordWrap);
+
+            var buttonFrame = button.Frame;
+
+            buttonFrame.Size = new CGSize(buttonWidth, intrinsicSize.Height);
+
+            button.Frame = buttonFrame;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
         public static void ResizeForTextHeight(this UILabel label, float maxHeight = 960f)
         {
             var labelWidth = label.Frame.Width;
@@ -167,6 +184,40 @@ namespace DialogMessaging
             var labelFrame = label.Frame;
 
             labelFrame.Size = new CGSize(labelWidth, intrinsicSize.Height);
+
+            label.Frame = labelFrame;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
+        public static void ResizeForTextWidth(this UIButton button, float maxWidth = 960f)
+        {
+            var buttonHeight = button.Frame.Height;
+
+            var intrinsicSize = ((NSString)button.Title(UIControlState.Normal) ?? string.Empty).StringSize(button.Font, new CGSize(maxWidth, buttonHeight), UILineBreakMode.WordWrap);
+
+            var buttonFrame = button.Frame;
+
+            buttonFrame.Size = new CGSize(intrinsicSize.Width, buttonHeight);
+
+            button.Frame = buttonFrame;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
+        public static void ResizeForTextWidth(this UILabel label, float maxWidth = 960f)
+        {
+            var labelHeight = label.Frame.Height;
+
+            var intrinsicSize = ((NSString)label.Text ?? string.Empty).StringSize(label.Font, new CGSize(maxWidth, labelHeight), UILineBreakMode.WordWrap);
+
+            var labelFrame = label.Frame;
+
+            labelFrame.Size = new CGSize(intrinsicSize.Width, labelHeight);
 
             label.Frame = labelFrame;
         }
