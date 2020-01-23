@@ -15,7 +15,35 @@ namespace DialogMessaging.Platforms.iOS
         #region Internal Methods
         internal override IDisposable PresentActionSheet(IActionSheetConfig config)
         {
-            return null;
+            UIAlertController alert = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                foreach (var item in config.Items)
+                {
+                    alert.AddAction(UIAlertAction.Create(item.Text, UIAlertActionStyle.Default, (a) =>
+                    {
+                        item.ClickAction?.Invoke();
+                        config.ItemClickAction?.Invoke(item);
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Default, (a) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
         internal override IDisposable PresentActionSheetBottom(IActionSheetBottomConfig config)
