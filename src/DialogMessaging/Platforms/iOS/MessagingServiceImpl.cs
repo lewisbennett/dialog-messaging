@@ -160,6 +160,9 @@ namespace DialogMessaging.Platforms.iOS
 
                 void showNewAlert()
                 {
+                    view.Frame = keyWindow.Bounds;
+                    view.LayoutIfNeeded();
+
                     if (view is IValueAssigner valueAssigner)
                         valueAssigner.AssignValues(config);
 
