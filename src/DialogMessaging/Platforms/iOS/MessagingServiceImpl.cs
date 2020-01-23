@@ -11,50 +11,19 @@ namespace DialogMessaging.Platforms.iOS
 {
     public class MessagingServiceImpl : AbstractMessagingService
     {
-        #region Fields
-        private IDisposable _loadingAlert;
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Displays an action sheet to the user.
-        /// </summary>
-        /// <param name="config">The action sheet configuration.</param>
-        public override IDisposable ActionSheet(IActionSheetConfig config)
+        #region Internal Methods
+        internal override IDisposable PresentActionSheet(IActionSheetConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
-
-            if (!proceed)
-                return null;
-
             return null;
         }
 
-        /// <summary>
-        /// Displays a bottom action sheet to the user.
-        /// </summary>
-        /// <param name="config">The bottom action sheet configuration.</param>
-        public override IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
+        internal override IDisposable PresentActionSheetBottom(IActionSheetBottomConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
-
-            if (!proceed)
-                return null;
-
             return null;
         }
 
-        /// <summary>
-        /// Displays an alert to the user.
-        /// </summary>
-        /// <param name="config">The alert configuration.</param>
-        public override IDisposable Alert(IAlertConfig config)
+        internal override IDisposable PresentAlert(IAlertConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnAlertRequested(config);
-
-            if (!proceed)
-                return null;
-
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -76,17 +45,8 @@ namespace DialogMessaging.Platforms.iOS
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
-        /// <summary>
-        /// Displays a confirm dialog to the user.
-        /// </summary>
-        /// <param name="config">The confirm configuration.</param>
-        public override IDisposable Confirm(IConfirmConfig config)
+        internal override IDisposable PresentConfirm(IConfirmConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnConfirmRequested(config);
-
-            if (!proceed)
-                return null;
-
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -120,17 +80,8 @@ namespace DialogMessaging.Platforms.iOS
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
-        /// <summary>
-        /// Displays a delete dialog to the user.
-        /// </summary>
-        /// <param name="config">The delete configuration.</param>
-        public override IDisposable Delete(IDeleteConfig config)
+        internal override IDisposable PresentDelete(IDeleteConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnDeleteRequested(config);
-
-            if (!proceed)
-                return null;
-
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -164,71 +115,22 @@ namespace DialogMessaging.Platforms.iOS
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
-        /// <summary>
-        /// Hides the loading wheel from the user, if visible.
-        /// </summary>
-        public override void HideLoading()
+        internal override IDisposable PresentPrompt(IPromptConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnHideLoadingRequested();
-
-            if (!proceed)
-                return;
-
-            _loadingAlert?.Dispose();
-        }
-
-        /// <summary>
-        /// Displays a prompt to the user.
-        /// </summary>
-        /// <param name="config">The prompt configuration.</param>
-        public override IDisposable Prompt(IPromptConfig config)
-        {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnPromptRequested(config);
-
-            if (!proceed)
-                return null;
-
             return null;
         }
 
-        /// <summary>
-        /// Displays a loading wheel to the user.
-        /// </summary>
-        /// <param name="config">The loading configuration.</param>
-        public override IDisposable ShowLoading(ILoadingConfig config)
+        internal override IDisposable PresentLoading(ILoadingConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);
-
-            if (!proceed)
-                return null;
-
-            _loadingAlert = ShowAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
-
-            return _loadingAlert;
+            return ShowAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
         }
 
-        /// <summary>
-        /// Displays a snackbar to the user.
-        /// </summary>
-        /// <param name="config">The snackbar configuration.</param>
-        public override void Snackbar(ISnackbarConfig config)
+        internal override void PresentSnackbar(ISnackbarConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnSnackbarRequested(config);
-
-            if (!proceed)
-                return;
         }
 
-        /// <summary>
-        /// Displays a toast to the user.
-        /// </summary>
-        /// <param name="config">The toast configuration.</param>
-        public override void Toast(IToastConfig config)
+        internal override void PresentToast(IToastConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnToastRequested(config);
-
-            if (!proceed)
-                return;
         }
         #endregion
 
@@ -269,7 +171,7 @@ namespace DialogMessaging.Platforms.iOS
 
                 if (existingView != null)
                 {
-                    _loadingAlert = null;
+                    Loading = null;
                     existingView.FadeOut(0.2f, finishedAction: showNewAlert);
 
                     return;
