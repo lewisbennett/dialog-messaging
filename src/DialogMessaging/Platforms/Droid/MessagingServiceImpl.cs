@@ -30,14 +30,10 @@ namespace DialogMessaging.Platforms.Droid
                     DismissedAction = config.DismissedAction,
                     ItemClickAction = config.ItemClickAction,
                     ItemLayoutResID = config.ItemLayoutResID,
-                    LayoutID = config.LayoutID,
+                    Items = config.Items,
                     Message = config.Message,
-                    StyleID = config.StyleID,
                     Title = config.Title
                 };
-
-                foreach (var item in config.Items)
-                    newConfig.Items.Add(item);
 
                 return PresentActionSheet(newConfig);
             }

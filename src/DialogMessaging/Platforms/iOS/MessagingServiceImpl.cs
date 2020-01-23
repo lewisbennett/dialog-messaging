@@ -33,7 +33,7 @@ namespace DialogMessaging.Platforms.iOS
 
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Default, (a) =>
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -48,7 +48,52 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentActionSheetBottom(IActionSheetBottomConfig config)
         {
-            return null;
+            if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+            {
+                var actionSheetConfig = new ActionSheetConfig
+                {
+                    CancelButtonClickAction = config.CancelButtonClickAction,
+                    CancelButtonText = config.CancelButtonText,
+                    Data = config.Data,
+                    DismissedAction = config.CancelButtonClickAction,
+                    ItemClickAction = config.ItemClickAction,
+                    Items = config.Items,
+                    Message = config.Message,
+                    Title = config.Title
+                };
+
+                return PresentActionSheet(actionSheetConfig);
+            }
+
+            UIAlertController alert = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
+
+                foreach (var item in config.Items)
+                {
+                    alert.AddAction(UIAlertAction.Create(item.Text, UIAlertActionStyle.Default, (a) =>
+                    {
+                        item.ClickAction?.Invoke();
+                        config.ItemClickAction?.Invoke(item);
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (a) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
         internal override IDisposable PresentAlert(IAlertConfig config)

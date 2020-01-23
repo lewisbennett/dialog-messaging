@@ -45,7 +45,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public IList<IActionSheetItemConfig> Items { get; } = new List<IActionSheetItemConfig>();
+        public IList<IActionSheetItemConfig> Items { get; internal set; } = new List<IActionSheetItemConfig>();
 
         /// <summary>
         /// Gets the action invoked when an item is clicked.
@@ -74,7 +74,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the items.
         /// </summary>
-        public IList<ActionSheetItemAsyncConfig> Items { get; } = new List<ActionSheetItemAsyncConfig>();
+        public IList<ActionSheetItemAsyncConfig> Items { get; internal set; } = new List<ActionSheetItemAsyncConfig>();
 
         /// <summary>
         /// Gets the action invoked when an item is clicked.
