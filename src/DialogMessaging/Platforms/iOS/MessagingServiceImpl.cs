@@ -4,6 +4,7 @@ using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.iOS.Alerts;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UIKit;
 
@@ -117,7 +118,51 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentPrompt(IPromptConfig config)
         {
-            return null;
+            UIAlertView alert = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                alert = new UIAlertView
+                {
+                    Title = config.Title,
+                    Message = config.Message,
+                    AlertViewStyle = UIAlertViewStyle.PlainTextInput
+                };
+
+                var textField = alert.GetTextField(0);
+
+                textField.Placeholder = config.Hint;
+                textField.ApplyInputType(config.InputType);
+
+                var actions = new Dictionary<nint, Action>();
+
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    var index = alert.AddButton(config.CancelButtonText);
+                    actions.Add(index, config.CancelButtonClickAction);
+                }
+
+                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
+                {
+                    var index = alert.AddButton(config.ConfirmButtonText);
+
+                    actions.Add(index, () =>
+                    {
+                        config.InputText = textField.Text;
+                        config.ConfirmButtonClickAction?.Invoke(config.InputText);
+                    });
+                }
+
+                alert.Clicked += (s, e) =>
+                {
+                    actions[e.ButtonIndex]?.Invoke();
+                    config.DismissedAction?.Invoke();
+                };
+
+                alert.Show();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert.DismissWithClickedButtonIndex(0, true)));
         }
 
         internal override IDisposable PresentLoading(ILoadingConfig config)
