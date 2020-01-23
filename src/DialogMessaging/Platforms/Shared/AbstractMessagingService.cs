@@ -31,7 +31,9 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(() => ActionSheet(config)?.Dispose()))
+            var actionSheet = ActionSheet(config);
+
+            using (cancellationToken.Register(() => actionSheet?.Dispose()))
                 return task.Task;
         }
 
@@ -58,7 +60,9 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(null);
             config.DismissedAction = () => task.TrySetResult(null);
 
-            using (cancellationToken.Register(() => ActionSheetBottom(config)?.Dispose()))
+            var actionSheetBottom = ActionSheetBottom(config);
+
+            using (cancellationToken.Register(() => actionSheetBottom?.Dispose()))
                 return task.Task;
         }
 
@@ -84,7 +88,9 @@ namespace DialogMessaging
             config.OkButtonClickAction = () => task.TrySetResult(true);
             config.DismissedAction = () => task.TrySetResult(false);
 
-            using (cancellationToken.Register(() => Alert(config)?.Dispose()))
+            var alert = Alert(config);
+
+            using (cancellationToken.Register(() => alert?.Dispose()))
                 return task.Task;
         }
 
@@ -111,7 +117,9 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(false);
             config.DismissedAction = () => task.TrySetResult(false);
 
-            using (cancellationToken.Register(() => Confirm(config)?.Dispose()))
+            var confirm = Confirm(config);
+
+            using (cancellationToken.Register(() => confirm?.Dispose()))
                 return task.Task;
         }
 
@@ -138,7 +146,9 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(false);
             config.DismissedAction = () => task.TrySetResult(false);
 
-            using (cancellationToken.Register(() => Delete(config)?.Dispose()))
+            var delete = Delete(config);
+
+            using (cancellationToken.Register(() => delete?.Dispose()))
                 return task.Task;
         }
 
@@ -170,7 +180,9 @@ namespace DialogMessaging
             config.CancelButtonClickAction = () => task.TrySetResult(string.Empty);
             config.DismissedAction = () => task.TrySetResult(string.Empty);
 
-            using (cancellationToken.Register(() => Prompt(config)?.Dispose()))
+            var prompt = Prompt(config);
+
+            using (cancellationToken.Register(() => prompt?.Dispose()))
                 return task.Task;
         }
 
@@ -195,7 +207,9 @@ namespace DialogMessaging
 
             task.ContinueWith((t) => HideLoading(), cancellationToken);
 
-            using (cancellationToken.Register(() => ShowLoading(config)?.Dispose()))
+            var loading = ShowLoading(config);
+
+            using (cancellationToken.Register(() => loading?.Dispose()))
                 return task;
         }
 

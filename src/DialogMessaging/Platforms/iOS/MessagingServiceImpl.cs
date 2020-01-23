@@ -113,6 +113,8 @@ namespace DialogMessaging.Platforms.iOS
                         config.DismissedAction?.Invoke();
                     }));
                 }
+
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
             });
 
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
@@ -155,6 +157,8 @@ namespace DialogMessaging.Platforms.iOS
                         config.DismissedAction?.Invoke();
                     }));
                 }
+
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
             });
 
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
