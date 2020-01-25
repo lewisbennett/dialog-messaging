@@ -243,7 +243,7 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The loading configuration.</param>
         /// <param name="task">The task to execute.</param>
-        public TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
+        public TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
             where TTask : Task
         {
             var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);

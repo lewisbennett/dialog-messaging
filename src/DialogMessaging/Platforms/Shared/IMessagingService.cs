@@ -96,7 +96,7 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The loading configuration.</param>
         /// <param name="task">The task to execute.</param>
-        TTask ShowLoading<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
+        TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
 
         /// <summary>
         /// Displays a snackbar to the user.
