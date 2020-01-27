@@ -48,4 +48,16 @@ var alertConfig = new AlertConfig
 In your custom layouts, assign dialog elements using the `app:DialogElement` tag. Any part of the layout that uses this tag will be hidden if the corresponding data inside of the configuration holds no value. For example: if `Title` within the configuration object is null or empty any layout element that uses `app:DialogElement="Title"` will be hidden. This can be customised using the `app:HideWhenNotInUse` tag which by default is set to `true`.
 
 ### iOS
-Coming soon!
+
+You can set view types on a dialog-by-dialog basis or you can assign default values. If no customization is provided the normal iOS UIAlertController's and internal views will be used.
+```
+// Defaults.
+IAlertConfig.DefaultViewType = typeof(CustomAlertView);
+
+// Individual dialog.
+var alertConfig = new AlertConfig
+{
+    ViewType = typeof(CustomAlertView)
+};
+```
+Your custom views must implement `IShowable` which gives you the `Show` and `Dismiss` methods. This is where you control the presentation of your view such as animations. You should not interact with the view hierarchy as this is done for you. You can optionally assign `DialogViewAttribute` to your view class if the view has an associated XIB/NIB file. To assign configuration values to your view, implement `IValueAssigner`.
