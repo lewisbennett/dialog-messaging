@@ -37,7 +37,7 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         {
             Config?.ActionButtonClickAction?.Invoke();
 
-            Hide();
+            Dismiss();
         }
         #endregion
 
@@ -73,27 +73,14 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         /// <summary>
         /// Hides the snackbar.
         /// </summary>
-        public void Hide(Action finishedAction = null)
+        public void Dismiss(Action finishedAction = null)
         {
             if (!IsShowing)
                 return;
 
             IsShowing = false;
 
-            this.SlideOutVertically(0.3f, finishedAction: () =>
-            {
-                finishedAction?.Invoke();
-
-                try
-                {
-                    RemoveFromSuperview();
-                    Dispose();
-                }
-                catch (Exception e)
-                {
-                    Log.Debug("Hide Snackbar", e.ToString());
-                }
-            });
+            this.SlideOutVertically(0.3f, finishedAction: finishedAction);
         }
 
         /// <summary>
@@ -101,8 +88,6 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         /// </summary>
         public void Show(Action finishedAction = null)
         {
-            UIApplication.SharedApplication.KeyWindow.AddSubview(this);
-
             LayoutIfNeeded();
 
             this.SlideInVertically(0.3f, finishedAction: finishedAction);

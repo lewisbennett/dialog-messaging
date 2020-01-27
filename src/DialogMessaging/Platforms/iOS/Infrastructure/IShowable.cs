@@ -13,10 +13,10 @@ namespace DialogMessaging.Platforms.iOS.Infrastructure
 
         #region Public Methods
         /// <summary>
-        /// Hides the showable.
+        /// Dismisses the showable.
         /// </summary>
         /// <param name="finishedAction">An optional action to complete when hiding has finished.</param>
-        void Hide(Action finishedAction = null);
+        void Dismiss(Action finishedAction = null);
 
         /// <summary>
         /// Shows the showable.

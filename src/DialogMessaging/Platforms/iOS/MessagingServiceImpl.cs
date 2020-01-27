@@ -17,6 +17,9 @@ namespace DialogMessaging.Platforms.iOS
         #region Internal Methods
         internal override IDisposable PresentActionSheet(IActionSheetConfig config)
         {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -67,6 +70,9 @@ namespace DialogMessaging.Platforms.iOS
                 return PresentActionSheet(actionSheetConfig);
             }
 
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -100,6 +106,9 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentAlert(IAlertConfig config)
         {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -123,6 +132,9 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentConfirm(IConfirmConfig config)
         {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -158,6 +170,9 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentDelete(IDeleteConfig config)
         {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertController alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -193,6 +208,9 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentPrompt(IPromptConfig config)
         {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
             UIAlertView alert = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
@@ -242,85 +260,25 @@ namespace DialogMessaging.Platforms.iOS
 
         internal override IDisposable PresentLoading(ILoadingConfig config)
         {
-            var loadingView = BuildCustomAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config);
-
-            if (loadingView == null)
-                return null;
-
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
-            {
-                var keyWindow = UIApplication.SharedApplication.KeyWindow;
-
-                void showNewAlert()
-                {
-                    keyWindow.AddSubview(loadingView);
-                    loadingView.FadeIn(0.2f);
-                }
-
-                var existingView = keyWindow.ViewWithTag(loadingView.Tag);
-
-                if (existingView != null)
-                {
-                    Loading = null;
-                    existingView.FadeOut(0.2f, finishedAction: showNewAlert);
-
-                    return;
-                }
-
-                showNewAlert();
-            });
-
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => loadingView.FadeOut(0.2f, finishedAction: () => loadingView?.RemoveFromSuperview())));
+            return ShowCustomAlert(BuildCustomAlert(config.ViewType ?? typeof(DefaultLoadingAlert), config));
         }
 
         internal override async void PresentSnackbar(ISnackbarConfig config)
         {
-            var snackbarView = BuildCustomAlert(typeof(DefaultSnackbar), config);
-
-            if (!(snackbarView is IShowable snackbarShowable))
-                return;
-
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
-            {
-                var existingView = UIApplication.SharedApplication.KeyWindow.ViewWithTag(snackbarView.Tag);
-
-                if (existingView is IShowable existingShowable)
-                {
-                    existingShowable.Hide(() => snackbarShowable.Show());
-                    return;
-                }
-
-                snackbarShowable.Show();
-            });
+            var snackbarDisposable = ShowCustomAlert(BuildCustomAlert(typeof(DefaultSnackbar), config));
 
             await Task.Delay(config.Duration ?? TimeSpan.FromSeconds(3)).ConfigureAwait(false);
 
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => snackbarShowable.Hide());
+            snackbarDisposable?.Dispose();
         }
 
         internal override async void PresentToast(IToastConfig config)
         {
-            var toastView = BuildCustomAlert(config.ViewType ?? typeof(DefaultToast), config);
-
-            if (!(toastView is IShowable toastShowable))
-                return;
-
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
-            {
-                var existingView = UIApplication.SharedApplication.KeyWindow.ViewWithTag(toastView.Tag);
-
-                if (existingView is IShowable existingShowable)
-                {
-                    existingShowable.Hide(() => toastShowable.Show());
-                    return;
-                }
-
-                toastShowable.Show();
-            });
+            var toastDisposable = ShowCustomAlert(BuildCustomAlert(config.ViewType ?? typeof(DefaultToast), config));
 
             await Task.Delay(config.Duration ?? TimeSpan.FromSeconds(2.5)).ConfigureAwait(false);
 
-            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => toastShowable.Hide());
+            toastDisposable?.Dispose();
         }
         #endregion
 
@@ -354,6 +312,46 @@ namespace DialogMessaging.Platforms.iOS
             });
 
             return view;
+        }
+
+        private IDisposable ShowCustomAlert(UIView view)
+        {
+            if (view == null || !(view is IShowable showable))
+                return null;
+
+            void show()
+            {
+                UIApplication.SharedApplication.KeyWindow.AddSubview(view);
+                showable.Show();
+            }
+
+            void hideAndShow(UIView existingView)
+            {
+                existingView.RemoveFromSuperview();
+                show();
+            }
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var keyWindow = UIApplication.SharedApplication.KeyWindow;
+
+                var existingView = keyWindow.ViewWithTag(view.Tag);
+
+                if (existingView is IShowable existingShowable)
+                {
+                    existingShowable.Dismiss(() => hideAndShow(existingView));
+                    return;
+                }
+                else if (existingView != null)
+                {
+                    hideAndShow(existingView);
+                    return;
+                }
+
+                show();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => showable?.Dismiss(() => view?.RemoveFromSuperview())));
         }
         #endregion
     }

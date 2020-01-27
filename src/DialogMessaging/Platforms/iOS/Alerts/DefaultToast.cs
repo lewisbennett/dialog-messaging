@@ -41,27 +41,14 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         /// <summary>
         /// Hides the snackbar.
         /// </summary>
-        public void Hide(Action finishedAction = null)
+        public void Dismiss(Action finishedAction = null)
         {
             if (!IsShowing)
                 return;
 
             IsShowing = false;
 
-            this.FadeOut(0.3f, finishedAction: () =>
-            {
-                finishedAction?.Invoke();
-
-                try
-                {
-                    RemoveFromSuperview();
-                    Dispose();
-                }
-                catch (Exception e)
-                {
-                    Log.Debug("Hide Snackbar", e.ToString());
-                }
-            });
+            this.FadeOut(0.3f, finishedAction: finishedAction);
         }
 
         /// <summary>
@@ -69,8 +56,6 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         /// </summary>
         public void Show(Action finishedAction = null)
         {
-            UIApplication.SharedApplication.KeyWindow.AddSubview(this);
-
             LayoutIfNeeded();
 
             this.FadeIn(0.3f, finishedAction: finishedAction);

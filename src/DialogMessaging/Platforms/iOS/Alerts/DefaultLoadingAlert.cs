@@ -1,6 +1,7 @@
 ﻿using CoreGraphics;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
+using DialogMessaging.Platforms.iOS.Infrastructure;
 using Foundation;
 using System;
 using System.ComponentModel;
@@ -8,7 +9,7 @@ using UIKit;
 
 namespace DialogMessaging.Platforms.iOS.Alerts
 {
-    public class DefaultLoadingAlert : UIView, IValueAssigner
+    public class DefaultLoadingAlert : UIView, IValueAssigner, IShowable
     {
         #region Fields
         private ILoadingConfig _config;
@@ -60,6 +61,11 @@ namespace DialogMessaging.Platforms.iOS.Alerts
         public UIActivityIndicatorView IndeterminateProgress { get; } = new UIActivityIndicatorView();
 
         /// <summary>
+        /// Gets or sets whether the showable is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
         /// Gets the message label.
         /// </summary>
         public UILabel MessageLabel { get; } = new UILabel();
@@ -109,6 +115,33 @@ namespace DialogMessaging.Platforms.iOS.Alerts
             MessageLabel.Hidden = string.IsNullOrWhiteSpace(MessageLabel.Text);
 
             LayoutIfNeeded();
+        }
+
+        /// <summary>
+        /// Dismisses the showable.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to complete when hiding has finished.</param>
+        public void Dismiss(Action finishedAction = null)
+        {
+            if (!IsShowing)
+                return;
+
+            IsShowing = false;
+
+            this.FadeOut(0.2f, finishedAction: finishedAction);
+        }
+
+        /// <summary>
+        /// Shows the showable.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to complete when hiding has finished.</param>
+        public void Show(Action finishedAction = null)
+        {
+            LayoutIfNeeded();
+
+            this.FadeIn(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 
