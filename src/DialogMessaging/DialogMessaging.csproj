@@ -10,6 +10,8 @@
     <Authors>Lewis Bennett</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <UserSecretsId>f9fc9907-4aa0-4877-9a9d-e4bb4b36a006</UserSecretsId>
+    <Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
+    <PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
