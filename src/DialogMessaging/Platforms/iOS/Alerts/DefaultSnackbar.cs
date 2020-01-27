@@ -105,7 +105,7 @@ namespace DialogMessaging.Platforms.iOS.Alerts
 
             LayoutIfNeeded();
 
-            this.SlideInVertically(0.3f);
+            this.SlideInVertically(0.3f, finishedAction: finishedAction);
 
             IsShowing = true;
         }

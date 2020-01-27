@@ -298,8 +298,29 @@ namespace DialogMessaging.Platforms.iOS
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => snackbarShowable.Hide());
         }
 
-        internal override void PresentToast(IToastConfig config)
+        internal override async void PresentToast(IToastConfig config)
         {
+            var toastView = BuildCustomAlert(config.ViewType ?? typeof(DefaultToast), config);
+
+            if (!(toastView is IShowable toastShowable))
+                return;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var existingView = UIApplication.SharedApplication.KeyWindow.ViewWithTag(toastView.Tag);
+
+                if (existingView is IShowable existingShowable)
+                {
+                    existingShowable.Hide(() => toastShowable.Show());
+                    return;
+                }
+
+                toastShowable.Show();
+            });
+
+            await Task.Delay(config.Duration ?? TimeSpan.FromSeconds(2.5)).ConfigureAwait(false);
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => toastShowable.Hide());
         }
         #endregion
 

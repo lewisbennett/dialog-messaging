@@ -20,7 +20,7 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 - Toast
 - Snackbar
 
-\*Synchronous and Asynchronous methods are available.
+\*Synchronous and asynchronous methods are available.
 
 ## Getting Started
 
