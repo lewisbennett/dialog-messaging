@@ -12,16 +12,28 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textAppearance="?android:attr/textAppearanceLarge"
         app:DialogElement="Title" />
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:DialogElement="Message" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="16dp"
+            app:DialogElement="ProgressIndeterminate" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:DialogElement="Message" />
+    </LinearLayout>
     <ProgressBar
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:DialogElement="Progress" />
+        android:layout_marginTop="16dp"
+        app:DialogElement="ProgressDeterminate" />
 </LinearLayout>

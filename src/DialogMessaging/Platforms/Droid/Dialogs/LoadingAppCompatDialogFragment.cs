@@ -14,7 +14,8 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
     public class LoadingAppCompatDialogFragment : AbstractAppCompatDialogFragment<ILoadingConfig>
     {
         #region Fields
-        private View _progressView;
+        private View _determinateProgressView;
+        private View _indeterminateProgressView;
         #endregion
 
         #region Event Handlers
@@ -34,9 +35,16 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             switch (dialogElement.Key)
             {
-                case DialogElement.Progress:
+                case DialogElement.ProgressDeterminate:
 
-                    _progressView = dialogElement.Value.Item1;
+                    _determinateProgressView = dialogElement.Value.Item1;
+                    SetProgress();
+
+                    return;
+
+                case DialogElement.ProgressIndeterminate:
+
+                    _indeterminateProgressView = dialogElement.Value.Item1;
                     SetProgress();
 
                     return;
@@ -52,9 +60,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// </summary>
         public override void CreateDialog(AlertDialog.Builder builder)
         {
-            var layoutId = Config.Progress == null ? Resource.Layout.dialog_default_loading_indeterminate : Resource.Layout.dialog_default_loading_determinate;
-
-            var view = new CustomLayoutInflater(Context, this).Inflate(layoutId, null, false);
+            var view = new CustomLayoutInflater(Context, this).Inflate(Resource.Layout.dialog_default_loading, null, false);
 
             if (view != null)
                 builder.SetView(view);
@@ -97,16 +103,34 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         #region Private Methods
         private void SetProgress()
         {
-            if (!(_progressView is ProgressBar progressBar) || Config.Progress == null)
+            var determinateProgress = _determinateProgressView as ProgressBar;
+            var indeterminateProgress = _indeterminateProgressView as ProgressBar;
+
+            if (Config.Progress == null)
+            {
+                if (determinateProgress != null)
+                    determinateProgress.Visibility = ViewStates.Gone;
+
+                if (indeterminateProgress != null)
+                    indeterminateProgress.Visibility = ViewStates.Visible;
+
                 return;
+            }
 
-            if (progressBar.Max != 100)
-                progressBar.Max = 100;
+            if (determinateProgress != null)
+            {
+                if (determinateProgress.Max != 100)
+                    determinateProgress.Max = 100;
 
-            if (progressBar.Min != 0)
-                progressBar.Min = 0;
+                if (determinateProgress.Min != 0)
+                    determinateProgress.Min = 0;
 
-            progressBar.Progress = (int)Config.Progress;
+                determinateProgress.Visibility = ViewStates.Visible;
+                determinateProgress.Progress = (int)Config.Progress;
+            }
+
+            if (indeterminateProgress != null)
+                indeterminateProgress.Visibility = ViewStates.Gone;
         }
         #endregion
     }
