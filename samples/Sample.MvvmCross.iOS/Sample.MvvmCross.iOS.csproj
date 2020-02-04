@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProjectGuid>{C32EB169-319D-46D9-9323-DD68E9FD6027}</ProjectGuid>
+    <ProjectGuid>{BC4874A2-4BB7-4220-9DC0-A4E7A96D4D8C}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{edc1b0fa-90cd-4038-8fad-98fe74adb368}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Sample.iOS</RootNamespace>
-    <AssemblyName>Sample.iOS</AssemblyName>
+    <RootNamespace>Sample.MvvmCross.iOS</RootNamespace>
+    <AssemblyName>Sample.MvvmCross.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
@@ -110,36 +110,42 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="MvvmCross">
+      <Version>6.4.2</Version>
+    </PackageReference>
+  </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
+    <InterfaceDefinition Include="Main.xib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="MessagingDelegate.cs" />
-    <Compile Include="Messaging\AsyncMessaging.cs" />
-    <Compile Include="Messaging\IMessaging.cs" />
-    <Compile Include="Messaging\SyncMessaging.cs" />
     <Compile Include="MainViewController.cs" />
     <Compile Include="MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
       <Project>{b83d091c-da09-4a01-a366-2a8aec34e019}</Project>
       <Name>DialogMessaging.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\DialogMessaging\DialogMessaging.csproj">
-      <Project>{85ab648d-40ad-4820-b431-d0b3c5a2f4b2}</Project>
-      <Name>DialogMessaging</Name>
+    <ProjectReference Include="..\..\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj">
+      <Project>{456075b2-4317-4f27-9fc0-b041ed632415}</Project>
+      <Name>DialogMessaging.MvvmCross</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj">
+      <Project>{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}</Project>
+      <Name>Sample.MvvmCross.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

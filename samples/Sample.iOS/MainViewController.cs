@@ -80,6 +80,16 @@ namespace Sample.iOS
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
+
+            ActionSheetButton.TouchUpInside -= ActionSheetButton_TouchUpInside;
+            ActionSheetBottomButton.TouchUpInside -= ActionSheetBottomButton_TouchUpInside;
+            AlertButton.TouchUpInside -= AlertButton_TouchUpInside;
+            ConfirmButton.TouchUpInside -= ConfirmButton_TouchUpInside;
+            DeleteButton.TouchUpInside -= DeleteButton_TouchUpInside;
+            LoadingButton.TouchUpInside -= LoadingButton_TouchUpInside;
+            PromptButton.TouchUpInside -= PromptButton_TouchUpInside;
+            SnackbarButton.TouchUpInside -= SnackbarButton_TouchUpInside;
+            ToastButton.TouchUpInside -= ToastButton_TouchUpInside;
         }
 
         public MainViewController (IntPtr handle)
