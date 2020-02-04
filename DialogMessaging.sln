@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogMessaging", "src\Dial
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Droid", "samples\Sample.Droid\Sample.Droid.csproj", "{10EF955A-C2D6-49B9-917D-C214846CB3A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MvvmCross.Core", "samples\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj", "{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|iPhone.Build.0 = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
