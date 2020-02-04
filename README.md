@@ -22,9 +22,13 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 
 \*Synchronous and asynchronous methods are available.
 
-## Getting Started
+## Getting Started (MvvmCross)
 
-Get started by calling `DialogMessaging.MessagingService.Init()`. `Init()` has overflow methods where you can provide your own `IMessagingService` should you wish to do so. **On Android you will need to provide an Application or Activity reference.**
+Add a reference to `DialogMessaging.Core` and `DialogMessaging.MvvmCross`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`. **On Android you must provide an Activity or Application reference as well as an instance of** `MvvmCrossViewCreator`**. If an instance of** `MvvmCrossViewCreator` **isn't provided, dialogs that use custom views won't work properly.**
+
+## Getting Started (non-MvvmCross)
+
+Add a reference to `DialogMessaging.Core` and `DialogMessaging`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`. **On Android you must provide an Activity or Application reference.**
 
 ## Customization
 
@@ -47,6 +51,8 @@ var alertConfig = new AlertConfig
 ```
 In your custom layouts, assign dialog elements using the `app:DialogElement` tag. Any part of the layout that uses this tag will be hidden if the corresponding data inside of the configuration holds no value. For example: if `Title` within the configuration object is null or empty any layout element that uses `app:DialogElement="Title"` will be hidden. This can be customised using the `app:HideWhenNotInUse` tag which by default is set to `true`.
 
+See [`DialogElement`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Droid/Schema/DialogElement.cs) for all usable dialog element values. Be aware that not all are available for every dialog. For example: `ProgressDeterminate` isn't available when using `Alert`.
+
 ### iOS
 
 You can set view types on a dialog-by-dialog basis or you can assign default values. If no customization is provided the normal iOS UIAlertController's and internal views will be used.
@@ -61,3 +67,7 @@ var alertConfig = new AlertConfig
 };
 ```
 Your custom views must implement `IShowable` which gives you the `Show` and `Dismiss` methods. This is where you control the presentation of your view such as animations. You should not interact with the view hierarchy as this is done for you. You can optionally assign `DialogViewAttribute` to your view class if the view has an associated XIB/NIB file. To assign configuration values to your view, implement `IValueAssigner`.
+
+## Samples
+
+See [samples](https://github.com/lewisbennett/dialog-messaging/tree/master/samples) for examples.
