@@ -24,11 +24,34 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 
 ## Getting Started (MvvmCross)
 
-Add a reference to `DialogMessaging.Core` and `DialogMessaging.MvvmCross`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`. **On Android you must provide an Activity or Application reference as well as an instance of** `MvvmCrossViewCreator`**. If an instance of** `MvvmCrossViewCreator` **isn't provided, dialogs that use custom views won't work properly.**
+Add a reference to `DialogMessaging.Core` and `DialogMessaging.MvvmCross`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`.
+
+### Additional Steps for Android
+
+Inside the `Init` method you must provide an Activity or Application reference as well as an instance of `MvvmCrossViewCreator`. If an instance isn't provided dialogs that use custom views won't work properly.
+
+Add the following to the `BindView` method of your `MvxAndroidViewBinder`:
+```
+public override void BindView(View view, Context context, IAttributeSet attrs)
+{
+    ...
+    
+    MessagingService.OnViewInflated(view, attrs);
+}
+```
+See [`Setup`](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.MvvmCross.Droid/Setup.cs) and [`ViewBinder`](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.MvvmCross.Droid/Binding/ViewBinder.cs).
 
 ## Getting Started (non-MvvmCross)
 
-Add a reference to `DialogMessaging.Core` and `DialogMessaging`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`. **On Android you must provide an Activity or Application reference.**
+DialogMessaging relies on [ViewPump](https://github.com/lewisbennett/viewpump). Add a reference to the project and see the GitHub page for getting started.
+
+Add a reference to `DialogMessaging.Core` and `DialogMessaging`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`.
+
+### Additional Steps for Android
+
+Inside the `Init` method you must provide an Activity or Application reference.
+
+Add DialogMessaging's ViewPump interceptor by calling `ViewPump.ViewPumpService.Instance.Interceptors.Add(new DialogMessagingInterceptor())`.
 
 ## Customization
 
