@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MvvmCross" Version="6.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj" />
+    <ProjectReference Include="..\..\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj" />
+  </ItemGroup>
+
 </Project>
