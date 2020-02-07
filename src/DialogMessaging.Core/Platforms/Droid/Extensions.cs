@@ -8,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using DialogMessaging.Core;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
@@ -149,6 +150,42 @@ namespace DialogMessaging
                     DM_Log.Debug(string.Empty, e.ToString());
                 }
             });
+        }
+
+        /// <summary>
+        /// Set the bottom margin of a snackbar's view, if available.
+        /// </summary>
+        public static bool TrySetBottomMargin(this Snackbar snackbar)
+        {
+            if (snackbar == null)
+                return false;
+
+            var displayMetrics = new DisplayMetrics();
+            ActivityLifecycleCallbacks.CurrentActivity.WindowManager.DefaultDisplay.GetRealMetrics(displayMetrics);
+
+            var rect = new Rect();
+            ActivityLifecycleCallbacks.CurrentActivity.Window.DecorView.GetWindowVisibleDisplayFrame(rect);
+
+            var margin = displayMetrics.HeightPixels - rect.Bottom;
+
+            if (margin < 1)
+                return false;
+
+            var bottomMarginProperty = snackbar.View.LayoutParameters.GetType().GetProperty("BottomMargin");
+
+            if (bottomMarginProperty == null)
+                return false;
+
+            try
+            {
+                bottomMarginProperty.SetValue(snackbar.View.LayoutParameters, margin, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                DM_Log.Error("TrySetBottomMargin", $"Could not set bottom margin.\n{e.ToString()}");
+                return false;
+            }
         }
 
         /// <summary>

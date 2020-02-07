@@ -88,6 +88,7 @@ namespace DialogMessaging.Platforms.Droid
                 using var snackbar = Android.Support.Design.Widget.Snackbar.Make(activity.Window.DecorView, config.Message, config.Duration);
 
                 snackbar.ApplyStyling(config);
+                snackbar.TrySetBottomMargin();
 
                 snackbar.Show();
             });
