@@ -25,7 +25,7 @@ namespace DialogMessaging.MvvmCross.Platforms.Droid
                 view = LayoutInflater.From(valueAssigner.Context).Inflate(layoutResId, container, attachToRoot);
 
             foreach (var subview in view.Find(v => MessagingService.InflatedViews.ContainsKey(v)))
-                valueAssigner.AssignValue(MessagingService.InflatedViews[subview]);
+                valueAssigner?.AssignValue(MessagingService.InflatedViews[subview]);
 
             return view;
         }

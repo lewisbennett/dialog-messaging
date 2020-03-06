@@ -59,7 +59,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
                     _listView = listView;
 
-                    var adapter = new ArrayAdapter<string>(Context, Config.ItemLayoutResID ?? Resource.Layout.dialog_default_action_sheet_item);
+                    var adapter = new CustomArrayAdapter(Context, Config.ItemLayoutResID ?? Resource.Layout.dialog_default_action_sheet_item, this);
 
                     adapter.AddAll(Config.Items.Select(i => i.Text).ToList());
 
