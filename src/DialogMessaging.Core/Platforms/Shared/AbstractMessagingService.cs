@@ -14,7 +14,7 @@ namespace DialogMessaging
         /// <param name="config">The action sheet configuration.</param>
         public IDisposable ActionSheet(IActionSheetConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnActionSheetRequested(config);
 
             return proceed ? PresentActionSheet(config) : null;
         }
@@ -25,7 +25,7 @@ namespace DialogMessaging
         /// <param name="config">The action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnActionSheetRequested(config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -48,7 +48,7 @@ namespace DialogMessaging
         /// <param name="config">The bottom action sheet configuration.</param>
         public IDisposable ActionSheetBottom(IActionSheetBottomConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnActionSheetBottomRequested(config);
 
             return proceed ? PresentActionSheetBottom(config) : null;
         }
@@ -59,7 +59,7 @@ namespace DialogMessaging
         /// <param name="config">The bottom action sheet configuration.</param>
         public Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnActionSheetBottomRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnActionSheetBottomRequested(config);
 
             if (!proceed)
                 return Task.FromResult<IActionSheetItemConfig>(null);
@@ -82,7 +82,7 @@ namespace DialogMessaging
         /// <param name="config">The alert configuration.</param>
         public IDisposable Alert(IAlertConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnAlertRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnAlertRequested(config);
 
             return proceed ? PresentAlert(config) : null;
         }
@@ -93,7 +93,7 @@ namespace DialogMessaging
         /// <param name="config">The alert configuration.</param>
         public Task AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnAlertRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnAlertRequested(config);
 
             if (!proceed)
                 return Task.FromResult(false);
@@ -115,7 +115,7 @@ namespace DialogMessaging
         /// <param name="config">The confirm configuration.</param>
         public IDisposable Confirm(IConfirmConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnConfirmRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnConfirmRequested(config);
 
             return proceed ? PresentConfirm(config) : null;
         }
@@ -126,7 +126,7 @@ namespace DialogMessaging
         /// <param name="config">The delete configuration.</param>
         public Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnConfirmRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnConfirmRequested(config);
 
             if (!proceed)
                 return Task.FromResult(false);
@@ -149,7 +149,7 @@ namespace DialogMessaging
         /// <param name="config">The delete configuration.</param>
         public IDisposable Delete(IDeleteConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnDeleteRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnDeleteRequested(config);
 
             return proceed ? PresentDelete(config) : null;
         }
@@ -160,7 +160,7 @@ namespace DialogMessaging
         /// <param name="config">The delete configuration.</param>
         public Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnDeleteRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnDeleteRequested(config);
 
             if (!proceed)
                 return Task.FromResult(false);
@@ -182,7 +182,7 @@ namespace DialogMessaging
         /// </summary>
         public void HideLoading()
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnHideLoadingRequested();
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnHideLoadingRequested();
 
             if (proceed && Loading != null)
                 Loading.Dispose();
@@ -194,7 +194,7 @@ namespace DialogMessaging
         /// <param name="config">The prompt configuration.</param>
         public IDisposable Prompt(IPromptConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnPromptRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnPromptRequested(config);
 
             return proceed ? PresentPrompt(config) : null;
         }
@@ -205,7 +205,7 @@ namespace DialogMessaging
         /// <param name="config">The prompt configuration.</param>
         public Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnPromptRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnPromptRequested(config);
 
             if (!proceed)
                 return Task.FromResult(string.Empty);
@@ -228,7 +228,7 @@ namespace DialogMessaging
         /// <param name="config">The loading configuration.</param>
         public IDisposable ShowLoading(ILoadingConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnShowLoadingRequested(config);
 
             if (!proceed)
                 return null;
@@ -246,7 +246,7 @@ namespace DialogMessaging
         public TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
             where TTask : Task
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnShowLoadingRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnShowLoadingRequested(config);
 
             if (!proceed)
                 return default;
@@ -265,7 +265,7 @@ namespace DialogMessaging
         /// <param name="config">The snackbar configuration.</param>
         public void Snackbar(ISnackbarConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnSnackbarRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnSnackbarRequested(config);
 
             if (proceed && !string.IsNullOrWhiteSpace(config.Message))
                 PresentSnackbar(config);
@@ -277,7 +277,7 @@ namespace DialogMessaging
         /// <param name="config">The toast configuration.</param>
         public void Toast(IToastConfig config)
         {
-            var proceed = MessagingService.Delegate == null ? true : MessagingService.Delegate.OnToastRequested(config);
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnToastRequested(config);
 
             if (proceed && !string.IsNullOrWhiteSpace(config.Message))
                 PresentToast(config);
