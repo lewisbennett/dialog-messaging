@@ -63,6 +63,11 @@ namespace DialogMessaging.Platforms.Droid
             return ShowDialog<DeleteDialogFragment, DeleteAppCompatDialogFragment>(config);
         }
 
+        internal override IDisposable PresentLogin(ILoginConfig config)
+        {
+            return ShowDialog<LoginDialogFragment, LoginAppCompatDialogFragment>(config);
+        }
+
         internal override IDisposable PresentPrompt(IPromptConfig config)
         {
             return ShowDialog<PromptDialogFragment, PromptAppCompatDialogFragment>(config);

@@ -74,6 +74,18 @@ namespace DialogMessaging
         void HideLoading();
 
         /// <summary>
+        /// Displays a login to the user.
+        /// </summary>
+        /// <param name="config">The login configuration.</param>
+        IDisposable Login(ILoginConfig config);
+
+        /// <summary>
+        /// Displays a login to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The login configuration.</param>
+        Task<(string, string)> LoginAsync(LoginAsyncConfig config, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Displays a prompt to the user.
         /// </summary>
         /// <param name="config">The prompt configuration.</param>

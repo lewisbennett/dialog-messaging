@@ -189,6 +189,40 @@ namespace DialogMessaging
         }
 
         /// <summary>
+        /// Displays a login dialog to the user.
+        /// </summary>
+        /// <param name="config">The login configuration.</param>
+        public IDisposable Login(ILoginConfig config)
+        {
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnLoginRequested(config);
+
+            return proceed ? PresentLogin(config) : null;
+        }
+
+        /// <summary>
+        /// Displays a login dialog to the user asynchronously.
+        /// </summary>
+        /// <param name="config">The login configuration.</param>
+        public Task<(string, string)> LoginAsync(LoginAsyncConfig config, CancellationToken cancellationToken = default)
+        {
+            var proceed = MessagingService.Delegate == null || MessagingService.Delegate.OnLoginRequested(config);
+
+            if (!proceed)
+                return Task.FromResult((string.Empty, string.Empty));
+
+            var task = new TaskCompletionSource<(string, string)>();
+
+            config.LoginButtonClickAction = (inputText) => task.TrySetResult((inputText.Item1, inputText.Item2));
+            config.CancelButtonClickAction = () => task.TrySetResult((string.Empty, string.Empty));
+            config.DismissedAction = () => task.TrySetResult((string.Empty, string.Empty));
+
+            var login = PresentLogin(config);
+
+            using (cancellationToken.Register(() => login?.Dispose()))
+                return task.Task;
+        }
+
+        /// <summary>
         /// Displays a prompt to the user.
         /// </summary>
         /// <param name="config">The prompt configuration.</param>
@@ -302,6 +336,8 @@ namespace DialogMessaging
         internal abstract IDisposable PresentPrompt(IPromptConfig config);
 
         internal abstract IDisposable PresentLoading(ILoadingConfig config);
+
+        internal abstract IDisposable PresentLogin(ILoginConfig config);
 
         internal abstract void PresentSnackbar(ISnackbarConfig config);
 

@@ -206,6 +206,64 @@ namespace DialogMessaging.Platforms.iOS
             return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert?.DismissViewController(true, null)));
         }
 
+        internal override IDisposable PresentLogin(ILoginConfig config)
+        {
+            if (config.ViewType != null)
+                return ShowCustomAlert(BuildCustomAlert(config.ViewType, config));
+
+            UIAlertView alert = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                alert = new UIAlertView
+                {
+                    Title = config.Title,
+                    Message = config.Message,
+                    AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput
+                };
+
+                var usernameTextField = alert.GetTextField(0);
+
+                usernameTextField.Placeholder = config.UsernameHint;
+                usernameTextField.ApplyInputType(config.UsernameInputType);
+
+                var passwordTextField = alert.GetTextField(1);
+
+                passwordTextField.Placeholder = config.PasswordHint;
+
+                var actions = new Dictionary<nint, Action>();
+
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    var index = alert.AddButton(config.CancelButtonText);
+                    actions.Add(index, config.CancelButtonClickAction);
+                }
+
+                if (!string.IsNullOrWhiteSpace(config.LoginButtonText))
+                {
+                    var index = alert.AddButton(config.LoginButtonText);
+
+                    actions.Add(index, () =>
+                    {
+                        config.Username = usernameTextField.Text;
+                        config.Password = passwordTextField.Text;
+
+                        config.LoginButtonClickAction?.Invoke((config.Username, config.Password));
+                    });
+                }
+
+                alert.Clicked += (s, e) =>
+                {
+                    actions[e.ButtonIndex]?.Invoke();
+                    config.DismissedAction?.Invoke();
+                };
+
+                alert.Show();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert.DismissWithClickedButtonIndex(0, true)));
+        }
+
         internal override IDisposable PresentPrompt(IPromptConfig config)
         {
             if (config.ViewType != null)

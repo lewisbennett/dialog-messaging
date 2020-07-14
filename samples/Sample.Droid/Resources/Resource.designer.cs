@@ -1238,6 +1238,7 @@ namespace Sample.Droid
 			global::DialogMessaging.Core.Resource.Layout.dialog_default_action_sheet_bottom = global::Sample.Droid.Resource.Layout.dialog_default_action_sheet_bottom;
 			global::DialogMessaging.Core.Resource.Layout.dialog_default_action_sheet_item = global::Sample.Droid.Resource.Layout.dialog_default_action_sheet_item;
 			global::DialogMessaging.Core.Resource.Layout.dialog_default_loading = global::Sample.Droid.Resource.Layout.dialog_default_loading;
+			global::DialogMessaging.Core.Resource.Layout.dialog_default_login = global::Sample.Droid.Resource.Layout.dialog_default_login;
 			global::DialogMessaging.Core.Resource.Layout.dialog_default_prompt = global::Sample.Droid.Resource.Layout.dialog_default_prompt;
 			global::DialogMessaging.Core.Resource.Layout.mtrl_layout_snackbar = global::Sample.Droid.Resource.Layout.mtrl_layout_snackbar;
 			global::DialogMessaging.Core.Resource.Layout.mtrl_layout_snackbar_include = global::Sample.Droid.Resource.Layout.mtrl_layout_snackbar_include;
@@ -3769,6 +3770,7 @@ namespace Sample.Droid
 			global::DialogMessaging.Resource.Layout.dialog_default_action_sheet_bottom = global::Sample.Droid.Resource.Layout.dialog_default_action_sheet_bottom;
 			global::DialogMessaging.Resource.Layout.dialog_default_action_sheet_item = global::Sample.Droid.Resource.Layout.dialog_default_action_sheet_item;
 			global::DialogMessaging.Resource.Layout.dialog_default_loading = global::Sample.Droid.Resource.Layout.dialog_default_loading;
+			global::DialogMessaging.Resource.Layout.dialog_default_login = global::Sample.Droid.Resource.Layout.dialog_default_login;
 			global::DialogMessaging.Resource.Layout.dialog_default_prompt = global::Sample.Droid.Resource.Layout.dialog_default_prompt;
 			global::DialogMessaging.Resource.Layout.mtrl_layout_snackbar = global::Sample.Droid.Resource.Layout.mtrl_layout_snackbar;
 			global::DialogMessaging.Resource.Layout.mtrl_layout_snackbar_include = global::Sample.Droid.Resource.Layout.mtrl_layout_snackbar_include;
@@ -11441,43 +11443,46 @@ namespace Sample.Droid
 			public const int dialog_default_loading = 2131427375;
 			
 			// aapt resource value: 0x7F0B0030
-			public const int dialog_default_prompt = 2131427376;
+			public const int dialog_default_login = 2131427376;
 			
 			// aapt resource value: 0x7F0B0031
-			public const int mtrl_layout_snackbar = 2131427377;
+			public const int dialog_default_prompt = 2131427377;
 			
 			// aapt resource value: 0x7F0B0032
-			public const int mtrl_layout_snackbar_include = 2131427378;
+			public const int mtrl_layout_snackbar = 2131427378;
 			
 			// aapt resource value: 0x7F0B0033
-			public const int notification_action = 2131427379;
+			public const int mtrl_layout_snackbar_include = 2131427379;
 			
 			// aapt resource value: 0x7F0B0034
-			public const int notification_action_tombstone = 2131427380;
+			public const int notification_action = 2131427380;
 			
 			// aapt resource value: 0x7F0B0035
-			public const int notification_template_custom_big = 2131427381;
+			public const int notification_action_tombstone = 2131427381;
 			
 			// aapt resource value: 0x7F0B0036
-			public const int notification_template_icon_group = 2131427382;
+			public const int notification_template_custom_big = 2131427382;
 			
 			// aapt resource value: 0x7F0B0037
-			public const int notification_template_part_chronometer = 2131427383;
+			public const int notification_template_icon_group = 2131427383;
 			
 			// aapt resource value: 0x7F0B0038
-			public const int notification_template_part_time = 2131427384;
+			public const int notification_template_part_chronometer = 2131427384;
 			
 			// aapt resource value: 0x7F0B0039
-			public const int select_dialog_item_material = 2131427385;
+			public const int notification_template_part_time = 2131427385;
 			
 			// aapt resource value: 0x7F0B003A
-			public const int select_dialog_multichoice_material = 2131427386;
+			public const int select_dialog_item_material = 2131427386;
 			
 			// aapt resource value: 0x7F0B003B
-			public const int select_dialog_singlechoice_material = 2131427387;
+			public const int select_dialog_multichoice_material = 2131427387;
 			
 			// aapt resource value: 0x7F0B003C
-			public const int support_simple_spinner_dropdown_item = 2131427388;
+			public const int select_dialog_singlechoice_material = 2131427388;
+			
+			// aapt resource value: 0x7F0B003D
+			public const int support_simple_spinner_dropdown_item = 2131427389;
 			
 			static Layout()
 			{
