@@ -16,6 +16,7 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 - Loading*
 - Action sheet*
 - Action sheet bottom*
+- Login *
 - Prompt*
 - Toast
 - Snackbar

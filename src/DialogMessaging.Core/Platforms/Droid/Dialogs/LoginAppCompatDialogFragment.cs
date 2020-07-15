@@ -44,16 +44,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
         private void PasswordVisibilityToggle_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
-            if (_passwordTextField == null)
-                return;
-
-            Config.ShowPassword = e.IsChecked;
-
-            var typeface = _passwordTextField.Typeface;
-
-            _passwordTextField.InputType = e.IsChecked ? InputTypes.ClassText : InputTypes.ClassText | InputTypes.TextVariationPassword;
-
-            _passwordTextField.Typeface = typeface;
+            SetPasswordVisibility();
         }
         #endregion
 
@@ -164,6 +155,8 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
             if (_passwordVisibilityToggle != null)
                 _passwordVisibilityToggle.CheckedChange += PasswordVisibilityToggle_CheckedChange;
+
+            SetPasswordVisibility();
         }
 
         public override void OnPause()
@@ -189,6 +182,23 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         public LoginAppCompatDialogFragment(IntPtr handle, JniHandleOwnership transfer)
             : base(handle, transfer)
         {
+        }
+        #endregion
+
+        #region Private Methods
+        private void SetPasswordVisibility()
+        {
+            if (_passwordTextField == null || _passwordVisibilityToggle == null)
+                return;
+
+            Config.ShowPassword = _passwordVisibilityToggle.Checked;
+
+            var typeface = _passwordTextField.Typeface;
+
+            _passwordTextField.InputType = _passwordVisibilityToggle.Checked ? InputTypes.ClassText : InputTypes.ClassText | InputTypes.TextVariationPassword;
+            _passwordTextField.SetSelection(_passwordTextField.Text?.Length ?? 0);
+
+            _passwordTextField.Typeface = typeface;
         }
         #endregion
     }

@@ -77,11 +77,6 @@ namespace DialogMessaging.Interactions
         public string CancelButtonText { get; set; }
 
         /// <summary>
-        /// Gets or sets the input text.
-        /// </summary>
-        public string InputText { get; set; }
-
-        /// <summary>
         /// Gets or sets the input type.
         /// </summary>
         public InputType UsernameInputType { get; set; }
@@ -140,11 +135,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the cancel button text.
         /// </summary>
         public string CancelButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the input text.
-        /// </summary>
-        public string InputText { get; set; }
 
         /// <summary>
         /// Gets or sets the input type.

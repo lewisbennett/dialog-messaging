@@ -40,6 +40,11 @@ namespace Sample.Droid
             return true;
         }
 
+        public bool OnLoginRequested(ILoginConfig config)
+        {
+            return true;
+        }
+
         public bool OnPromptRequested(IPromptConfig config)
         {
             return true;
