@@ -1,6 +1,7 @@
 ﻿using Android.Content;
 using Android.Widget;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 
@@ -56,7 +57,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
             Toast = Toast.MakeText(Context, config.Message, config.Duration);
 
             if (Config.LayoutID != null)
-                Toast.View = MessagingService.ViewCreator.CreateView(this, (int)Config.LayoutID, null, false);
+                Toast.View = MessagingServiceCore.ViewCreator.CreateView(this, (int)Config.LayoutID, null, false);
         }
         #endregion
     }

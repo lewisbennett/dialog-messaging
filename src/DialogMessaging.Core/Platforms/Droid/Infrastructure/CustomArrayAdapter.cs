@@ -1,6 +1,7 @@
 ﻿using Android.Content;
 using Android.Views;
 using Android.Widget;
+using DialogMessaging.Infrastructure;
 
 namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
 {
@@ -24,7 +25,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
         /// </summary>
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = MessagingService.ViewCreator.CreateView(ValueAssigner, TextViewResourceID, parent, false);
+            var view = MessagingServiceCore.ViewCreator.CreateView(ValueAssigner, TextViewResourceID, parent, false);
 
             if (view is TextView textView)
                 textView.Text = GetItem(position);

@@ -39,8 +39,4 @@
     <Compile Include="Platforms\iOS\**\*.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Platforms\Shared\Interactions\LoginConfig.cs" />
-  </ItemGroup>
-
 </Project>

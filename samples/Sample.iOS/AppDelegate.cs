@@ -11,8 +11,8 @@ namespace Sample.iOS
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            MessagingService.Init();
-            MessagingService.Delegate = new MessagingDelegate();
+            MessagingServiceCore.Init();
+            MessagingServiceCore.Delegate = new MessagingDelegate();
 
             return true;
         }

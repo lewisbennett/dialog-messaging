@@ -4,7 +4,7 @@ using Java.Lang;
 
 namespace DialogMessaging.Infrastructure
 {
-    public class ActivityLifecycleCallbacks : Object, Application.IActivityLifecycleCallbacks
+    internal class ActivityLifecycleCallbacks : Object, Application.IActivityLifecycleCallbacks
     {
         #region Event Handlers
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)

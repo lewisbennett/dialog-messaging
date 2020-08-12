@@ -124,10 +124,10 @@ namespace DialogMessaging
         /// </summary>
         public static void RemoveCachedViews(this Context context)
         {
-            var removals = MessagingService.InflatedViews.Where(i => i.Value.View.Context == context).ToArray();
+            var removals = MessagingServiceCore.InflatedViews.Where(i => i.Value.View.Context == context).ToArray();
 
             foreach (var removal in removals)
-                MessagingService.InflatedViews.Remove(removal);
+                MessagingServiceCore.InflatedViews.Remove(removal);
         }
 
         /// <summary>

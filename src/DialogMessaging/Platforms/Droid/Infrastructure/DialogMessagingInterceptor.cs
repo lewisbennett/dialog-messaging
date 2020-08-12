@@ -1,6 +1,7 @@
-﻿using ViewPump.Intercepting;
+﻿using DialogMessaging.Infrastructure;
+using ViewPump.Intercepting;
 
-namespace DialogMessaging.Platforms.Droid
+namespace DialogMessaging.Platforms.Droid.Infrastructure
 {
     public class DialogMessagingInterceptor : IInterceptor
     {
@@ -9,7 +10,7 @@ namespace DialogMessaging.Platforms.Droid
         {
             var result = chain.Proceed();
 
-            MessagingService.OnViewInflated(result.View, result.Attrs);
+            MessagingServiceCore.OnViewInflated(result.View, result.Attrs);
 
             return result;
         }

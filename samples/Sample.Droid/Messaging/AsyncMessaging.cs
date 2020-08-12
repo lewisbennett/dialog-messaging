@@ -20,10 +20,10 @@ namespace Sample.Droid.Messaging
             config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 2" });
             config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetAsync(config).ConfigureAwait(false);
+            var item = await MessagingServiceCore.Instance.ActionSheetAsync(config).ConfigureAwait(false);
 
             if (item != null)
-                MessagingService.Instance.Toast($"Clicked: {item.Text}");
+                MessagingServiceCore.Instance.Toast($"Clicked: {item.Text}");
         }
 
         public async void ActionSheetBottom()
@@ -39,15 +39,15 @@ namespace Sample.Droid.Messaging
             config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 2" });
             config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetBottomAsync(config).ConfigureAwait(false);
+            var item = await MessagingServiceCore.Instance.ActionSheetBottomAsync(config).ConfigureAwait(false);
 
             if (item != null)
-                MessagingService.Instance.Toast($"Clicked: {item.Text}");
+                MessagingServiceCore.Instance.Toast($"Clicked: {item.Text}");
         }
 
         public async void Alert()
         {
-            await MessagingService.Instance.AlertAsync(new AlertAsyncConfig
+            await MessagingServiceCore.Instance.AlertAsync(new AlertAsyncConfig
             {
                 Title = "Alert Async",
                 Message = "Hello world!",
@@ -55,12 +55,12 @@ namespace Sample.Droid.Messaging
 
             }).ConfigureAwait(false);
 
-            MessagingService.Instance.Snackbar("Alerted");
+            MessagingServiceCore.Instance.Snackbar("Alerted");
         }
 
         public async void Confirm()
         {
-            var confirmed = await MessagingService.Instance.ConfirmAsync(new ConfirmAsyncConfig
+            var confirmed = await MessagingServiceCore.Instance.ConfirmAsync(new ConfirmAsyncConfig
             {
                 Title = "Confirm Async",
                 Message = "Hello world!",
@@ -69,12 +69,12 @@ namespace Sample.Droid.Messaging
 
             }).ConfigureAwait(false);
 
-            MessagingService.Instance.Snackbar(confirmed ? "Confirmed" : "Cancelled");
+            MessagingServiceCore.Instance.Snackbar(confirmed ? "Confirmed" : "Cancelled");
         }
 
         public async void Delete()
         {
-            var deleted = await MessagingService.Instance.DeleteAsync(new DeleteAsyncConfig
+            var deleted = await MessagingServiceCore.Instance.DeleteAsync(new DeleteAsyncConfig
             {
                 Title = "Delete Async",
                 Message = "Hello world!",
@@ -82,17 +82,17 @@ namespace Sample.Droid.Messaging
                 CancelButtonText = "Cancel"
             });
 
-            MessagingService.Instance.Snackbar(deleted ? "Deleted" : "Cancelled");
+            MessagingServiceCore.Instance.Snackbar(deleted ? "Deleted" : "Cancelled");
         }
 
         public async void Loading()
         {
-            await MessagingService.Instance.ShowLoadingAsync(new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" }, Task.Delay(TimeSpan.FromSeconds(5))).ConfigureAwait(false);
+            await MessagingServiceCore.Instance.ShowLoadingAsync(new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" }, Task.Delay(TimeSpan.FromSeconds(5))).ConfigureAwait(false);
         }
 
         public async void Prompt()
         {
-            var entry = await MessagingService.Instance.PromptAsync(new PromptAsyncConfig
+            var entry = await MessagingServiceCore.Instance.PromptAsync(new PromptAsyncConfig
             {
                 Title = "Prompt Async",
                 Message = "Hello world!",
@@ -102,12 +102,12 @@ namespace Sample.Droid.Messaging
 
             }).ConfigureAwait(false);
 
-            MessagingService.Instance.Snackbar($"You entered: {entry}");
+            MessagingServiceCore.Instance.Snackbar($"You entered: {entry}");
         }
 
         public void Snackbar()
         {
-            MessagingService.Instance.Snackbar(new SnackbarConfig
+            MessagingServiceCore.Instance.Snackbar(new SnackbarConfig
             {
                 Message = "Snackbar",
                 ActionButtonText = "Action",
@@ -117,7 +117,7 @@ namespace Sample.Droid.Messaging
 
         public void Toast()
         {
-            MessagingService.Instance.Toast(new ToastConfig
+            MessagingServiceCore.Instance.Toast(new ToastConfig
             {
                 Message = "Toast"
             });

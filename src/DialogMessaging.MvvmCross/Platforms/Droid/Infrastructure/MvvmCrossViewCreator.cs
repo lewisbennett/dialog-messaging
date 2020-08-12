@@ -1,9 +1,10 @@
 ﻿using Android.Views;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Infrastructure;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 
-namespace DialogMessaging.MvvmCross.Platforms.Droid
+namespace DialogMessaging.MvvmCross.Platforms.Droid.Infrastructure
 {
     public class MvvmCrossViewCreator : IViewCreator
     {
@@ -24,8 +25,8 @@ namespace DialogMessaging.MvvmCross.Platforms.Droid
             else
                 view = LayoutInflater.From(valueAssigner.Context).Inflate(layoutResId, container, attachToRoot);
 
-            foreach (var subview in view.Find(v => MessagingService.InflatedViews.ContainsKey(v)))
-                valueAssigner?.AssignValue(MessagingService.InflatedViews[subview]);
+            foreach (var subview in view.Find(v => MessagingServiceCore.InflatedViews.ContainsKey(v)))
+                valueAssigner?.AssignValue(MessagingServiceCore.InflatedViews[subview]);
 
             return view;
         }

@@ -12,7 +12,7 @@ namespace DialogMessaging.Infrastructure
         /// <param name="message">The message.</param>
         public static void Debug(string category, string message)
         {
-            if (MessagingService.VerboseLogging)
+            if (MessagingServiceCore.VerboseLogging)
                 Write(category, message, LogLevel.Debug);
         }
 

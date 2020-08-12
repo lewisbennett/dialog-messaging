@@ -24,14 +24,26 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MvvmCross" Version="6.4.2" />
-    <ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="Platforms\Shared\**\*.cs" />
+		<PackageReference Include="MvvmCross" Version="6.4.2" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Configuration)'=='Debug' ">
+		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(Configuration)'=='Release' ">
+		<PackageReference Include="DialogMessaging.Core" Version="0.1.0" />
+	</ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
     <Compile Include="Platforms\Droid\**\*.cs" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
   </ItemGroup>
+
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+		<Compile Include="Platforms\iOS\**\*.cs" />
+	</ItemGroup>
 
 </Project>

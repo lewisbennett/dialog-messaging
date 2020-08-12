@@ -1,4 +1,5 @@
 ﻿using Android.Views;
+using DialogMessaging.Infrastructure;
 
 namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
 {
@@ -16,8 +17,8 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
         {
             var view = LayoutInflater.From(valueAssigner.Context).Inflate(layoutResId, container, attachToRoot);
 
-            foreach (var subview in view.Find(v => MessagingService.InflatedViews.ContainsKey(v)))
-                valueAssigner.AssignValue(MessagingService.InflatedViews[subview]);
+            foreach (var subview in view.Find(v => MessagingServiceCore.InflatedViews.ContainsKey(v)))
+                valueAssigner.AssignValue(MessagingServiceCore.InflatedViews[subview]);
 
             return view;
         }

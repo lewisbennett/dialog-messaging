@@ -6,6 +6,7 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using DialogMessaging.Core;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
@@ -99,7 +100,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     break;
             }
 
-            MessagingService.InflatedViews.Remove(viewConfig.View);
+            MessagingServiceCore.InflatedViews.Remove(viewConfig.View);
         }
         #endregion
 
@@ -112,7 +113,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
             if (Config == null)
             {
-                Config = MessagingService.RetrieveInstance<TConfig>(savedInstanceState);
+                Config = MessagingServiceCore.RetrieveInstance<TConfig>(savedInstanceState);
 
                 if (Config == null)
                 {
@@ -131,7 +132,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            return MessagingService.ViewCreator.CreateView(this, Config.LayoutID ?? Resource.Layout.dialog_default_action_sheet_bottom, container, false);
+            return MessagingServiceCore.ViewCreator.CreateView(this, Config.LayoutID ?? Resource.Layout.dialog_default_action_sheet_bottom, container, false);
         }
 
         public override void OnDismiss(IDialogInterface dialog)
@@ -145,7 +146,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.OnSaveInstanceState(outState);
 
-            MessagingService.SaveInstance(outState, Config);
+            MessagingServiceCore.SaveInstance(outState, Config);
         }
 
         public override void OnDestroyView()

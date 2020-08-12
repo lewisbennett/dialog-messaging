@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using DialogMessaging.Core;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
@@ -87,7 +88,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.CreateDialog(builder);
 
-            var view = MessagingService.ViewCreator.CreateView(this, Resource.Layout.dialog_default_action_sheet, null, false);
+            var view = MessagingServiceCore.ViewCreator.CreateView(this, Resource.Layout.dialog_default_action_sheet, null, false);
 
             if (view != null)
                 builder.SetView(view);

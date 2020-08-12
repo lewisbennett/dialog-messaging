@@ -20,8 +20,8 @@ namespace Sample.Droid
             ViewPumpService.Init();
             ViewPumpService.Instance.Interceptors.Add(new DialogMessagingInterceptor());
 
-            MessagingService.Init(this);
-            MessagingService.Delegate = new MessagingDelegate();
+            MessagingServiceCore.Init(this);
+            MessagingServiceCore.Delegate = new MessagingDelegate();
 
             ISnackbarConfig.DefaultActionButtonTextColor = Color.White;
             ISnackbarConfig.DefaultDuration = Snackbar.LengthLong;
