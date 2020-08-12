@@ -29,7 +29,7 @@ Add a reference to `DialogMessaging.Core` and `DialogMessaging.MvvmCross`. At th
 
 ### Additional Steps for Android
 
-Inside the `Init` method you must provide an Activity or Application reference as well as an instance of `MvvmCrossViewCreator`. If an instance isn't provided dialogs that use custom views won't work properly.
+Inside the `Init` method you must provide an Activity or Application reference.
 
 Add the following to the `BindView` method of your `MvxAndroidViewBinder`:
 ```
@@ -44,15 +44,13 @@ See [`Setup`](https://github.com/lewisbennett/dialog-messaging/blob/master/sampl
 
 ## Getting Started (non-MvvmCross)
 
-DialogMessaging relies on [ViewPump](https://github.com/lewisbennett/viewpump). Add a reference to the project and see the GitHub page for getting started.
+DialogMessaging relies on [ViewPump](https://github.com/lewisbennett/viewpump). Add a reference to the project and see the GitHub page for getting started. You should initialize the ViewPump service before StylingX to allow StylingX to register with ViewPump.
 
 Add a reference to `DialogMessaging.Core` and `DialogMessaging`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`.
 
 ### Additional Steps for Android
 
 Inside the `Init` method you must provide an Activity or Application reference.
-
-Add DialogMessaging's ViewPump interceptor by calling `ViewPump.ViewPumpService.Instance.Interceptors.Add(new DialogMessagingInterceptor())`.
 
 ## Customization
 
