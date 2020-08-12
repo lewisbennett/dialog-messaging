@@ -13,7 +13,7 @@ namespace Sample.Droid.Messaging
             {
                 Title = "Action Sheet",
                 Message = "Hello world!",
-                ItemClickAction = (item) => MessagingServiceCore.Instance.Toast($"Clicked: {item.Text}"),
+                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Text}"),
                 CancelButtonText = "Cancel"
             };
 
@@ -21,7 +21,7 @@ namespace Sample.Droid.Messaging
             config.Items.Add(new ActionSheetItemConfig { Text = "Item 2" });
             config.Items.Add(new ActionSheetItemConfig { Text = "Item 3" });
 
-            MessagingServiceCore.Instance.ActionSheet(config);
+            MessagingService.Instance.ActionSheet(config);
         }
 
         public void ActionSheetBottom()
@@ -30,7 +30,7 @@ namespace Sample.Droid.Messaging
             {
                 Title = "Action Sheet Bottom",
                 Message = "Hello world!",
-                ItemClickAction = (item) => MessagingServiceCore.Instance.Toast($"Clicked: {item.Text}"),
+                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Text}"),
                 CancelButtonText = "Cancel"
             };
 
@@ -38,72 +38,72 @@ namespace Sample.Droid.Messaging
             config.Items.Add(new ActionSheetItemConfig { Text = "Item 2" });
             config.Items.Add(new ActionSheetItemConfig { Text = "Item 3" });
 
-            MessagingServiceCore.Instance.ActionSheetBottom(config);
+            MessagingService.Instance.ActionSheetBottom(config);
         }
 
         public void Alert()
         {
-            MessagingServiceCore.Instance.Alert(new AlertConfig
+            MessagingService.Instance.Alert(new AlertConfig
             {
                 Title = "Alert",
                 Message = "Hello world!",
                 OkButtonText = "Okay",
-                OkButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Okay-ed")
+                OkButtonClickAction = () => MessagingService.Instance.Snackbar("Okay-ed")
             });
         }
 
         public void Confirm()
         {
-            MessagingServiceCore.Instance.Confirm(new ConfirmConfig
+            MessagingService.Instance.Confirm(new ConfirmConfig
             {
                 Title = "Confirm",
                 Message = "Hello world!",
                 ConfirmButtonText = "Confirm",
-                ConfirmButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Confirmed"),
+                ConfirmButtonClickAction = () => MessagingService.Instance.Snackbar("Confirmed"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
             });
         }
 
         public void Delete()
         {
-            MessagingServiceCore.Instance.Delete(new DeleteConfig
+            MessagingService.Instance.Delete(new DeleteConfig
             {
                 Title = "Delete",
                 Message = "Hello world!",
                 DeleteButtonText = "Delete",
-                DeleteButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Deleted"),
+                DeleteButtonClickAction = () => MessagingService.Instance.Snackbar("Deleted"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
             });
         }
 
         public async void Loading()
         {
-            MessagingServiceCore.Instance.ShowLoading(new LoadingConfig { Title = "Loading", Message = "Hello World!" });
+            MessagingService.Instance.ShowLoading(new LoadingConfig { Title = "Loading", Message = "Hello World!" });
 
             await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
 
-            MessagingServiceCore.Instance.HideLoading();
+            MessagingService.Instance.HideLoading();
         }
 
         public void Prompt()
         {
-            MessagingServiceCore.Instance.Prompt(new PromptConfig
+            MessagingService.Instance.Prompt(new PromptConfig
             {
                 Title = "Prompt",
                 Message = "Hello world!",
                 Hint = "Enter some text",
                 ConfirmButtonText = "Enter",
-                ConfirmButtonClickAction = (s) => MessagingServiceCore.Instance.Snackbar($"You entered: {s}"),
+                ConfirmButtonClickAction = (s) => MessagingService.Instance.Snackbar($"You entered: {s}"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingServiceCore.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
             });
         }
 
         public void Snackbar()
         {
-            MessagingServiceCore.Instance.Snackbar(new SnackbarConfig
+            MessagingService.Instance.Snackbar(new SnackbarConfig
             {
                 Message = "Snackbar",
                 ActionButtonText = "Action",
@@ -113,7 +113,7 @@ namespace Sample.Droid.Messaging
 
         public void Toast()
         {
-            MessagingServiceCore.Instance.Toast(new ToastConfig
+            MessagingService.Instance.Toast(new ToastConfig
             {
                 Message = "Toast"
             });

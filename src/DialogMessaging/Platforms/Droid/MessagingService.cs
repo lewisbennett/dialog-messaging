@@ -1,4 +1,6 @@
 ﻿using Android.App;
+using Android.Util;
+using Android.Views;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Platforms.Droid.Infrastructure;
 using ViewPump;
@@ -7,6 +9,16 @@ namespace DialogMessaging
 {
     public static partial class MessagingService
     {
+        #region Event Handlers
+        public static void OnViewInflated(View view, IAttributeSet attrs)
+        {
+            var dictionary = view.ExtractAttributedViews(attrs);
+
+            foreach (var keyValuePair in dictionary)
+                MessagingServiceCore.InflatedViews[keyValuePair.Key] = keyValuePair.Value;
+        }
+        #endregion
+
         #region Public Methods
         /// <summary>
         /// Initialize the messaging service.

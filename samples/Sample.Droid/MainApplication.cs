@@ -4,7 +4,6 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using DialogMessaging;
 using DialogMessaging.Interactions;
-using DialogMessaging.Platforms.Droid;
 using System;
 using ViewPump;
 
@@ -18,10 +17,9 @@ namespace Sample.Droid
             base.OnCreate();
 
             ViewPumpService.Init();
-            ViewPumpService.Instance.Interceptors.Add(new DialogMessagingInterceptor());
 
-            MessagingServiceCore.Init(this);
-            MessagingServiceCore.Delegate = new MessagingDelegate();
+            MessagingService.Init(this);
+            MessagingService.Delegate = new MessagingDelegate();
 
             ISnackbarConfig.DefaultActionButtonTextColor = Color.White;
             ISnackbarConfig.DefaultDuration = Snackbar.LengthLong;
