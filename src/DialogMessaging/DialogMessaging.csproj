@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid90;monoandroid10.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
 
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -38,7 +38,6 @@
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
     <Compile Include="Platforms\Droid\**\*.cs" />
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="ViewPump" Version="0.1.0" />
   </ItemGroup>
 

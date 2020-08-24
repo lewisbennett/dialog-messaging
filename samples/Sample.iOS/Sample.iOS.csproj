@@ -110,7 +110,11 @@
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="DialogMessaging">
+      <Version>0.1.0</Version>
+    </PackageReference>
+  </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
@@ -131,16 +135,6 @@
     <Compile Include="MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
-      <Project>{b83d091c-da09-4a01-a366-2a8aec34e019}</Project>
-      <Name>DialogMessaging.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\DialogMessaging\DialogMessaging.csproj">
-      <Project>{85ab648d-40ad-4820-b431-d0b3c5a2f4b2}</Project>
-      <Name>DialogMessaging</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -1,9 +1,9 @@
-﻿using Android.App;
-using Android.Support.V7.App;
+﻿using AndroidX.AppCompat.App;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.Droid.Dialogs;
 using System;
+using Material_Snackbar = Google.Android.Material.Snackbar.Snackbar;
 
 namespace DialogMessaging.Platforms.Droid
 {
@@ -11,86 +11,49 @@ namespace DialogMessaging.Platforms.Droid
     {
         #region Internal Methods
         internal override IDisposable PresentActionSheet(IActionSheetConfig config)
-        {
-            return ShowDialog<ActionSheetDialogFragment, ActionSheetAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<ActionSheetAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentActionSheetBottom(IActionSheetBottomConfig config)
         {
-            var activity = ActivityLifecycleCallbacks.CurrentActivity;
-
-            if (!(activity is AppCompatActivity appCompatActivity))
-            {
-                var newConfig = new ActionSheetConfig
-                {
-                    Cancelable = config.Cancelable,
-                    CancelButtonClickAction = config.CancelButtonClickAction,
-                    CancelButtonText = config.CancelButtonText,
-                    Data = config.Data,
-                    DismissedAction = config.DismissedAction,
-                    ItemClickAction = config.ItemClickAction,
-                    ItemLayoutResID = config.ItemLayoutResID,
-                    Items = config.Items,
-                    Message = config.Message,
-                    Title = config.Title
-                };
-
-                return PresentActionSheet(newConfig);
-            }
+            if (!(ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
+                return null;
 
             var dialog = new ActionSheetBottomBottomSheetDialogFragment(config);
 
-            appCompatActivity.SafeRunOnUiThread(() =>
-            {
-                dialog.Show(appCompatActivity.SupportFragmentManager, FragmentTag);
-            });
+            appCompatActivity.SafeRunOnUiThread(() => dialog.Show(appCompatActivity.SupportFragmentManager, FragmentTag));
 
-            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
+            return new DisposableAction(() => appCompatActivity.SafeRunOnUiThread(dialog.Dismiss));
         }
 
         internal override IDisposable PresentAlert(IAlertConfig config)
-        {
-            return ShowDialog<AlertDialogFragment, AlertAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<AlertAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentConfirm(IConfirmConfig config)
-        {
-            return ShowDialog<ConfirmDialogFragment, ConfirmAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<ConfirmAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentDelete(IDeleteConfig config)
-        {
-            return ShowDialog<DeleteDialogFragment, DeleteAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<DeleteAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentLogin(ILoginConfig config)
-        {
-            return ShowDialog<LoginDialogFragment, LoginAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<LoginAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentPrompt(IPromptConfig config)
-        {
-            return ShowDialog<PromptDialogFragment, PromptAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<PromptAppCompatDialogFragment>(config);
 
         internal override IDisposable PresentLoading(ILoadingConfig config)
-        {
-            return ShowDialog<LoadingDialogFragment, LoadingAppCompatDialogFragment>(config);
-        }
+            => ShowDialog<LoadingAppCompatDialogFragment>(config);
 
         internal override void PresentSnackbar(ISnackbarConfig config)
         {
-            var activity = ActivityLifecycleCallbacks.CurrentActivity;
-
-            if (activity == null)
+            if (!(ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
             {
-                Log.Error("Toast", "Could not display snackbar - current activity is null.");
+                Log.Error("Snackbar", "Could not display snackbar - current activity is not AppCompatActivity.");
                 return;
             }
 
-            activity.SafeRunOnUiThread(() =>
+            appCompatActivity.SafeRunOnUiThread(() =>
             {
-                using var snackbar = Android.Support.Design.Widget.Snackbar.Make(activity.Window.DecorView, config.Message, config.Duration);
+                using var snackbar = Material_Snackbar.Make(appCompatActivity.Window.DecorView, config.Message, config.Duration);
 
                 snackbar.ApplyStyling(config);
                 snackbar.TrySetBottomMargin();
@@ -103,9 +66,9 @@ namespace DialogMessaging.Platforms.Droid
         {
             var activity = ActivityLifecycleCallbacks.CurrentActivity;
 
-            if (activity == null)
+            if (!(ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
             {
-                Log.Error("Toast", "Could not display toast - current activity is null.");
+                Log.Error("Toast", "Could not display toast - current activity is not AppCompatActivity.");
                 return;
             }
 
@@ -117,42 +80,17 @@ namespace DialogMessaging.Platforms.Droid
         #endregion
 
         #region Private Methods
-        private IDisposable ShowDialog<TDialog, TAppCompatDialog>(IBaseConfig config)
-            where TDialog : AbstractDialogFragment
-            where TAppCompatDialog : AbstractAppCompatDialogFragment
-        {
-            var activity = ActivityLifecycleCallbacks.CurrentActivity;
-
-            if (activity is AppCompatActivity appCompatActivity)
-                return ShowDialog<TAppCompatDialog>(appCompatActivity, config);
-            
-            return ShowDialog<TDialog>(activity, config);
-        }
-
-        private IDisposable ShowDialog<TDialog>(Activity activity, IBaseConfig config)
-            where TDialog : AbstractDialogFragment
-        {
-            var dialog = (TDialog)Activator.CreateInstance(typeof(TDialog), config);
-
-            activity.SafeRunOnUiThread(() =>
-            {
-                dialog.Show(activity.FragmentManager, FragmentTag);
-            });
-
-            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
-        }
-
-        private IDisposable ShowDialog<TDialog>(AppCompatActivity activity, IBaseConfig config)
+        private IDisposable ShowDialog<TDialog>(IBaseConfig config)
             where TDialog : AbstractAppCompatDialogFragment
         {
+            if (!(ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
+                return null;
+
             var dialog = (TDialog)Activator.CreateInstance(typeof(TDialog), config);
 
-            activity.SafeRunOnUiThread(() =>
-            {
-                dialog.Show(activity.SupportFragmentManager, FragmentTag);
-            });
+            appCompatActivity.SafeRunOnUiThread(() => dialog.Show(appCompatActivity.SupportFragmentManager, FragmentTag));
 
-            return new DisposableAction(() => activity.SafeRunOnUiThread(dialog.Dismiss));
+            return new DisposableAction(() => appCompatActivity.SafeRunOnUiThread(dialog.Dismiss));
         }
         #endregion
 

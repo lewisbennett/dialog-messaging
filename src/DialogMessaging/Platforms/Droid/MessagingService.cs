@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Util;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Platforms.Droid.Infrastructure;
 using ViewPump;
@@ -24,7 +25,7 @@ namespace DialogMessaging
         /// Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The presumed top level Activity.</param>
-        public static void Init(Activity activity)
+        public static void Init(AppCompatActivity activity)
         {
             MessagingServiceCore.Init(activity, null, null);
 
@@ -47,7 +48,7 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="activity">The presumed top level Activity.</param>
         /// <param name="messagingService">The IMessagingService to use.</param>
-        public static void Init(Activity activity, IMessagingService messagingService)
+        public static void Init(AppCompatActivity activity, IMessagingService messagingService)
         {
             MessagingServiceCore.Init(activity, messagingService, null);
 

@@ -1,10 +1,10 @@
 ﻿using Android.Runtime;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
-using AppCompatDialog = Android.Support.V7.App.AlertDialog;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
@@ -62,7 +62,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <summary>
         /// Assigns configuration values to the dialog builder.
         /// </summary>
-        public override void CreateDialog(AppCompatDialog.Builder builder)
+        public override void CreateDialog(AlertDialog.Builder builder)
         {
             base.CreateDialog(builder);
 

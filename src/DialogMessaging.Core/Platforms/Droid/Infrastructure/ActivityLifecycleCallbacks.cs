@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.OS;
+using AndroidX.AppCompat.App;
 using Java.Lang;
 
 namespace DialogMessaging.Infrastructure
@@ -9,7 +10,7 @@ namespace DialogMessaging.Infrastructure
         #region Event Handlers
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
         {
-            CurrentActivity = activity;
+            CurrentActivity = activity as AppCompatActivity;
         }
 
         public void OnActivityDestroyed(Activity activity)
@@ -22,7 +23,7 @@ namespace DialogMessaging.Infrastructure
 
         public void OnActivityResumed(Activity activity)
         {
-            CurrentActivity = activity;
+            CurrentActivity = activity as AppCompatActivity;
         }
 
         public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
@@ -39,13 +40,14 @@ namespace DialogMessaging.Infrastructure
         #endregion
 
         #region Static Properties
-        public static Activity CurrentActivity { get; private set; }
+        public static AppCompatActivity CurrentActivity { get; private set; }
         #endregion
 
         #region Public Static Methods
-        public static void Register(Activity activity)
+        public static void Register(AppCompatActivity activity)
         {
             Register(activity.Application);
+
             CurrentActivity = activity;
         }
 

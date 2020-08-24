@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.Droid;
@@ -45,7 +46,7 @@ namespace DialogMessaging.Infrastructure
         /// <param name="activity">The presumed top level activity.</param>
         /// <param name="messagingService">The IMessagingService instance to use.</param>
         /// <param name="viewCreator">The IViewCreator.</param>
-        public static void Init(Activity activity, IMessagingService messagingService, IViewCreator viewCreator)
+        public static void Init(AppCompatActivity activity, IMessagingService messagingService, IViewCreator viewCreator)
         {
             ActivityLifecycleCallbacks.Register(activity);
 

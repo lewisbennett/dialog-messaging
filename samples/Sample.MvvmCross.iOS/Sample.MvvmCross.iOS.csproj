@@ -111,8 +111,11 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DialogMessaging.MvvmCross">
+      <Version>0.1.0</Version>
+    </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>6.4.2</Version>
+      <Version>7.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -135,16 +138,8 @@
     <Compile Include="Setup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
-      <Project>{b83d091c-da09-4a01-a366-2a8aec34e019}</Project>
-      <Name>DialogMessaging.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj">
-      <Project>{456075b2-4317-4f27-9fc0-b041ed632415}</Project>
-      <Name>DialogMessaging.MvvmCross</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj">
-      <Project>{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}</Project>
+      <Project>{7cd9555f-58c3-4ed0-bfb3-196ed9c74d49}</Project>
       <Name>Sample.MvvmCross.Core</Name>
     </ProjectReference>
   </ItemGroup>

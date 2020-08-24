@@ -11,49 +11,31 @@ namespace Sample.MvvmCross.Droid
         private readonly Random _random = new Random();
 
         public bool OnActionSheetBottomRequested(IActionSheetBottomConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnActionSheetRequested(IActionSheetConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnAlertRequested(IAlertConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnConfirmRequested(IConfirmConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnDeleteRequested(IDeleteConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnHideLoadingRequested()
-        {
-            return true;
-        }
+            => true;
 
         public bool OnLoginRequested(ILoginConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnPromptRequested(IPromptConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnShowLoadingRequested(ILoadingConfig config)
-        {
-            return true;
-        }
+            => true;
 
         public bool OnSnackbarRequested(ISnackbarConfig config)
         {
@@ -63,8 +45,6 @@ namespace Sample.MvvmCross.Droid
         }
 
         public bool OnToastRequested(IToastConfig config)
-        {
-            return true;
-        }
+            => true;
     }
 }

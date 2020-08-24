@@ -2,15 +2,15 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.V7.App;
 using Android.Views;
+using AndroidX.AppCompat.App;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 using System.Collections.Generic;
-using AppCompatDialog = Android.Support.V7.App.AlertDialog;
+using AndroidX_AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
 {
@@ -110,7 +110,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         /// <summary>
         /// Assigns configuration values to the dialog builder.
         /// </summary>
-        public virtual void CreateDialog(AppCompatDialog.Builder builder)
+        public virtual void CreateDialog(AndroidX_AlertDialog.Builder builder)
         {
             builder.SetTitle(Config.Title);
             builder.SetMessage(Config.Message);
@@ -158,7 +158,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
             if (Config.LayoutID != null)
                 return base.OnCreateDialog(savedInstanceState);
 
-            var builder = new AppCompatDialog.Builder(Context, Config.StyleID ?? 0);
+            var builder = new AndroidX_AlertDialog.Builder(Context, Config.StyleID ?? 0);
 
             CreateDialog(builder);
 

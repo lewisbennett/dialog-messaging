@@ -1,7 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Graphics;
-using Android.Support.Design.Widget;
 using Android.Text;
 using Android.Util;
 using Android.Views;
@@ -11,6 +10,7 @@ using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
+using Google.Android.Material.Snackbar;
 using System;
 using System.Collections.Generic;
 using System.Linq;

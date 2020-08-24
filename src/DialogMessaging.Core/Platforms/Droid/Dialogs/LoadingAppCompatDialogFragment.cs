@@ -1,7 +1,7 @@
 ﻿using Android.Runtime;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using DialogMessaging.Core;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;

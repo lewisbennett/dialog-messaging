@@ -2,13 +2,13 @@
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Views;
 using DialogMessaging.Core;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
+using Google.Android.Material.BottomSheet;
 using System;
 using System.Collections.Generic;
 
