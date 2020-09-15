@@ -7,6 +7,7 @@ using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
+using Google.Android.Material.TextField;
 using System;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
@@ -15,6 +16,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
     {
         #region Fields
         private EditText _textField;
+        private TextInputLayout _textInputLayout;
         #endregion
 
         #region Event Handlers
@@ -57,11 +59,24 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     _textField = textField;
 
                     _textField.Text = Config.InputText;
-                    _textField.Hint = Config.Hint;
                     _textField.InputType = Config.InputType.ToInputTypes();
+
+                    if (_textInputLayout == null)
+                        _textField.Hint = Config.Hint;
 
                     if (Config.IconResID != null)
                         _textField.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, (int)Config.IconResID, 0);
+
+                    break;
+
+                case DialogElement.InputTextContainer:
+
+                    if (viewConfig.View is TextInputLayout textInputLayout)
+                    {
+                        _textInputLayout = textInputLayout;
+
+                        _textInputLayout.Hint = Config.Hint;
+                    }
 
                     break;
 
