@@ -64,8 +64,11 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     if (_textInputLayout == null)
                         _textField.Hint = Config.Hint;
 
-                    if (Config.IconResID != null)
-                        _textField.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, (int)Config.IconResID, 0);
+                    _textField.SetCompoundDrawablesRelativeWithIntrinsicBounds(
+                        Config.StartIconResID ?? 0,
+                        Config.TopIconResID ?? 0,
+                        Config.EndIconResID ?? 0,
+                        Config.BottomIconResID ?? 0);
 
                     break;
 

@@ -4,9 +4,24 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the icon to be displayed within the text field..
+        /// Gets or sets the resource ID of the drawable to be displayed at the bottom of the text field.
         /// </summary>
-        int? IconResID { get; set; }
+        int? BottomIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the end of the text field.
+        /// </summary>
+        int? EndIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the start of the text field.
+        /// </summary>
+        int? StartIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the top of the text field.
+        /// </summary>
+        int? TopIconResID { get; set; }
         #endregion
 
         #region Static Properties
@@ -36,16 +51,31 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the icon to be displayed within the text field..
+        /// Gets or sets the resource ID of the drawable to be displayed at the bottom of the text field.
         /// </summary>
-        public int? IconResID { get; set; }
+        public int? BottomIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the end of the text field.
+        /// </summary>
+        public int? EndIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the start of the text field.
+        /// </summary>
+        public int? StartIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the top of the text field.
+        /// </summary>
+        public int? TopIconResID { get; set; }
         #endregion
 
         #region Constructors
         public PromptConfig()
         {
             Cancelable = IPromptConfig.DefaultCancelable;
-            IconResID = IPromptConfig.DefaultIconResID;
+            EndIconResID = IPromptConfig.DefaultIconResID;
             LayoutID = IPromptConfig.DefaultLayoutID;
             StyleID = IPromptConfig.DefaultStyleID;
         }
@@ -56,16 +86,31 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the icon to be displayed within the text field..
+        /// Gets or sets the resource ID of the drawable to be displayed at the bottom of the text field.
         /// </summary>
-        public int? IconResID { get; set; }
+        public int? BottomIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the end of the text field.
+        /// </summary>
+        public int? EndIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the start of the text field.
+        /// </summary>
+        public int? StartIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resource ID of the drawable to be displayed at the top of the text field.
+        /// </summary>
+        public int? TopIconResID { get; set; }
         #endregion
 
         #region Constructors
         public PromptAsyncConfig()
         {
             Cancelable = IPromptConfig.DefaultCancelable;
-            IconResID = IPromptConfig.DefaultIconResID;
+            EndIconResID = IPromptConfig.DefaultIconResID;
             LayoutID = IPromptConfig.DefaultLayoutID;
             StyleID = IPromptConfig.DefaultStyleID;
         }
