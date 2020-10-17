@@ -19,7 +19,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the login button is clicked.
         /// </summary>
-        Action<(string, string)> LoginButtonClickAction { get; }
+        Action<string, string> LoginButtonClickAction { get; }
 
         /// <summary>
         /// Gets or sets the login button text.
@@ -84,7 +84,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the login button is clicked.
         /// </summary>
-        public Action<(string, string)> LoginButtonClickAction { get; set; }
+        public Action<string, string> LoginButtonClickAction { get; set; }
 
         /// <summary>
         /// Gets or sets the login button text.
@@ -144,7 +144,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the login button is clicked.
         /// </summary>
-        public Action<(string, string)> LoginButtonClickAction { get; internal set; }
+        public Action<string, string> LoginButtonClickAction { get; internal set; }
 
         /// <summary>
         /// Gets or sets the login button text.

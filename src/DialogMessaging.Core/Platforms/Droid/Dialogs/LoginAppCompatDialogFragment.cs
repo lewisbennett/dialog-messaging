@@ -8,6 +8,7 @@ using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
+using Google.Android.Material.TextField;
 using System;
 
 namespace DialogMessaging.Platforms.Droid.Dialogs
@@ -16,6 +17,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
     {
         #region Fields
         private EditText _passwordTextField, _usernameTextField;
+        private TextInputLayout _passwordTextInputLayout, _usernameTextInputLayout;
         private CheckBox _passwordVisibilityToggle;
         #endregion
 
@@ -31,7 +33,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     Config.Username = _usernameTextField?.Text ?? string.Empty;
                     Config.Password = _passwordTextField?.Text ?? string.Empty;
 
-                    Config.LoginButtonClickAction?.Invoke((Config.Username, Config.Password));
+                    Config.LoginButtonClickAction?.Invoke(Config.Username, Config.Password);
 
                     break;
 
@@ -66,12 +68,24 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     _usernameTextField = usernameTextField;
 
                     _usernameTextField.Text = Config.Username;
-                    _usernameTextField.Hint = Config.UsernameHint;
-
                     _usernameTextField.InputType = Config.UsernameInputType.ToInputTypes();
+
+                    if (_usernameTextInputLayout == null)
+                        _usernameTextField.Hint = Config.UsernameHint;
 
                     if (Config.UsernameIconResID != null)
                         _usernameTextField.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, (int)Config.UsernameIconResID, 0);
+
+                    break;
+
+                case DialogElement.UsernameInputTextContainer:
+
+                    if (viewConfig.View is TextInputLayout usernameTextInputLayout)
+                    {
+                        _usernameTextInputLayout = usernameTextInputLayout;
+
+                        _usernameTextInputLayout.Hint = Config.UsernameHint;
+                    }
 
                     break;
 
@@ -83,12 +97,24 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
                     _passwordTextField = passwordTextField;
 
                     _passwordTextField.Text = Config.Password;
-                    _passwordTextField.Hint = Config.PasswordHint;
-
                     _passwordTextField.InputType = Config.UsernameInputType.ToInputTypes();
+
+                    if (_passwordTextInputLayout == null)
+                        _passwordTextField.Hint = Config.PasswordHint;
 
                     if (Config.PasswordIconResID != null)
                         _passwordTextField.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, (int)Config.PasswordIconResID, 0);
+
+                    break;
+
+                case DialogElement.PasswordInputTextContainer:
+
+                    if (viewConfig.View is TextInputLayout passwordTextInputLayout)
+                    {
+                        _passwordTextInputLayout = passwordTextInputLayout;
+
+                        _passwordTextInputLayout.Hint = Config.PasswordHint;
+                    }
 
                     break;
 

@@ -213,7 +213,7 @@ namespace DialogMessaging
 
             var task = new TaskCompletionSource<(string, string)>();
 
-            config.LoginButtonClickAction = (inputText) => task.TrySetResult((inputText.Item1, inputText.Item2));
+            config.LoginButtonClickAction = (username, password) => task.TrySetResult((username, password));
             config.CancelButtonClickAction = () => task.TrySetResult((string.Empty, string.Empty));
             config.DismissedAction = () => task.TrySetResult((string.Empty, string.Empty));
 

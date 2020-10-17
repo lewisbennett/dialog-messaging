@@ -248,7 +248,7 @@ namespace DialogMessaging.Platforms.iOS
                         config.Username = usernameTextField.Text;
                         config.Password = passwordTextField.Text;
 
-                        config.LoginButtonClickAction?.Invoke((config.Username, config.Password));
+                        config.LoginButtonClickAction?.Invoke(config.Username, config.Password);
                     });
                 }
 
