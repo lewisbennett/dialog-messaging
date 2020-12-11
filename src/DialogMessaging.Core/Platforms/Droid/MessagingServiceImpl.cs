@@ -1,8 +1,10 @@
 ﻿using AndroidX.AppCompat.App;
+using AndroidX.CoordinatorLayout.Widget;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Platforms.Droid.Dialogs;
 using System;
+using System.Linq;
 using Material_Snackbar = Google.Android.Material.Snackbar.Snackbar;
 
 namespace DialogMessaging.Platforms.Droid
@@ -11,7 +13,9 @@ namespace DialogMessaging.Platforms.Droid
     {
         #region Internal Methods
         internal override IDisposable PresentActionSheet(IActionSheetConfig config)
-            => ShowDialog<ActionSheetAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<ActionSheetAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentActionSheetBottom(IActionSheetBottomConfig config)
         {
@@ -26,22 +30,34 @@ namespace DialogMessaging.Platforms.Droid
         }
 
         internal override IDisposable PresentAlert(IAlertConfig config)
-            => ShowDialog<AlertAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<AlertAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentConfirm(IConfirmConfig config)
-            => ShowDialog<ConfirmAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<ConfirmAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentDelete(IDeleteConfig config)
-            => ShowDialog<DeleteAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<DeleteAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentLogin(ILoginConfig config)
-            => ShowDialog<LoginAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<LoginAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentPrompt(IPromptConfig config)
-            => ShowDialog<PromptAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<PromptAppCompatDialogFragment>(config);
+        }
 
         internal override IDisposable PresentLoading(ILoadingConfig config)
-            => ShowDialog<LoadingAppCompatDialogFragment>(config);
+        {
+            return ShowDialog<LoadingAppCompatDialogFragment>(config);
+        }
 
         internal override void PresentSnackbar(ISnackbarConfig config)
         {
@@ -53,10 +69,12 @@ namespace DialogMessaging.Platforms.Droid
 
             appCompatActivity.SafeRunOnUiThread(() =>
             {
-                using var snackbar = Material_Snackbar.Make(appCompatActivity.Window.DecorView, config.Message, config.Duration);
+                // Try and find a CoordinatorLayout in the view stack, or use the DecorView if not available.
+                var containerView = appCompatActivity.Window.DecorView.Find((v) => v is CoordinatorLayout).FirstOrDefault() ?? appCompatActivity.Window.DecorView;
+
+                using var snackbar = Material_Snackbar.Make(containerView, config.Message, config.Duration);
 
                 snackbar.ApplyStyling(config);
-                snackbar.TrySetBottomMargin();
 
                 snackbar.Show();
             });

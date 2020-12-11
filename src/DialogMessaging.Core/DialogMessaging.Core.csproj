@@ -32,7 +32,7 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 	<Compile Include="Platforms\Droid\**\*.cs" />
     <AndroidResource Include="Resources\**\*.xml" />
-	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0.1" />
+	<PackageReference Include="Xamarin.Google.Android.Material" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">

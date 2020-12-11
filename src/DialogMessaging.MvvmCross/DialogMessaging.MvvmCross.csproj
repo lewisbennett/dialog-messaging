@@ -26,7 +26,7 @@
 
 	<ItemGroup>
 		<Compile Include="Platforms\Shared\**\*.cs" />
-		<PackageReference Include="MvvmCross" Version="7.0.0" />
+		<PackageReference Include="MvvmCross" Version="7.1.2" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(Configuration)'=='Debug' ">

@@ -111,11 +111,6 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DialogMessaging">
-      <Version>0.1.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
@@ -135,6 +130,11 @@
     <Compile Include="MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DialogMessaging">
+      <Version>0.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

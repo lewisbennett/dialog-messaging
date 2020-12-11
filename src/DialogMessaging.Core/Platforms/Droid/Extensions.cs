@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Text;
 using Android.Util;
 using Android.Views;
@@ -14,6 +13,7 @@ using Google.Android.Material.Snackbar;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using DM_Log = DialogMessaging.Infrastructure.Log;
 
 namespace DialogMessaging
@@ -30,27 +30,25 @@ namespace DialogMessaging
             if (snackbar == null || config == null)
                 return;
 
-            if (config.BackgroundColor != null)
-                snackbar.View.SetBackgroundColor((Color)config.BackgroundColor);
+            if (config.BackgroundColor.HasValue)
+                snackbar.View.SetBackgroundColor(config.BackgroundColor.Value);
 
             if (!string.IsNullOrWhiteSpace(config.ActionButtonText))
             {
                 snackbar.SetAction(config.ActionButtonText, (v) => config?.ActionButtonClickAction());
 
-                if (config.ActionButtonTextColor != null)
-                    snackbar.SetActionTextColor((Color)config.ActionButtonTextColor);
+                if (config.ActionButtonTextColor.HasValue)
+                    snackbar.SetActionTextColor(config.ActionButtonTextColor.Value);
             }
 
-            var textView = snackbar.View.FindViewById<TextView>(Resource.Id.snackbar_text);
+            if (snackbar.View.FindViewById<TextView>(Resource.Id.snackbar_text) is TextView textView)
+            {
+                if (config.MessageTextColor.HasValue)
+                    textView.SetTextColor(config.MessageTextColor.Value);
 
-            if (textView == null)
-                return;
-
-            if (config.MessageTextColor != null)
-                textView.SetTextColor((Color)config.MessageTextColor);
-
-            if (config.MessageTypeface != null)
-                textView.SetTypeface(config.MessageTypeface, config.MessageTypefaceStyle);
+                if (config.MessageTypeface != null)
+                    textView.SetTypeface(config.MessageTypeface, config.MessageTypefaceStyle);
+            }
         }
 
         /// <summary>
@@ -74,18 +72,13 @@ namespace DialogMessaging
                     dictionary.Add(view, new ViewConfig { DialogElement = dialogElement, HideWhenNotInUse = hideWhenNotInUse, View = view });
             }
 
-            if (!(view is ViewGroup viewGroup))
-                return dictionary;
-
-            for (int i = 0; i < viewGroup.ChildCount; i++)
+            if (view is ViewGroup viewGroup)
             {
-                var dict = viewGroup.GetChildAt(i).ExtractAttributedViews(attrs);
-
-                if (dict == null)
-                    continue;
-
-                foreach (var item in dict)
-                    dictionary.Add(item.Key, item.Value);
+                for (int i = 0; i < viewGroup.ChildCount; i++)
+                {
+                    foreach (var item in viewGroup.GetChildAt(i).ExtractAttributedViews(attrs))
+                        dictionary[item.Key] = item.Value;
+                }
             }
 
             return dictionary;
@@ -153,65 +146,25 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Set the bottom margin of a snackbar's view, if available.
-        /// </summary>
-        public static bool TrySetBottomMargin(this Snackbar snackbar)
-        {
-            if (snackbar == null)
-                return false;
-
-            var displayMetrics = new DisplayMetrics();
-            ActivityLifecycleCallbacks.CurrentActivity.WindowManager.DefaultDisplay.GetRealMetrics(displayMetrics);
-
-            var rect = new Rect();
-            ActivityLifecycleCallbacks.CurrentActivity.Window.DecorView.GetWindowVisibleDisplayFrame(rect);
-
-            var margin = displayMetrics.HeightPixels - rect.Bottom;
-
-            if (margin < 1)
-                return false;
-
-            var bottomMarginProperty = snackbar.View.LayoutParameters.GetType().GetProperty("BottomMargin");
-
-            if (bottomMarginProperty == null)
-                return false;
-
-            try
-            {
-                bottomMarginProperty.SetValue(snackbar.View.LayoutParameters, margin, null);
-                return true;
-            }
-            catch (Exception e)
-            {
-                DM_Log.Error("TrySetBottomMargin", $"Could not set bottom margin.\n{e.ToString()}");
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Sets the text property of a view, if available.
         /// </summary>
         /// <param name="text">The text to assign to the view.</param>
         public static bool TrySetText(this View view, string text)
         {
-            if (view == null)
-                return false;
-
-            var textProperty = view.GetType().GetProperty("Text");
-
-            if (textProperty == null)
-                return false;
-
-            try
+            if (view != null && view.GetType().GetProperty("Text") is PropertyInfo textProperty)
             {
-                textProperty.SetValue(view, text, null);
-                return true;
+                try
+                {
+                    textProperty.SetValue(view, text, null);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    DM_Log.Error("TrySetText", $"Could not set text.\n{e}");
+                }
             }
-            catch (Exception e)
-            {
-                DM_Log.Error("TrySetText", $"Could not set text.\n{e.ToString()}");
-                return false;
-            }
+
+            return false;
         }
 
         /// <summary>

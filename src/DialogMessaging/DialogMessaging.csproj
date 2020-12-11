@@ -38,7 +38,7 @@
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
     <Compile Include="Platforms\Droid\**\*.cs" />
-    <PackageReference Include="ViewPump" Version="0.1.0" />
+	<PackageReference Include="ViewPump" Version="0.1.0" />
   </ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
