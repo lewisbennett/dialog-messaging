@@ -1,4 +1,5 @@
-﻿using AndroidX.AppCompat.App;
+﻿using Android.Views;
+using AndroidX.AppCompat.App;
 using AndroidX.CoordinatorLayout.Widget;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
@@ -69,10 +70,11 @@ namespace DialogMessaging.Platforms.Droid
 
             appCompatActivity.SafeRunOnUiThread(() =>
             {
-                // Try and find a CoordinatorLayout in the view stack, or use the DecorView if not available.
-                var containerView = appCompatActivity.Window.DecorView.Find((v) => v is CoordinatorLayout).FirstOrDefault() ?? appCompatActivity.Window.DecorView;
+                // Get the Snackbar container for the current context or try and find a CoordinatorLayout in the view stack. Default to the DecorView if not available.
+                if (!ActivityLifecycleCallbacks.SnackbarContainers.TryGetValue(appCompatActivity, out View snackbarContainer))
+                    snackbarContainer = appCompatActivity.Window.DecorView.Find((v) => v is CoordinatorLayout).FirstOrDefault() ?? appCompatActivity.Window.DecorView;
 
-                using var snackbar = Material_Snackbar.Make(containerView, config.Message, config.Duration);
+                using var snackbar = Material_Snackbar.Make(snackbarContainer, config.Message, config.Duration);
 
                 snackbar.ApplyStyling(config);
 

@@ -1,11 +1,14 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Views;
 using AndroidX.AppCompat.App;
 using Java.Lang;
+using System.Collections.Generic;
 
 namespace DialogMessaging.Infrastructure
 {
-    internal class ActivityLifecycleCallbacks : Object, Application.IActivityLifecycleCallbacks
+    public class ActivityLifecycleCallbacks : Object, Application.IActivityLifecycleCallbacks
     {
         #region Event Handlers
         public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
@@ -15,6 +18,8 @@ namespace DialogMessaging.Infrastructure
 
         public void OnActivityDestroyed(Activity activity)
         {
+            if (SnackbarContainers.ContainsKey(activity))
+                SnackbarContainers.Remove(activity);
         }
 
         public void OnActivityPaused(Activity activity)
@@ -40,7 +45,15 @@ namespace DialogMessaging.Infrastructure
         #endregion
 
         #region Static Properties
+        /// <summary>
+        /// Gets the current activity.
+        /// </summary>
         public static AppCompatActivity CurrentActivity { get; private set; }
+
+        /// <summary>
+        /// Gets the inflated Snackbar containers, if any.
+        /// </summary>
+        public static Dictionary<Context, View> SnackbarContainers { get; } = new Dictionary<Context, View>();
         #endregion
 
         #region Public Static Methods
