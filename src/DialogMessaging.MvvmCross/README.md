@@ -1,4 +1,4 @@
-<img alt="DialogMessaging.MvvmCross Downloads" src="https://shields.io/nuget/dt/DialogMessaging.MvvmCross" />
+[![GitHub forks](https://img.shields.io/nuget/dt/DialogMessaging.MvvmCross.svg)](https://www.nuget.org/packages/DialogMessaging.MvvmCross/)
 
 # DialogMessaging.MvvmCross
 
