@@ -1,12 +1,15 @@
+<img alt="Apache License" src="https://img.shields.io/badge/license-Apache%202-blue.svg" />
+
 <div align="center">
 
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat-square)](https://raw.githubusercontent.com/lewisbennett/dialog-messaging/master/README.md)
+  <img alt="DialogMessaging Downloads" src="https://shields.io/nuget/dt/DialogMessaging" />
+  
 
 </div>
 
 # DialogMessaging
 
-Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMessaging is a cross platform, customizable dialog messaging service.
+DialogMessaging is a cross platform, customizable dialog messaging service, compatible with standalone or MvvmCross-based Xamarin.Android and Xamarin.iOS projects.
 
 ## Dialogs
 
@@ -23,73 +26,12 @@ Inspired by [Acr.UserDialogs](https://github.com/aritchie/userdialogs), DialogMe
 
 \*Synchronous and asynchronous methods are available.
 
-## Getting Started (MvvmCross)
+## Getting Started
 
-Add a reference to `DialogMessaging.Core` and `DialogMessaging.MvvmCross`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`.
+Coming soon!
 
-### Additional Steps for Android
-
-Inside the `Init` method you must provide an Activity or Application reference.
-
-Add the following to the `BindView` method of your `MvxAndroidViewBinder`:
-```
-public override void BindView(View view, Context context, IAttributeSet attrs)
-{
-    ...
-    
-    MessagingService.OnViewInflated(view, attrs);
-}
-```
-See [`Setup`](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.MvvmCross.Droid/Setup.cs) and [`ViewBinder`](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.MvvmCross.Droid/Binding/ViewBinder.cs).
-
-## Getting Started (non-MvvmCross)
-
-DialogMessaging relies on [ViewPump](https://github.com/lewisbennett/viewpump). Add a reference to the project and see the GitHub page for getting started. You should initialize the ViewPump service before StylingX to allow StylingX to register with ViewPump.
-
-Add a reference to `DialogMessaging.Core` and `DialogMessaging`. At the entry point for your app call `DialogMessaging.MessagingService.Init()`.
-
-### Additional Steps for Android
-
-Inside the `Init` method you must provide an Activity or Application reference.
-
-## Customization
-
-You can access and set a custom `IMessagingDelegate` via `DialogMessaging.MessagingService.Delegate`. These delegate methods are called by their respective display methods and allow you to customize the display process. By returning `true` or `false` you can optionally cancel dialogs from being shown. **If you set a custom** `IMessagingService` **you are responsible for calling and handling delegate methods.**
-
-### Android
-
-You can set layout and style ID's on a dialog-by-dialog basis or you can assign default values. If no customization is provided the normal Android AlertDialog's and internal layouts will be used.
-```
-// Defaults.
-IAlertConfig.DefaultLayoutID = Resource.Layout.MyCustomLayout;
-IAlertConfig.DefaultStyleID = Resource.Style.MyAppTheme;
-
-// Individual dialog.
-var alertConfig = new AlertConfig
-{
-    LayoutID = Resource.Layout.MyCustomLayout,
-    StyleID = Resource.Style.MyAppTheme
-};
-```
-In your custom layouts, assign dialog elements using the `app:DialogElement` tag. Any part of the layout that uses this tag will be hidden if the corresponding data inside of the configuration holds no value. For example: if `Title` within the configuration object is null or empty any layout element that uses `app:DialogElement="Title"` will be hidden. This can be customised using the `app:HideWhenNotInUse` tag which by default is set to `true`.
-
-See [`DialogElement`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Droid/Schema/DialogElement.cs) for all usable dialog element values. Be aware that not all are available for every dialog. For example: `ProgressDeterminate` isn't available when using `Alert`.
-
-### iOS
-
-You can set view types on a dialog-by-dialog basis or you can assign default values. If no customization is provided the normal iOS UIAlertController's and internal views will be used.
-```
-// Defaults.
-IAlertConfig.DefaultViewType = typeof(CustomAlertView);
-
-// Individual dialog.
-var alertConfig = new AlertConfig
-{
-    ViewType = typeof(CustomAlertView)
-};
-```
-Your custom views must implement `IShowable` which gives you the `Show` and `Dismiss` methods. This is where you control the presentation of your view such as animations. You should not interact with the view hierarchy as this is done for you. You can optionally assign `DialogViewAttribute` to your view class if the view has an associated XIB/NIB file. To assign configuration values to your view, implement `IValueAssigner`.
+## [Getting Started (MvvmCross)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.MvvmCross/README.md)
 
 ## Samples
 
-See [samples](https://github.com/lewisbennett/dialog-messaging/tree/master/samples) for examples.
+Coming soon!
