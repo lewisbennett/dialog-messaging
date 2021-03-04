@@ -6,12 +6,16 @@
 
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
-		<Version>0.1.0</Version>
+		<Version>0.99.0-alpha</Version>
 		<Authors>Lewis Bennett</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<UserSecretsId>f9fc9907-4aa0-4877-9a9d-e4bb4b36a006</UserSecretsId>
 		<Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
+		<AssemblyVersion>0.99.0.0</AssemblyVersion>
+		<FileVersion>0.99.0.0</FileVersion>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
@@ -34,7 +38,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(Configuration)'=='Release' ">
-		<PackageReference Include="DialogMessaging.Core" Version="0.1.0" />
+		<PackageReference Include="DialogMessaging.Core" Version="0.99.0-alpha" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
@@ -43,6 +47,13 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
 		<Compile Include="Platforms\iOS\**\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
