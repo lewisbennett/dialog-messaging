@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogMessaging.Core", "DialogMessaging.Core\DialogMessaging.Core.csproj", "{84816F57-6790-4C83-8CF2-2F44E11A1007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogMessaging.Core", "src\DialogMessaging.Core\DialogMessaging.Core.csproj", "{84816F57-6790-4C83-8CF2-2F44E11A1007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogMessaging.MvvmCross", "DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj", "{040E7C29-36A4-4965-ACF9-0F30720D2AA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogMessaging.MvvmCross", "src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj", "{040E7C29-36A4-4965-ACF9-0F30720D2AA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
