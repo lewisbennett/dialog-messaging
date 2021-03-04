@@ -1,11 +1,5 @@
-<img alt="Apache License" src="https://img.shields.io/badge/license-Apache%202-blue.svg" />
-
-<div align="center">
-
-  <img alt="DialogMessaging Downloads" src="https://shields.io/nuget/dt/DialogMessaging" />
-  
-
-</div>
+[![License: Apache](https://img.shields.io/badge/License-Apache-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub forks](https://img.shields.io/nuget/dt/DialogMessaging.Core.svg)](https://www.nuget.org/packages/DialogMessaging.Core/)
 
 # DialogMessaging
 
