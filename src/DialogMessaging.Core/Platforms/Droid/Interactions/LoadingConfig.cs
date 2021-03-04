@@ -1,23 +1,27 @@
 ﻿namespace DialogMessaging.Interactions
 {
-    public partial interface ILoadingConfig
+    public static partial class LoadingConfigDefaults
     {
-        #region Static Properties
+        #region Properties
         /// <summary>
         /// Gets or sets the default value for whether the dialog is cancelable.
         /// </summary>
-        public static bool DefaultCancelable { get; set; }
+        public static bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the layout file to use by default.
+        /// Gets or sets the default value for the resource ID of the layout to use.
         /// </summary>
-        public static int? DefaultLayoutID { get; set; }
+        public static int? LayoutResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the style to use by default.
+        /// Gets or sets the default value for the resource ID of the style to use.
         /// </summary>
-        public static int? DefaultStyleID { get; set; }
+        public static int? StyleResID { get; set; }
         #endregion
+    }
+
+    public partial interface ILoadingConfig
+    {
     }
 
     public partial class LoadingConfig
@@ -25,9 +29,9 @@
         #region Constructors
         public LoadingConfig()
         {
-            Cancelable = ILoadingConfig.DefaultCancelable;
-            LayoutID = ILoadingConfig.DefaultLayoutID;
-            StyleID = ILoadingConfig.DefaultStyleID;
+            Cancelable = LoadingConfigDefaults.Cancelable;
+            LayoutResID = LoadingConfigDefaults.LayoutResID;
+            StyleResID = LoadingConfigDefaults.StyleResID;
         }
         #endregion
     }
@@ -37,9 +41,9 @@
         #region Constructors
         public LoadingAsyncConfig()
         {
-            Cancelable = ILoadingConfig.DefaultCancelable;
-            LayoutID = ILoadingConfig.DefaultLayoutID;
-            StyleID = ILoadingConfig.DefaultStyleID;
+            Cancelable = LoadingConfigDefaults.Cancelable;
+            LayoutResID = LoadingConfigDefaults.LayoutResID;
+            StyleResID = LoadingConfigDefaults.StyleResID;
         }
         #endregion
     }

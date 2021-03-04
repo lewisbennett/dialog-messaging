@@ -1,18 +1,25 @@
-﻿using System.ComponentModel;
+﻿using DialogMessaging.Interactions.Base;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface ILoadingConfig : IBaseConfig, INotifyPropertyChanged
+    public static partial class LoadingConfigDefaults
+    {
+    }
+
+    public partial interface ILoadingConfig : IBaseDialogConfig, INotifyPropertyChanged
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the progress.
+        /// Gets or sets the progress, if any.
         /// </summary>
         int? Progress { get; set; }
         #endregion
     }
 
-    public partial class LoadingConfig : BaseConfig, ILoadingConfig
+    public partial class LoadingConfig : BaseDialogConfig, ILoadingConfig
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,7 +31,7 @@ namespace DialogMessaging.Interactions
 
         #region Properties
         /// <summary>
-        /// Gets or sets the progress.
+        /// Gets or sets the progress, if any.
         /// </summary>
         public int? Progress
         {
@@ -32,21 +39,24 @@ namespace DialogMessaging.Interactions
 
             set
             {
-                _progress = value;
-                OnPropertyChanged(nameof(Progress));
+                if (!EqualityComparer<int?>.Default.Equals(_progress, value))
+                {
+                    _progress = value;
+                    OnPropertyChanged(nameof(Progress));
+                }
             }
         }
         #endregion
 
-        #region Private Methods
-        private void OnPropertyChanged(string propertyName)
+        #region Protected Methods
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
 
-    public partial class LoadingAsyncConfig : BaseAsyncConfig, ILoadingConfig
+    public partial class LoadingAsyncConfig : BaseDialogAsyncConfig, ILoadingConfig
     {
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
@@ -58,7 +68,7 @@ namespace DialogMessaging.Interactions
 
         #region Properties
         /// <summary>
-        /// Gets or sets the progress.
+        /// Gets or sets the progress, if any.
         /// </summary>
         public int? Progress
         {
@@ -66,14 +76,17 @@ namespace DialogMessaging.Interactions
 
             set
             {
-                _progress = value;
-                OnPropertyChanged(nameof(Progress));
+                if (!EqualityComparer<int?>.Default.Equals(_progress, value))
+                {
+                    _progress = value;
+                    OnPropertyChanged(nameof(Progress));
+                }
             }
         }
         #endregion
 
-        #region Private Methods
-        private void OnPropertyChanged(string propertyName)
+        #region Protected Methods
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

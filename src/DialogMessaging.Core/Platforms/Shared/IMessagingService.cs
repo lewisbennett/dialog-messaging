@@ -7,120 +7,121 @@ namespace DialogMessaging
 {
     public interface IMessagingService
     {
-        #region Public Methods
+        #region Methods
         /// <summary>
-        /// Displays an action sheet to the user.
+        /// Display an action sheet dialog.
         /// </summary>
-        /// <param name="config">The action sheet configuration.</param>
-        IDisposable ActionSheet(IActionSheetConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable ActionSheet(ActionSheetConfig config);
 
         /// <summary>
-        /// Displays an action sheet to the user asynchronously.
+        /// Display an action sheet dialog asynchronously.
         /// </summary>
-        /// <param name="config">The action sheet configuration.</param>
-        Task<IActionSheetItemConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default);
+        /// <param name="config">The dialog configuration.</param>
+        Task<ActionSheetItemAsyncConfig> ActionSheetAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Displays a bottom action sheet to the user.
+        /// Display an action sheet dialog from the bottom of the screen.
         /// </summary>
-        /// <param name="config">The bottom action sheet configuration.</param>
-        IDisposable ActionSheetBottom(IActionSheetBottomConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable ActionSheetBottom(ActionSheetBottomConfig config);
 
         /// <summary>
-        /// Displays a bottom action sheet to the user asynchronously.
+        /// Display an action sheet dialog from the bottom of the screen asynchronously.
         /// </summary>
-        /// <param name="config">The bottom action sheet configuration.</param>
-        Task<IActionSheetItemConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default);
+        /// <param name="config">The dialog configuration.</param>
+        Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Displays an alert to the user.
+        /// Display an alert dialog.
         /// </summary>
-        /// <param name="config">The alert configuration.</param>
-        IDisposable Alert(IAlertConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable Alert(AlertConfig config);
 
         /// <summary>
-        /// Displays an alert to the user asynchronously.
+        ///  Display an alert dialog asynchronously.
         /// </summary>
-        /// <param name="config">The alert configuration.</param>
-        Task AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default);
+        /// <param name="config">The dialog configuration.</param>
+        Task<bool> AlertAsync(AlertAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Displays a confirm dialog to the user.
+        /// Display a confirm dialog.
         /// </summary>
-        /// <param name="config">The confirm configuration.</param>
-        IDisposable Confirm(IConfirmConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable Confirm(ConfirmConfig config);
 
         /// <summary>
-        /// Displays a confirm dialog to the user asynchronously.
+        /// Display a confirm dialog asynchronously.
         /// </summary>
-        /// <param name="config">The confirm configuration.</param>
+        /// <param name="config">The dialog configuration.</param>
         Task<bool> ConfirmAsync(ConfirmAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Shows a delete dialog to the user.
+        /// Display a delete dialog.
         /// </summary>
-        /// <param name="config">The delete configuration.</param>
-        IDisposable Delete(IDeleteConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable Delete(DeleteConfig config);
 
         /// <summary>
-        /// Displays a delete dialog to the user asynchronously.
+        /// Display a delete dialog asynchronously.
         /// </summary>
-        /// <param name="config">The delete configuration.</param>
+        /// <param name="config">The dialog configuration.</param>
         Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Hides the loading wheel from the user, if visible.
+        /// Hide a loading dialog.
         /// </summary>
-        void HideLoading();
+        /// <param name="config">The dialog configuration.</param>
+        void HideLoading(ILoadingConfig config);
 
         /// <summary>
-        /// Displays a login to the user.
+        /// Display a login dialog.
         /// </summary>
-        /// <param name="config">The login configuration.</param>
-        IDisposable Login(ILoginConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable Login(LoginConfig config);
 
         /// <summary>
-        /// Displays a login to the user asynchronously.
+        /// Display a login dialog asynchronously.
         /// </summary>
-        /// <param name="config">The login configuration.</param>
+        /// <param name="config">The dialog configuration.</param>
         Task<(string, string)> LoginAsync(LoginAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Displays a prompt to the user.
+        /// Display a prompt dialog.
         /// </summary>
-        /// <param name="config">The prompt configuration.</param>
-        IDisposable Prompt(IPromptConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable Prompt(PromptConfig config);
 
         /// <summary>
-        /// Displaus a prompt to the user asynchronously.
+        /// Display a prompt dialog asynchronously.
         /// </summary>
-        /// <param name="config">The prompt configuration.</param>
+        /// <param name="config">The dialog configuration.</param>
         Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Displays a loading wheel to the user.
+        /// Display a loading dialog.
         /// </summary>
-        /// <param name="config">The loading configuration.</param>
-        IDisposable ShowLoading(ILoadingConfig config);
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable ShowLoading(LoadingConfig config);
 
         /// <summary>
-        /// Displays a loading wheel to the user that is shown alongside execution of a task.
+        /// Display a loading dialog asynchronously.
         /// </summary>
-        /// <param name="config">The loading configuration.</param>
-        /// <param name="task">The task to execute.</param>
-        TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default) where TTask : Task;
+        /// <param name="config">The dialog configuration.</param>
+        TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
+            where TTask : Task;
 
         /// <summary>
-        /// Displays a snackbar to the user.
+        /// Display a Snackbar.
         /// </summary>
-        /// <param name="config">The snackbar configuration.</param>
-        void Snackbar(ISnackbarConfig config);
+        /// <param name="config">The Snackbar configuration.</param>
+        void Snackbar(SnackbarConfig config);
 
         /// <summary>
-        /// Displays a toast to the user.
+        /// Display a Toast.
         /// </summary>
-        /// <param name="config">The toast configuration.</param>
-        void Toast(IToastConfig config);
+        /// <param name="config">The Toast configuration.</param>
+        void Toast(ToastConfig config);
         #endregion
     }
 }

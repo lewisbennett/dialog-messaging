@@ -2,113 +2,104 @@
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-using DialogMessaging.Core;
+using DialogMessaging.Core.Platforms.Droid.Dialogs.Base;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
-using System.Linq;
 
-namespace DialogMessaging.Platforms.Droid.Dialogs
+namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 {
-    public class ActionSheetAppCompatDialogFragment : AbstractAppCompatDialogFragment<IActionSheetConfig>
+    public class ActionSheetAppCompatDialogFragment<TActionSheetItemConfig> : BaseAppCompatDialogFragment<IActionSheetConfig<TActionSheetItemConfig>>
+        where TActionSheetItemConfig : IActionSheetItemConfig
     {
         #region Fields
+        private TextView _cancelButton;
         private ListView _listView;
         #endregion
 
         #region Event Handlers
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Config.CancelButtonClickAction?.Invoke();
+
+            Dismiss();
+        }
+
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var item = Config.Items[e.Position];
 
             Config.ItemClickAction?.Invoke(item);
+
             item.ClickAction?.Invoke();
 
             Dismiss();
         }
-
-        public override void OnRegisteredViewClick(string dialogElement, View view)
-        {
-            base.OnRegisteredViewClick(dialogElement, view);
-
-            switch (dialogElement)
-            {
-                case DialogElement.ButtonSecondary:
-                    Config.CancelButtonClickAction?.Invoke();
-                    break;
-            }
-
-            Dismiss();
-        }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Assigns configuration values to UI elements.
-        /// </summary>
-        /// <param name="viewConfig">The view configuration.</param>
-        public override void AssignValue(ViewConfig viewConfig)
+        #region Protected Methods
+        protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {
-            switch (viewConfig.DialogElement)
-            {
-                case DialogElement.ItemsSource:
+            base.ConfigureDialogBuilder(builder);
 
-                    if (!(viewConfig.View is ListView listView) || Config.Items.Count < 1)
-                        break;
+            if (MessagingServiceCore.ViewManager.InflateView(Resource.Layout.dialog_default_action_sheet, null, false, ConfigureView) is View view)
+                builder.SetView(view);
+
+            if (!string.IsNullOrWhiteSpace(Config.CancelButtonText))
+                builder.SetNegativeButton(Config.CancelButtonText, CancelButton_Click);
+        }
+
+        protected override void ConfigureView(View view, string dialogElement, bool autoHide)
+        {
+            base.ConfigureView(view, dialogElement, autoHide);
+
+            switch (view, dialogElement)
+            {
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonSecondary):
+
+                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _cancelButton = button;
+
+                        _cancelButton.Text = Config.CancelButtonText;
+
+                        _cancelButton.Click += CancelButton_Click;
+                    }
+
+                    return;
+
+                case (ListView listView, DialogElement.ItemsSource):
 
                     _listView = listView;
 
-                    var adapter = new CustomArrayAdapter(Context, Config.ItemLayoutResID ?? Resource.Layout.dialog_default_action_sheet_item, this);
+                    var adapter = new ActionSheetDefaultArrayAdapter<TActionSheetItemConfig>(Context);
 
-                    adapter.AddAll(Config.Items.Select(i => i.Text).ToList());
+                    adapter.AddAll(Config.Items);
 
                     _listView.Adapter = adapter;
 
-                    break;
+                    _listView.ItemClick += ListView_ItemClick;
 
-                case DialogElement.ButtonSecondary:
+                    return;
 
-                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) || !viewConfig.View.TrySetText(Config.CancelButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
-
-                    break;
+                default:
+                    return;
             }
-
-            base.AssignValue(viewConfig);
-        }
-
-        /// <summary>
-        /// Assigns configuration values to the dialog builder.
-        /// </summary>
-        public override void CreateDialog(AlertDialog.Builder builder)
-        {
-            base.CreateDialog(builder);
-
-            var view = MessagingServiceCore.ViewCreator.CreateView(this, Resource.Layout.dialog_default_action_sheet, null, false);
-
-            if (view != null)
-                builder.SetView(view);
-
-            builder.SetNegativeButton(Config.CancelButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonSecondary, s as View));
         }
         #endregion
 
         #region Lifecycle
-        public override void OnResume()
+        public override void OnDestroy()
         {
-            base.OnResume();
+            base.OnDestroy();
 
-            if (_listView != null)
-                _listView.ItemClick += ListView_ItemClick;
-        }
-
-        public override void OnPause()
-        {
-            base.OnPause();
+            if (_cancelButton != null)
+                _cancelButton.Click -= CancelButton_Click;
 
             if (_listView != null)
                 _listView.ItemClick -= ListView_ItemClick;
@@ -121,7 +112,7 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
         }
 
-        public ActionSheetAppCompatDialogFragment(IActionSheetConfig config)
+        public ActionSheetAppCompatDialogFragment(IActionSheetConfig<TActionSheetItemConfig> config)
             : base(config)
         {
         }

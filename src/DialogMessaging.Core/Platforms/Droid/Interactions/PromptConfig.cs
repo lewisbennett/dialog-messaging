@@ -1,5 +1,45 @@
 ﻿namespace DialogMessaging.Interactions
 {
+    public static partial class PromptConfigDefaults
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the bottom of the text field.
+        /// </summary>
+        public static int? BottomIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for whether the dialog is cancelable.
+        /// </summary>
+        public static bool Cancelable { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the end of the text field.
+        /// </summary>
+        public static int? EndIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the layout to use.
+        /// </summary>
+        public static int? LayoutResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the start of the text field.
+        /// </summary>
+        public static int? StartIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the style to use.
+        /// </summary>
+        public static int? StyleResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the top of the text field.
+        /// </summary>
+        public static int? TopIconResID { get; set; }
+        #endregion
+    }
+
     public partial interface IPromptConfig
     {
         #region Properties
@@ -22,28 +62,6 @@
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the text field.
         /// </summary>
         int? TopIconResID { get; set; }
-        #endregion
-
-        #region Static Properties
-        /// <summary>
-        /// Gets or sets the default value for whether the dialog is cancelable.
-        /// </summary>
-        public static bool DefaultCancelable { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets the resource ID of the default icon to be displayed within the text field.
-        /// </summary>
-        public static int? DefaultIconResID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the layout file to use by default.
-        /// </summary>
-        public static int? DefaultLayoutID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the style to use by default.
-        /// </summary>
-        public static int? DefaultStyleID { get; set; }
         #endregion
     }
 
@@ -74,10 +92,13 @@
         #region Constructors
         public PromptConfig()
         {
-            Cancelable = IPromptConfig.DefaultCancelable;
-            EndIconResID = IPromptConfig.DefaultIconResID;
-            LayoutID = IPromptConfig.DefaultLayoutID;
-            StyleID = IPromptConfig.DefaultStyleID;
+            BottomIconResID = PromptConfigDefaults.BottomIconResID;
+            Cancelable = PromptConfigDefaults.Cancelable;
+            EndIconResID = PromptConfigDefaults.EndIconResID;
+            LayoutResID = PromptConfigDefaults.LayoutResID;
+            StartIconResID = PromptConfigDefaults.StartIconResID;
+            StyleResID = PromptConfigDefaults.StyleResID;
+            TopIconResID = PromptConfigDefaults.TopIconResID;
         }
         #endregion
     }
@@ -109,10 +130,13 @@
         #region Constructors
         public PromptAsyncConfig()
         {
-            Cancelable = IPromptConfig.DefaultCancelable;
-            EndIconResID = IPromptConfig.DefaultIconResID;
-            LayoutID = IPromptConfig.DefaultLayoutID;
-            StyleID = IPromptConfig.DefaultStyleID;
+            BottomIconResID = PromptConfigDefaults.BottomIconResID;
+            Cancelable = PromptConfigDefaults.Cancelable;
+            EndIconResID = PromptConfigDefaults.EndIconResID;
+            LayoutResID = PromptConfigDefaults.LayoutResID;
+            StartIconResID = PromptConfigDefaults.StartIconResID;
+            StyleResID = PromptConfigDefaults.StyleResID;
+            TopIconResID = PromptConfigDefaults.TopIconResID;
         }
         #endregion
     }

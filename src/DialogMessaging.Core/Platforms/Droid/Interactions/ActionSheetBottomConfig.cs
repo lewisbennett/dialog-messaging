@@ -1,73 +1,49 @@
 ﻿namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetBottomConfig
+    public static partial class ActionSheetBottomConfigDefaults
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the layout to use for the items.
-        /// </summary>
-        int? ItemLayoutResID { get; set; }
-        #endregion
-
-        #region Static Properties
-        /// <summary>
         /// Gets or sets the default value for whether the dialog is cancelable.
         /// </summary>
-        public static bool DefaultCancelable { get; set; } = true;
+        public static bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the default layout to use for the items.
+        /// Gets or sets the default value for the resource ID of the layout to use.
         /// </summary>
-        public static int? DefaultItemLayoutResID { get; set; }
+        public static int? LayoutResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the layout file to use by default.
+        /// Gets or sets the default value for the resource ID of the style to use.
         /// </summary>
-        public static int? DefaultLayoutResID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the style to use by default.
-        /// </summary>
-        public static int? DefaultStyleResID { get; set; }
+        public static int? StyleResID { get; set; }
         #endregion
+    }
+
+    public partial interface IActionSheetBottomConfig<TActionSheetItemConfig>
+    {
     }
 
     public partial class ActionSheetBottomConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets the resource ID of the layout to use for the items.
-        /// </summary>
-        public int? ItemLayoutResID { get; set; }
-        #endregion
-
         #region Constructors
         public ActionSheetBottomConfig()
         {
-            Cancelable = IActionSheetBottomConfig.DefaultCancelable;
-            ItemLayoutResID = IActionSheetBottomConfig.DefaultItemLayoutResID;
-            LayoutID = IActionSheetBottomConfig.DefaultLayoutResID;
-            StyleID = IActionSheetBottomConfig.DefaultStyleResID;
+            Cancelable = ActionSheetBottomConfigDefaults.Cancelable;
+            LayoutResID = ActionSheetBottomConfigDefaults.LayoutResID;
+            StyleResID = ActionSheetBottomConfigDefaults.StyleResID;
         }
         #endregion
     }
 
     public partial class ActionSheetBottomAsyncConfig
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets the resource ID of the layout to use for the items.
-        /// </summary>
-        public int? ItemLayoutResID { get; set; }
-        #endregion
-
         #region Constructors
         public ActionSheetBottomAsyncConfig()
         {
-            Cancelable = IActionSheetBottomConfig.DefaultCancelable;
-            ItemLayoutResID = IActionSheetBottomConfig.DefaultItemLayoutResID;
-            LayoutID = IActionSheetBottomConfig.DefaultLayoutResID;
-            StyleID = IActionSheetBottomConfig.DefaultStyleResID;
+            Cancelable = ActionSheetBottomConfigDefaults.Cancelable;
+            LayoutResID = ActionSheetBottomConfigDefaults.LayoutResID;
+            StyleResID = ActionSheetBottomConfigDefaults.StyleResID;
         }
         #endregion
     }

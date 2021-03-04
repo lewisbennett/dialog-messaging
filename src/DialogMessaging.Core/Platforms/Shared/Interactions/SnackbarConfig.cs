@@ -1,44 +1,39 @@
-﻿using System;
+﻿using DialogMessaging.Interactions.Base;
+using System;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface ISnackbarConfig
+    public static partial class SnackbarConfigDefaults
+    {
+    }
+
+    public partial interface ISnackbarConfig : IBaseInteraction
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the action invoked when the action button is clicked.
+        /// Gets the action invoked when the action button is clicked.
         /// </summary>
-        Action ActionButtonClickAction { get; set; }
+        Action ActionButtonClickAction { get; }
 
         /// <summary>
-        /// Gets or sets the action button text.
+        /// Gets or sets the text displayed on the action button.
         /// </summary>
         string ActionButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        string Message { get; set; }
         #endregion
     }
 
-    public partial class SnackbarConfig : ISnackbarConfig
+    public partial class SnackbarConfig : BaseInteraction, ISnackbarConfig
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the action invoked when the action button is clicked.
+        /// Gets the action invoked when the action button is clicked.
         /// </summary>
-        public Action ActionButtonClickAction { get; set; }
+        public Action ActionButtonClickAction { get; }
 
         /// <summary>
-        /// Gets or sets the action button text.
+        /// Gets or sets the text displayed on the action button.
         /// </summary>
         public string ActionButtonText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
         #endregion
     }
 }

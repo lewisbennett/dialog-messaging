@@ -1,22 +1,16 @@
-﻿namespace DialogMessaging.Interactions
+﻿using DialogMessaging.Interactions.Base;
+
+namespace DialogMessaging.Interactions
 {
-    public partial interface IToastConfig
+    public static partial class ToastConfigDefaults
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        string Message { get; set; }
-        #endregion
     }
 
-    public partial class ToastConfig : IToastConfig
+    public partial interface IToastConfig : IBaseInteraction
     {
-        #region Properties
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-        #endregion
+    }
+
+    public partial class ToastConfig : BaseInteraction, IToastConfig
+    {
     }
 }

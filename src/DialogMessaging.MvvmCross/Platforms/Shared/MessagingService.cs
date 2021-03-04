@@ -16,19 +16,9 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Gets the current messaging service instance, if any.
+        /// Gets the messaging service instance.
         /// </summary>
         public static IMessagingService Instance => MessagingServiceCore.Instance;
-
-        /// <summary>
-        /// Gets or sets whether to enable verbose logging.
-        /// </summary>
-        public static bool VerboseLogging
-        {
-            get => MessagingServiceCore.VerboseLogging;
-
-            set => MessagingServiceCore.VerboseLogging = value;
-        }
         #endregion
     }
 }

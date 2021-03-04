@@ -2,30 +2,28 @@
 
 namespace DialogMessaging.Interactions
 {
+    public static partial class ToastConfigDefaults
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets the default value for the duration of the Toast.
+        /// </summary>
+        public static ToastLength Duration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the layout to use.
+        /// </summary>
+        public static int? LayoutResID { get; set; }
+        #endregion
+    }
+
     public partial interface IToastConfig
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the toast duration.
+        /// Gets or sets the duration of the Toast.
         /// </summary>
         ToastLength Duration { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the layout file to use.
-        /// </summary>
-        int? LayoutID { get; set; }
-        #endregion
-
-        #region Static Properties
-        /// <summary>
-        /// Gets or sets the default toast duration. Default value: ToastLength.Short.
-        /// </summary>
-        public static ToastLength DefaultDuration { get; set; } = ToastLength.Short;
-
-        /// <summary>
-        /// Gets or sets the ID of the layout file to use by default.
-        /// </summary>
-        public static int? DefaultLayoutID { get; set; }
         #endregion
     }
 
@@ -33,21 +31,16 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the toast duration.
+        /// Gets or sets the duration of the Toast.
         /// </summary>
         public ToastLength Duration { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ID of the layout file to use.
-        /// </summary>
-        public int? LayoutID { get; set; }
         #endregion
 
         #region Constructors
         public ToastConfig()
         {
-            Duration = IToastConfig.DefaultDuration;
-            LayoutID = IToastConfig.DefaultLayoutID;
+            Duration = ToastConfigDefaults.Duration;
+            LayoutResID = ToastConfigDefaults.LayoutResID;
         }
         #endregion
     }

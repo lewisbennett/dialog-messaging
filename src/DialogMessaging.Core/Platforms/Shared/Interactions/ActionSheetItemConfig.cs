@@ -1,64 +1,39 @@
-﻿using System;
+﻿using DialogMessaging.Interactions.Base;
+using System;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetItemConfig
+    public static partial class ActionSheetItemConfigDefaults
+    {
+    }
+
+    public partial interface IActionSheetItemConfig : IBaseInteraction
     {
         #region Properties
         /// <summary>
         /// Gets the action invoked when the item is clicked.
         /// </summary>
         Action ClickAction { get; }
-
-        /// <summary>
-        /// An optional data payload.
-        /// </summary>
-        object Data { get; set; }
-
-        /// <summary>
-        /// Gets or sets the item's text.
-        /// </summary>
-        string Text { get; set; }
         #endregion
     }
 
-    public partial class ActionSheetItemConfig : IActionSheetItemConfig
+    public partial class ActionSheetItemConfig : BaseInteraction, IActionSheetItemConfig
     {
         #region Properties
         /// <summary>
         /// Gets or sets the action invoked when the item is clicked.
         /// </summary>
         public Action ClickAction { get; set; }
-
-        /// <summary>
-        /// An optional data payload.
-        /// </summary>
-        public object Data { get; set; }
-
-        /// <summary>
-        /// Gets or sets the item's text.
-        /// </summary>
-        public string Text { get; set; }
         #endregion
     }
 
-    public partial class ActionSheetItemAsyncConfig : IActionSheetItemConfig
+    public partial class ActionSheetItemAsyncConfig : BaseAsyncInteraction, IActionSheetItemConfig
     {
         #region Properties
         /// <summary>
         /// Gets the action invoked when the item is clicked.
         /// </summary>
-        public Action ClickAction { get; internal set; }
-
-        /// <summary>
-        /// An optional data payload.
-        /// </summary>
-        public object Data { get; set; }
-
-        /// <summary>
-        /// Gets or sets the item's text.
-        /// </summary>
-        public string Text { get; set; }
+        public Action ClickAction { get; }
         #endregion
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace DialogMessaging.Infrastructure
+namespace DialogMessaging.Core.Platforms.Shared.Infrastructure
 {
-    public sealed class DisposableAction : IDisposable
+    public class DisposableAction : IDisposable
     {
         #region Properties
         /// <summary>
@@ -11,10 +11,11 @@ namespace DialogMessaging.Infrastructure
         public Action Action { get; }
         #endregion
 
-        #region Public Methods
-        public void Dispose()
+        #region Methods
+        void IDisposable.Dispose()
         {
             Action?.Invoke();
+
             GC.SuppressFinalize(this);
         }
         #endregion

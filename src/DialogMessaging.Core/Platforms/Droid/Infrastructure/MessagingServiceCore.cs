@@ -1,10 +1,6 @@
-﻿using Android.App;
-using Android.OS;
-using Android.Views;
-using AndroidX.AppCompat.App;
-using DialogMessaging.Core.Platforms.Droid.Infrastructure;
-using DialogMessaging.Interactions;
-using DialogMessaging.Platforms.Droid;
+﻿using Android.OS;
+using DialogMessaging.Core.Platforms.Droid.Callbacks;
+using DialogMessaging.Core.Platforms.Droid.ViewManager;
 using System.Collections.Generic;
 
 namespace DialogMessaging.Infrastructure
@@ -12,91 +8,59 @@ namespace DialogMessaging.Infrastructure
     public static partial class MessagingServiceCore
     {
         #region Constant Values
-        public const string BundleKey = "DialogMessagingConfigKey";
+        public const string SavedInstanceBundleKey = "saved_instance_bundle_key";
         #endregion
 
         #region Fields
-        private static readonly IViewCreator _fallbackViewCreator = new FallbackViewCreator();
         private static long _savedInstanceCounter;
-        private static readonly IDictionary<long, object> _savedInstances = new Dictionary<long, object>();
-        private static IViewCreator _viewCreator;
+        private static readonly Dictionary<long, object> _savedInstances = new Dictionary<long, object>();
         #endregion
 
         #region Properties
         /// <summary>
-        /// Gets the views that have been inflated.
+        /// Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
         /// </summary>
-        public static IDictionary<View, ViewConfig> InflatedViews { get; } = new Dictionary<View, ViewConfig>();
+        public static IDialogMessagingActivityLifecycleCallbacks ActivityLifecycleCallbacks { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the view creator
+        /// Gets the active <see cref="IViewManager" />.
         /// </summary>
-        public static IViewCreator ViewCreator
-        {
-            get => _viewCreator ?? _fallbackViewCreator;
-
-            set => _viewCreator = value;
-        }
+        public static IViewManager ViewManager { get; internal set; }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Initialize the messaging service.
+        /// Retrieves a saved object using the key stored in a bundle.
         /// </summary>
-        /// <param name="activity">The presumed top level activity.</param>
-        /// <param name="messagingService">The IMessagingService instance to use.</param>
-        /// <param name="viewCreator">The IViewCreator.</param>
-        public static void Init(AppCompatActivity activity, IMessagingService messagingService, IViewCreator viewCreator)
+        /// <param name="bundle">The bundle.</param>
+        public static T RetrieveInstance<T>(Bundle bundle)
+            where T : class
         {
-            ActivityLifecycleCallbacks.Register(activity);
+            var objectKey = bundle?.GetLong(SavedInstanceBundleKey) ?? -1;
 
-            Instance = messagingService ?? new MessagingServiceImpl();
+            if (_savedInstances.TryGetValue(objectKey, out object saved))
+            {
+                _savedInstances.Remove(objectKey);
 
-            ViewCreator = viewCreator;
+                return saved as T;
+            }
+
+            return null;
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        /// Saves an object, and stores the object key in the bundle.
         /// </summary>
-        /// <param name="application">The presumed top level application.</param>
-        /// <param name="messagingService">The IMessagingService instance to use.</param>
-        /// <param name="viewCreator">The IViewCreator.</param>
-        public static void Init(Application application, IMessagingService messagingService, IViewCreator viewCreator)
+        /// <param name="bundle">The bundle to store the object key inside.</param>
+        /// <param name="toSave">The object to save.</param>
+        public static void SaveInstance<T>(Bundle bundle, T toSave)
+            where T : class
         {
-            ActivityLifecycleCallbacks.Register(application);
+            _savedInstances[_savedInstanceCounter] = toSave;
 
-            Instance = messagingService ?? new MessagingServiceImpl();
+            bundle.PutLong(SavedInstanceBundleKey, _savedInstanceCounter);
 
-            ViewCreator = viewCreator;
-        }
-
-        /// <summary>
-        /// Retrieves a saved instance, or default.
-        /// </summary>
-        public static TConfig RetrieveInstance<TConfig>(Bundle bundle)
-            where TConfig : IBaseConfig
-        {
-            var saveId = bundle?.GetLong(BundleKey) ?? -1;
-
-            if (!_savedInstances.TryGetValue(saveId, out object config))
-                return default;
-
-            _savedInstances.Remove(saveId);
-
-            return config is TConfig tConfig ? tConfig : default;
-        }
-
-        /// <summary>
-        /// Saves a dialog's instance state.
-        /// </summary>
-        /// <param name="bundle">The saved instance bundle.</param>
-        /// <param name="config">The dialog config.</param>
-        public static void SaveInstance(Bundle bundle, object config)
-        {
             _savedInstanceCounter++;
-
-            _savedInstances.Add(_savedInstanceCounter, config);
-            bundle.PutLong(BundleKey, _savedInstanceCounter);
         }
         #endregion
     }

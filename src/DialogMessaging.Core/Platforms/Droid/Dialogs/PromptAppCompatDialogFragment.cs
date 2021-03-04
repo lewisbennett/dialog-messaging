@@ -2,123 +2,123 @@
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-using DialogMessaging.Core;
-using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Core.Platforms.Droid.Dialogs.Base;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using Google.Android.Material.TextField;
 using System;
 
-namespace DialogMessaging.Platforms.Droid.Dialogs
+namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 {
-    public class PromptAppCompatDialogFragment : AbstractAppCompatDialogFragment<IPromptConfig>
+    public class PromptAppCompatDialogFragment : BaseAppCompatDialogFragment<IPromptConfig>
     {
         #region Fields
-        private EditText _textField;
+        private TextView _cancelButton, _confirmButton;
+        private EditText _editText;
         private TextInputLayout _textInputLayout;
         #endregion
 
         #region Event Handlers
-        public override void OnRegisteredViewClick(string dialogElement, View view)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
-            base.OnRegisteredViewClick(dialogElement, view);
+            Config.CancelButtonClickAction?.Invoke();
 
-            switch (dialogElement)
-            {
-                case DialogElement.ButtonPrimary:
+            Dismiss();
+        }
 
-                    Config.InputText = _textField?.Text ?? string.Empty;
-                    Config.ConfirmButtonClickAction?.Invoke(Config.InputText);
-
-                    break;
-
-                case DialogElement.ButtonSecondary:
-                    Config.CancelButtonClickAction?.Invoke();
-                    break;
-            }
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {
+            Config.ConfirmButtonClickAction?.Invoke(_editText?.Text ?? string.Empty);
 
             Dismiss();
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Assigns configuration values to UI elements.
-        /// </summary>
-        /// <param name="viewConfig">The view configuration.</param>
-        public override void AssignValue(ViewConfig viewConfig)
+        #region Protected Methods
+        protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {
-            switch (viewConfig.DialogElement)
+            base.ConfigureDialogBuilder(builder);
+
+            if (MessagingServiceCore.ViewManager.InflateView(Resource.Layout.dialog_default_prompt, null, false, ConfigureView) is View view)
+                builder.SetView(view);
+
+            if (!string.IsNullOrWhiteSpace(Config.CancelButtonText))
+                builder.SetNegativeButton(Config.CancelButtonText, CancelButton_Click);
+
+            if (!string.IsNullOrWhiteSpace(Config.ConfirmButtonText))
+                builder.SetPositiveButton(Config.ConfirmButtonText, ConfirmButton_Click);
+        }
+
+        protected override void ConfigureView(View view, string dialogElement, bool autoHide)
+        {
+            base.ConfigureView(view, dialogElement, autoHide);
+
+            switch (view, dialogElement)
             {
-                case DialogElement.InputText:
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonPrimary):
 
-                    if (!(viewConfig.View is EditText textField))
-                        break;
+                    if (string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _confirmButton = button;
 
-                    _textField = textField;
+                        _confirmButton.Text = Config.ConfirmButtonText;
 
-                    _textField.Text = Config.InputText;
-                    _textField.InputType = Config.InputType.ToInputTypes();
+                        _confirmButton.Click += ConfirmButton_Click;
+                    }
 
+                    return;
+
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonSecondary):
+
+                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _cancelButton = button;
+
+                        _cancelButton.Text = Config.CancelButtonText;
+
+                        _cancelButton.Click += CancelButton_Click;
+                    }
+
+                    return;
+
+                case (EditText editText, DialogElement.InputText):
+
+                    _editText = editText;
+
+                    _editText.Text = Config.EnteredText;
+                    _editText.InputType = Config.InputType.ToInputTypes();
+
+                    // Only set the hint on the EditText if it is not wrapped in a TextInputLayout.
                     if (_textInputLayout == null)
-                        _textField.Hint = Config.Hint;
+                        _editText.Hint = Config.Hint;
 
-                    _textField.SetCompoundDrawablesRelativeWithIntrinsicBounds(
+                    _editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(
                         Config.StartIconResID ?? 0,
                         Config.TopIconResID ?? 0,
                         Config.EndIconResID ?? 0,
                         Config.BottomIconResID ?? 0);
 
-                    break;
+                    return;
 
-                case DialogElement.InputTextContainer:
+                case (TextInputLayout textInputLayout, DialogElement.InputTextContainer):
 
-                    if (viewConfig.View is TextInputLayout textInputLayout)
-                    {
-                        _textInputLayout = textInputLayout;
+                    _textInputLayout = textInputLayout;
 
-                        _textInputLayout.Hint = Config.Hint;
-                    }
+                    // Set the hint on the TextInputLayout rather than the EditText inside to maintain the hint animation.
+                    _textInputLayout.Hint = Config.Hint;
 
-                    break;
+                    return;
 
-                case DialogElement.ButtonPrimary:
-
-                    if (string.IsNullOrWhiteSpace(Config.ConfirmButtonText) || !viewConfig.View.TrySetText(Config.ConfirmButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
-
-                    break;
-
-                case DialogElement.ButtonSecondary:
-
-                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) || !viewConfig.View.TrySetText(Config.CancelButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
-
-                    break;
+                default:
+                    return;
             }
-
-            base.AssignValue(viewConfig);
-        }
-
-        /// <summary>
-        /// Assigns configuration values to the dialog builder.
-        /// </summary>
-        public override void CreateDialog(AlertDialog.Builder builder)
-        {
-            base.CreateDialog(builder);
-
-            var view = MessagingServiceCore.ViewCreator.CreateView(this, Resource.Layout.dialog_default_prompt, null, false);
-
-            if (view != null)
-                builder.SetView(view);
-
-            builder.SetPositiveButton(Config.ConfirmButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
-            builder.SetNegativeButton(Config.CancelButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonSecondary, s as View));
         }
         #endregion
 
@@ -127,11 +127,20 @@ namespace DialogMessaging.Platforms.Droid.Dialogs
         {
             base.OnResume();
 
-            if (Dialog == null || _textField == null)
-                return;
+            Dialog?.Window.SetSoftInputMode(SoftInput.StateAlwaysVisible);
 
-            Dialog.Window.SetSoftInputMode(SoftInput.StateAlwaysVisible);
-            _textField.RequestFocus();
+            _editText?.RequestFocus();
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (_cancelButton != null)
+                _cancelButton.Click -= CancelButton_Click;
+
+            if (_confirmButton != null)
+                _confirmButton.Click -= ConfirmButton_Click;
         }
         #endregion
 

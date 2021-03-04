@@ -1,23 +1,27 @@
 ﻿namespace DialogMessaging.Interactions
 {
-    public partial interface IConfirmConfig
+    public static partial class ConfirmConfigDefaults
     {
-        #region Static Properties
+        #region Properties
         /// <summary>
         /// Gets or sets the default value for whether the dialog is cancelable.
         /// </summary>
-        public static bool DefaultCancelable { get; set; } = true;
+        public static bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the layout file to use by default.
+        /// Gets or sets the default value for the resource ID of the layout to use.
         /// </summary>
-        public static int? DefaultLayoutID { get; set; }
+        public static int? LayoutResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the style to use by default.
+        /// Gets or sets the default value for the resource ID of the style to use.
         /// </summary>
-        public static int? DefaultStyleID { get; set; }
+        public static int? StyleResID { get; set; }
         #endregion
+    }
+
+    public partial interface IConfirmConfig
+    {
     }
 
     public partial class ConfirmConfig
@@ -25,9 +29,9 @@
         #region Constructors
         public ConfirmConfig()
         {
-            Cancelable = IConfirmConfig.DefaultCancelable;
-            LayoutID = IConfirmConfig.DefaultLayoutID;
-            StyleID = IConfirmConfig.DefaultStyleID;
+            Cancelable = ConfirmConfigDefaults.Cancelable;
+            LayoutResID = ConfirmConfigDefaults.LayoutResID;
+            StyleResID = ConfirmConfigDefaults.StyleResID;
         }
         #endregion
     }
@@ -37,9 +41,9 @@
         #region Constructors
         public ConfirmAsyncConfig()
         {
-            Cancelable = IConfirmConfig.DefaultCancelable;
-            LayoutID = IConfirmConfig.DefaultLayoutID;
-            StyleID = IConfirmConfig.DefaultStyleID;
+            Cancelable = ConfirmConfigDefaults.Cancelable;
+            LayoutResID = ConfirmConfigDefaults.LayoutResID;
+            StyleResID = ConfirmConfigDefaults.StyleResID;
         }
         #endregion
     }

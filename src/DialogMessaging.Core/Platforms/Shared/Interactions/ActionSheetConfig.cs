@@ -1,85 +1,86 @@
-﻿using System;
+﻿using DialogMessaging.Interactions.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DialogMessaging.Interactions
 {
-    public partial interface IActionSheetConfig : IBaseConfig
+    public static partial class ActionSheetConfigDefaults
+    {
+    }
+
+    public partial interface IActionSheetConfig<TActionSheetItemConfig> : IBaseDialogConfig
+        where TActionSheetItemConfig : IActionSheetItemConfig
     {
         #region Properties
         /// <summary>
-        /// Gets the action invoked when the cancel button is clicked.
+        /// Gets the action invoked when the 'cancel' button is clicked.
         /// </summary>
         Action CancelButtonClickAction { get; }
 
         /// <summary>
-        /// Gets or sets the cancel button text.
+        /// Gets or sets the text displayed on the 'cancel' button.
         /// </summary>
         string CancelButtonText { get; set; }
 
         /// <summary>
-        /// Gets the items.
-        /// </summary>
-        IList<IActionSheetItemConfig> Items { get; }
-
-        /// <summary>
         /// Gets the action invoked when an item is clicked.
         /// </summary>
-        Action<IActionSheetItemConfig> ItemClickAction { get; }
+        Action<TActionSheetItemConfig> ItemClickAction { get; }
+
+        /// <summary>
+        /// Gets the action sheet items.
+        /// </summary>
+        List<TActionSheetItemConfig> Items { get; }
         #endregion
     }
 
-    public partial class ActionSheetConfig : BaseConfig, IActionSheetConfig
+    public partial class ActionSheetConfig : BaseDialogConfig, IActionSheetConfig<ActionSheetItemConfig>
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the action invoked when the cancel button is clicked.
+        /// Gets or sets the action invoked when the 'cancel' button is clicked.
         /// </summary>
         public Action CancelButtonClickAction { get; set; }
 
         /// <summary>
-        /// Gets or sets the cancel button text.
+        /// Gets or sets the text displayed on the 'cancel' button.
         /// </summary>
         public string CancelButtonText { get; set; }
 
         /// <summary>
-        /// Gets the items.
+        /// Gets or sets the action invoked when an item is clicked.
         /// </summary>
-        public IList<IActionSheetItemConfig> Items { get; internal set; } = new List<IActionSheetItemConfig>();
+        public Action<ActionSheetItemConfig> ItemClickAction { get; set; }
 
         /// <summary>
-        /// Gets the action invoked when an item is clicked.
+        /// Gets the action sheet items.
         /// </summary>
-        public Action<IActionSheetItemConfig> ItemClickAction { get; set; }
+        public List<ActionSheetItemConfig> Items { get; } = new List<ActionSheetItemConfig>();
         #endregion
     }
 
-    public partial class ActionSheetAsyncConfig : BaseAsyncConfig, IActionSheetConfig
+    public partial class ActionSheetAsyncConfig : BaseDialogAsyncConfig, IActionSheetConfig<ActionSheetItemAsyncConfig>
     {
-        #region Fields
-        IList<IActionSheetItemConfig> IActionSheetConfig.Items => Items.Cast<IActionSheetItemConfig>().ToList();
-        #endregion
-
         #region Properties
         /// <summary>
-        /// Gets the action invoked when the cancel button is clicked.
+        /// Gets the action invoked when the 'cancel' button is clicked.
         /// </summary>
         public Action CancelButtonClickAction { get; internal set; }
 
         /// <summary>
-        /// Gets or sets the cancel button text.
+        /// Gets or sets the text displayed on the 'cancel' button.
         /// </summary>
         public string CancelButtonText { get; set; }
 
         /// <summary>
-        /// Gets the items.
-        /// </summary>
-        public IList<ActionSheetItemAsyncConfig> Items { get; internal set; } = new List<ActionSheetItemAsyncConfig>();
-
-        /// <summary>
         /// Gets the action invoked when an item is clicked.
         /// </summary>
-        public Action<IActionSheetItemConfig> ItemClickAction { get; internal set; }
+        public Action<ActionSheetItemAsyncConfig> ItemClickAction { get; internal set; }
+
+        /// <summary>
+        /// Gets the action sheet items.
+        /// </summary>
+        public List<ActionSheetItemAsyncConfig> Items { get; } = new List<ActionSheetItemAsyncConfig>();
         #endregion
     }
 }

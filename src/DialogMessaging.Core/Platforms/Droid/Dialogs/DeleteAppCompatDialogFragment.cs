@@ -1,73 +1,102 @@
 ﻿using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using AndroidX.AppCompat.App;
-using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Core.Platforms.Droid.Dialogs.Base;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 
-namespace DialogMessaging.Platforms.Droid.Dialogs
+namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 {
-    public class DeleteAppCompatDialogFragment : AbstractAppCompatDialogFragment<IDeleteConfig>
+    public class DeleteAppCompatDialogFragment : BaseAppCompatDialogFragment<IDeleteConfig>
     {
-        #region Event Handlers
-        public override void OnRegisteredViewClick(string dialogElement, View view)
-        {
-            switch (dialogElement)
-            {
-                case DialogElement.ButtonPrimary:
-                    Config.DeleteButtonClickAction?.Invoke();
-                    break;
+        #region Fields
+        private TextView _cancelButton, _deleteButton;
+        #endregion
 
-                case DialogElement.ButtonSecondary:
-                    Config.CancelButtonClickAction?.Invoke();
-                    break;
-            }
+        #region Event Handlers
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Config.CancelButtonClickAction?.Invoke();
+
+            Dismiss();
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            Config.DeleteButtonClickAction?.Invoke();
 
             Dismiss();
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Assigns configuration values to UI elements.
-        /// </summary>
-        /// <param name="viewConfig">The view configuration.</param>
-        public override void AssignValue(ViewConfig viewConfig)
+        #region Protected Methods
+        protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {
-            switch (viewConfig.DialogElement)
-            {
-                case DialogElement.ButtonPrimary:
+            base.ConfigureDialogBuilder(builder);
 
-                    if (string.IsNullOrWhiteSpace(Config.DeleteButtonText) || !viewConfig.View.TrySetText(Config.DeleteButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
+            if (!string.IsNullOrWhiteSpace(Config.CancelButtonText))
+                builder.SetNegativeButton(Config.CancelButtonText, CancelButton_Click);
 
-                    break;
-
-                case DialogElement.ButtonSecondary:
-
-                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) || !viewConfig.View.TrySetText(Config.CancelButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
-
-                    break;
-            }
-
-            base.AssignValue(viewConfig);
+            if (!string.IsNullOrWhiteSpace(Config.DeleteButtonText))
+                builder.SetPositiveButton(Config.DeleteButtonText, DeleteButton_Click);
         }
 
-        /// <summary>
-        /// Assigns configuration values to the dialog builder.
-        /// </summary>
-        public override void CreateDialog(AlertDialog.Builder builder)
+        protected override void ConfigureView(View view, string dialogElement, bool autoHide)
         {
-            base.CreateDialog(builder);
+            base.ConfigureView(view, dialogElement, autoHide);
 
-            builder.SetPositiveButton(Config.DeleteButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
-            builder.SetNegativeButton(Config.CancelButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonSecondary, s as View));
+            switch (view, dialogElement)
+            {
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonPrimary):
+
+                    if (string.IsNullOrWhiteSpace(Config.DeleteButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _deleteButton = button;
+
+                        _deleteButton.Text = Config.DeleteButtonText;
+
+                        _deleteButton.Click += DeleteButton_Click;
+                    }
+
+                    return;
+
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonSecondary):
+
+                    if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _cancelButton = button;
+
+                        _cancelButton.Text = Config.CancelButtonText;
+
+                        _cancelButton.Click += CancelButton_Click;
+                    }
+
+                    return;
+
+                default:
+                    return;
+            }
+        }
+        #endregion
+
+        #region Lifecycle
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (_cancelButton != null)
+                _cancelButton.Click -= CancelButton_Click;
+
+            if (_deleteButton != null)
+                _deleteButton.Click -= DeleteButton_Click;
         }
         #endregion
 

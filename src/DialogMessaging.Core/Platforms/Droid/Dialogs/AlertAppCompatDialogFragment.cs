@@ -1,61 +1,73 @@
 ﻿using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using AndroidX.AppCompat.App;
-using DialogMessaging.Core.Platforms.Droid.Infrastructure;
+using DialogMessaging.Core.Platforms.Droid.Dialogs.Base;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
 
-namespace DialogMessaging.Platforms.Droid.Dialogs
+namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 {
-    public class AlertAppCompatDialogFragment : AbstractAppCompatDialogFragment<IAlertConfig>
+    public class AlertAppCompatDialogFragment : BaseAppCompatDialogFragment<IAlertConfig>
     {
-        #region Event Handlers
-        public override void OnRegisteredViewClick(string dialogElement, View view)
-        {
-            base.OnRegisteredViewClick(dialogElement, view);
+        #region Fields
+        private TextView _okButton;
+        #endregion
 
-            switch (dialogElement)
-            {
-                case DialogElement.ButtonPrimary:
-                    Config.OkButtonClickAction?.Invoke();
-                    break;
-            }
+        #region Event Handlers
+        private void OkButton_Click(object sender, EventArgs e)
+        {
+            Config.OkButtonClickAction?.Invoke();
 
             Dismiss();
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Assigns configuration values to UI elements.
-        /// </summary>
-        /// <param name="viewConfig">The view configuration.</param>
-        public override void AssignValue(ViewConfig viewConfig)
+        #region Protected Methods
+        protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {
-            switch (viewConfig.DialogElement)
-            {
-                case DialogElement.ButtonPrimary:
+            base.ConfigureDialogBuilder(builder);
 
-                    if (string.IsNullOrWhiteSpace(Config.OkButtonText) || !viewConfig.View.TrySetText(Config.OkButtonText))
-                        viewConfig.HideElementIfNeeded();
-                    else
-                        RegisterForClickEvents(viewConfig.DialogElement, viewConfig.View);
-
-                    break;
-            }
-
-            base.AssignValue(viewConfig);
+            if (!string.IsNullOrWhiteSpace(Config.OkButtonText))
+                builder.SetPositiveButton(Config.OkButtonText, OkButton_Click);
         }
 
-        /// <summary>
-        /// Assigns configuration values to the dialog builder.
-        /// </summary>
-        public override void CreateDialog(AlertDialog.Builder builder)
+        protected override void ConfigureView(View view, string dialogElement, bool autoHide)
         {
-            base.CreateDialog(builder);
+            base.ConfigureView(view, dialogElement, autoHide);
 
-            builder.SetPositiveButton(Config.OkButtonText, (s, e) => OnRegisteredViewClick(DialogElement.ButtonPrimary, s as View));
+            switch (view, dialogElement)
+            {
+                // The Android Button inherits from TextView, and using TextView's for buttons is common.
+                case (TextView button, DialogElement.ButtonPrimary):
+
+                    if (string.IsNullOrWhiteSpace(Config.OkButtonText) && autoHide)
+                        button.Visibility = ViewStates.Gone;
+                    else
+                    {
+                        _okButton = button;
+
+                        _okButton.Text = Config.OkButtonText;
+
+                        _okButton.Click += OkButton_Click;
+                    }
+
+                    return;
+
+                default:
+                    return;
+            }
+        }
+        #endregion
+
+        #region Lifecycle
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (_okButton != null)
+                _okButton.Click -= OkButton_Click;
         }
         #endregion
 
