@@ -12,6 +12,8 @@
     <UserSecretsId>f9fc9907-4aa0-4877-9a9d-e4bb4b36a006</UserSecretsId>
     <Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
     <PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
@@ -43,6 +45,13 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
 		<Compile Include="Platforms\iOS\**\*.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\viewpump\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
