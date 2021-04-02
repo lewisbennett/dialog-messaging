@@ -28,4 +28,6 @@ Coming soon!
 
 ## Samples
 
-Coming soon!
+[MvvmCross core project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.Core)
+
+[MvvmCross Android project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.Droid)
