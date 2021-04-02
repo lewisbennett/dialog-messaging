@@ -119,10 +119,10 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData">
-      <Version>2.2.0.3</Version>
+      <Version>2.3.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Media">
-      <Version>1.2.1</Version>
+      <Version>1.2.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
