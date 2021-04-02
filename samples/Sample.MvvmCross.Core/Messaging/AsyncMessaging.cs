@@ -1,12 +1,15 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sample.MvvmCross.Core.Messaging
 {
     public class AsyncMessaging : IMessaging
     {
+        private int _loadingCount;
+
         public async void ActionSheet()
         {
             var config = new ActionSheetAsyncConfig
@@ -87,7 +90,9 @@ namespace Sample.MvvmCross.Core.Messaging
 
         public async void Loading()
         {
-            await MessagingService.Instance.ShowLoadingAsync(new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" }, Task.Delay(TimeSpan.FromSeconds(5))).ConfigureAwait(false);
+            var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
+
+            await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++)).ConfigureAwait(false);
         }
 
         public async void Prompt()
@@ -121,6 +126,31 @@ namespace Sample.MvvmCross.Core.Messaging
             {
                 Message = "Toast"
             });
+        }
+
+        private async Task LoadingDelayAsync(LoadingAsyncConfig config, int loadingCount)
+        {
+            if (loadingCount % 2 == 0)
+            {
+                Timer timer = null;
+
+                await Task.WhenAll(Task.Delay(TimeSpan.FromSeconds(5)), Task.Run(() =>
+                {
+                    timer = new Timer((_) =>
+                    {
+                        if (config.Progress.HasValue)
+                            config.Progress++;
+                        else
+                            config.Progress = 0;
+
+                    }, null, 0, 40);
+
+                })).ConfigureAwait(false);
+
+                timer.Dispose();
+            }
+            else
+                await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
         }
     }
 }

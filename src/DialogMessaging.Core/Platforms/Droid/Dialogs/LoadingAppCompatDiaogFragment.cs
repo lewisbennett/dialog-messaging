@@ -56,8 +56,6 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     SetProgress();
 
-                    Config.PropertyChanged += Config_PropertyChanged;
-
                     return;
 
                 case (ProgressBar progressBar, DialogElement.ProgressIndeterminate):
@@ -75,9 +73,16 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Lifecycle
-        public override void OnDestroy()
+        public override void OnResume()
         {
-            base.OnDestroy();
+            base.OnResume();
+
+            Config.PropertyChanged += Config_PropertyChanged;
+        }
+
+        public override void OnPause()
+        {
+            base.OnPause();
 
             Config.PropertyChanged -= Config_PropertyChanged;
         }

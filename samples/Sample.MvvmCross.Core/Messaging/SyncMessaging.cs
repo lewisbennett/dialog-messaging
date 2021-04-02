@@ -1,12 +1,15 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sample.MvvmCross.Core.Messaging
 {
     public class SyncMessaging : IMessaging
     {
+        private int _loadingCount;
+
         public void ActionSheet()
         {
             var config = new ActionSheetConfig
@@ -84,7 +87,7 @@ namespace Sample.MvvmCross.Core.Messaging
 
             MessagingService.Instance.ShowLoading(config);
 
-            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            await LoadingDelayAsync(config, _loadingCount++).ConfigureAwait(false);
 
             MessagingService.Instance.HideLoading(config);
         }
@@ -119,6 +122,31 @@ namespace Sample.MvvmCross.Core.Messaging
             {
                 Message = "Toast"
             });
+        }
+
+        private async Task LoadingDelayAsync(LoadingConfig config, int loadingCount)
+        {
+            if (loadingCount % 2 == 0)
+            {
+                Timer timer = null;
+
+                await Task.WhenAll(Task.Delay(TimeSpan.FromSeconds(5)), Task.Run(() =>
+                {
+                    timer = new Timer((_) =>
+                    {
+                        if (config.Progress.HasValue)
+                            config.Progress++;
+                        else
+                            config.Progress = 0;
+
+                    }, null, 0, 40);
+
+                })).ConfigureAwait(false);
+
+                timer.Dispose();
+            }
+            else
+                await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
         }
     }
 }
