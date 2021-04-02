@@ -26,8 +26,11 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
         #region Protected Methods
         protected virtual void ConfigureDialogBuilder(AndroidX_AlertDialog.Builder builder)
         {
-            builder.SetTitle(Config.Title);
-            builder.SetMessage(Config.Message);
+            if (ShouldConfigureToBuilder(nameof(Config.Title)))
+                builder.SetTitle(Config.Title);
+
+            if (ShouldConfigureToBuilder(nameof(Config.Message)))
+                builder.SetMessage(Config.Message);
         }
 
         protected virtual void ConfigureView(View view, string dialogElement, bool autoHide)
@@ -55,6 +58,16 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
                 default:
                     return;
             }
+        }
+
+        protected virtual bool ShouldConfigureToBuilder(string configElement)
+        {
+            return configElement switch
+            {
+                nameof(Config.Message) => true,
+                nameof(Config.Title) => true,
+                _ => false
+            };
         }
         #endregion
 

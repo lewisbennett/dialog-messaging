@@ -70,6 +70,16 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     return;
             }
         }
+
+        protected override bool ShouldConfigureToBuilder(string configElement)
+        {
+            return configElement switch
+            {
+                // The default loading view handles the message TextView for us, so disable it here so it doesn't appear twice.
+                nameof(Config.Message) => false,
+                _ => base.ShouldConfigureToBuilder(configElement)
+            };
+        }
         #endregion
 
         #region Lifecycle
