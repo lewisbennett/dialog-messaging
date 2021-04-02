@@ -28,7 +28,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action invoked when the action button is clicked.
         /// </summary>
-        public Action ActionButtonClickAction { get; }
+        public Action ActionButtonClickAction { get; set; }
 
         /// <summary>
         /// Gets or sets the text displayed on the action button.

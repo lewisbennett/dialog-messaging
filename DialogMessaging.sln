@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogMessaging.Core", "src\DialogMessaging.Core\DialogMessaging.Core.csproj", "{84816F57-6790-4C83-8CF2-2F44E11A1007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogMessaging.MvvmCross", "src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj", "{040E7C29-36A4-4965-ACF9-0F30720D2AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogMessaging.MvvmCross", "src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj", "{040E7C29-36A4-4965-ACF9-0F30720D2AA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.MvvmCross.Core", "samples\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj", "{3318901A-DFA1-43B3-8012-19BB72C4C44A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MvvmCross.Droid", "samples\Sample.MvvmCross.Droid\Sample.MvvmCross.Droid.csproj", "{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,16 @@ Global
 		{040E7C29-36A4-4965-ACF9-0F30720D2AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{040E7C29-36A4-4965-ACF9-0F30720D2AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{040E7C29-36A4-4965-ACF9-0F30720D2AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3318901A-DFA1-43B3-8012-19BB72C4C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3318901A-DFA1-43B3-8012-19BB72C4C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3318901A-DFA1-43B3-8012-19BB72C4C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3318901A-DFA1-43B3-8012-19BB72C4C44A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
