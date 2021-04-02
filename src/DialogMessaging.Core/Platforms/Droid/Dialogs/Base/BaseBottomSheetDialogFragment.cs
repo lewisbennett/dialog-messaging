@@ -91,19 +91,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
         {
             // If a layout resource ID has been provided, create the view with the view manager.
             if (Config.LayoutResID.HasValue)
-            {
-                var view = MessagingServiceCore.ViewManager.InflateView(Config.LayoutResID.Value, container, false);
-
-                // Find the subviews with DialogMessaging attributes and assign values.
-                foreach (var subview in view.Find(v => MessagingServiceCore.ViewManager.ViewCache.ContainsKey(v)))
-                {
-                    var (dialogElement, autoHide) = MessagingServiceCore.ViewManager.ViewCache[subview];
-
-                    ConfigureView(subview, dialogElement, autoHide);
-                }
-
-                return view;
-            }
+                return MessagingServiceCore.ViewManager.InflateView(Config.LayoutResID.Value, container, false, ConfigureView);
 
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
