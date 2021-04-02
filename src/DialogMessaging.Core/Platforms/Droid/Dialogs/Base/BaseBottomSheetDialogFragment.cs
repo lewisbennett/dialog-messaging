@@ -24,12 +24,6 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
         #endregion
 
         #region Protected Methods
-        protected virtual void ConfigureDialogBuilder(AndroidX_AlertDialog.Builder builder)
-        {
-            builder.SetTitle(Config.Title);
-            builder.SetMessage(Config.Message);
-        }
-
         protected virtual void ConfigureView(View view, string dialogElement, bool autoHide)
         {
             switch (view, dialogElement)
@@ -56,6 +50,8 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
                     return;
             }
         }
+
+        protected abstract int GetDefaultLayoutResourceID();
         #endregion
 
         #region Lifecycle
@@ -89,24 +85,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // If a layout resource ID has been provided, create the view with the view manager.
-            if (Config.LayoutResID.HasValue)
-                return MessagingServiceCore.ViewManager.InflateView(Config.LayoutResID.Value, container, false, ConfigureView);
-
-            return base.OnCreateView(inflater, container, savedInstanceState);
-        }
-
-        public override Dialog OnCreateDialog(Bundle savedInstanceState)
-        {
-            // If a layout resource ID has been provided, don't try to create the dialog.
-            if (Config.LayoutResID.HasValue)
-                return base.OnCreateDialog(savedInstanceState);
-
-            var builder = new AndroidX_AlertDialog.Builder(Context, Config.StyleResID ?? 0);
-
-            ConfigureDialogBuilder(builder);
-
-            return builder.Create();
+            return MessagingServiceCore.ViewManager.InflateView(Config.LayoutResID ?? GetDefaultLayoutResourceID(), container, false, ConfigureView);
         }
 
         public override void OnDismiss(IDialogInterface dialog)

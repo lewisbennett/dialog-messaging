@@ -1,10 +1,8 @@
 ﻿using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AndroidX.AppCompat.App;
 using DialogMessaging.Core.Platforms.Droid.Dialogs.Base;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
-using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 using System;
@@ -40,17 +38,6 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Protected Methods
-        protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
-        {
-            base.ConfigureDialogBuilder(builder);
-
-            if (MessagingServiceCore.ViewManager.InflateView(Resource.Layout.dialog_default_action_sheet_bottom, null, false, ConfigureView) is View view)
-                builder.SetView(view);
-
-            if (!string.IsNullOrWhiteSpace(Config.CancelButtonText))
-                builder.SetNegativeButton(Config.CancelButtonText, CancelButton_Click);
-        }
-
         protected override void ConfigureView(View view, string dialogElement, bool autoHide)
         {
             base.ConfigureView(view, dialogElement, autoHide);
@@ -90,6 +77,11 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 default:
                     return;
             }
+        }
+
+        protected override int GetDefaultLayoutResourceID()
+        {
+            return Resource.Layout.dialog_default_action_sheet_bottom;
         }
         #endregion
 
