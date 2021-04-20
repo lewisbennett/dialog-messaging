@@ -108,8 +108,13 @@ namespace DialogMessaging
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
-            where TTask : Task;
+        Task ShowLoadingAsync(LoadingAsyncConfig config, Task task, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Display a loading dialog asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Task<T> task, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display a Snackbar.

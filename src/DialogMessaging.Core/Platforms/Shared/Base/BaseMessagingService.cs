@@ -303,22 +303,35 @@ namespace DialogMessaging.Core.Base
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        public virtual TTask ShowLoadingAsync<TTask>(LoadingAsyncConfig config, TTask task, CancellationToken cancellationToken = default)
-            where TTask : Task
+        public virtual async Task ShowLoadingAsync(LoadingAsyncConfig config, Task task, CancellationToken cancellationToken = default)
+        {
+            // If available, call the delegate to see if presenting this dialog is allowed.
+            if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnLoadingRequested(config))
+                return;
+
+            // Register the disposable of the dialog with the cancellation token, then return the task.
+            using (cancellationToken.Register(() => HideLoading(config)))
+            {
+                var dialog = _loadingDialogs[config] = PresentLoading(config);
+
+                // Add a minimum delay to avoid the loading dialog getting stuck visible in the event of the task completing too quickly.
+                await Task.WhenAll(task, Task.Delay(500)).ContinueWith((_) => HideLoading(config), cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
+        /// Display a loading dialog asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public virtual async Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Task<T> task, CancellationToken cancellationToken = default)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnLoadingRequested(config))
                 return default;
 
-            task.ContinueWith((t) => HideLoading(config), cancellationToken);
+            await ((IMessagingService)this).ShowLoadingAsync(config, (Task)task, cancellationToken).ConfigureAwait(false);
 
-            var dialog = PresentLoading(config);
-
-            _loadingDialogs[config] = dialog;
-
-            // Register the disposable of the dialog with the cancellation token, then return the task.
-            using (cancellationToken.Register(() => dialog?.Dispose()))
-                return task;
+            return task.Result;
         }
 
         /// <summary>
