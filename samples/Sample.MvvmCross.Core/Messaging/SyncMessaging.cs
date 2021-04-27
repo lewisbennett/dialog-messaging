@@ -87,7 +87,7 @@ namespace Sample.MvvmCross.Core.Messaging
 
             MessagingService.Instance.ShowLoading(config);
 
-            await LoadingDelayAsync(config, _loadingCount++).ConfigureAwait(false);
+            await LoadingDelayAsync(config, _loadingCount++);
 
             MessagingService.Instance.HideLoading(config);
         }
@@ -140,13 +140,12 @@ namespace Sample.MvvmCross.Core.Messaging
                             config.Progress = 0;
 
                     }, null, 0, 40);
-
-                })).ConfigureAwait(false);
+                }));
 
                 timer.Dispose();
             }
             else
-                await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromSeconds(5));
         }
     }
 }

@@ -24,6 +24,10 @@ namespace Sample.MvvmCross.Droid
 
         public bool OnAlertRequested(IAlertConfig config)
         {
+            // Randomize whether to display the dialog with the configured custom layout, or default.
+            if (_random.NextDouble() > 0.5)
+                config.LayoutResID = config.StyleResID = null;
+
             return true;
         }
 
@@ -59,6 +63,7 @@ namespace Sample.MvvmCross.Droid
 
         public bool OnSnackbarRequested(ISnackbarConfig config)
         {
+            // Choose a random color to apply to the background of the snackbar.
             config.BackgroundColor = _colors[_random.Next(0, _colors.Length)];
 
             return true;

@@ -23,7 +23,7 @@ namespace Sample.MvvmCross.Core.Messaging
             config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 2" });
             config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetAsync(config).ConfigureAwait(false);
+            var item = await MessagingService.Instance.ActionSheetAsync(config);
 
             if (item != null)
                 MessagingService.Instance.Toast($"Clicked: {item.Message}");
@@ -42,7 +42,7 @@ namespace Sample.MvvmCross.Core.Messaging
             config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 2" });
             config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetBottomAsync(config).ConfigureAwait(false);
+            var item = await MessagingService.Instance.ActionSheetBottomAsync(config);
 
             if (item != null)
                 MessagingService.Instance.Toast($"Clicked: {item.Message}");
@@ -55,8 +55,7 @@ namespace Sample.MvvmCross.Core.Messaging
                 Title = "Alert Async",
                 Message = "Hello world!",
                 OkButtonText = "Okay"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar("Alerted");
         }
@@ -69,8 +68,7 @@ namespace Sample.MvvmCross.Core.Messaging
                 Message = "Hello world!",
                 ConfirmButtonText = "Confirm",
                 CancelButtonText = "Cancel"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar(confirmed ? "Confirmed" : "Cancelled");
         }
@@ -92,7 +90,7 @@ namespace Sample.MvvmCross.Core.Messaging
         {
             var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
 
-            await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++)).ConfigureAwait(false);
+            await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++));
         }
 
         public async void Prompt()
@@ -104,8 +102,7 @@ namespace Sample.MvvmCross.Core.Messaging
                 Hint = "Enter some text",
                 ConfirmButtonText = "Enter",
                 CancelButtonText = "Cancel"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar($"You entered: {entry}");
         }
@@ -144,13 +141,12 @@ namespace Sample.MvvmCross.Core.Messaging
                             config.Progress = 0;
 
                     }, null, 0, 40);
-
-                })).ConfigureAwait(false);
+                }));
 
                 timer.Dispose();
             }
             else
-                await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromSeconds(5));
         }
     }
 }
