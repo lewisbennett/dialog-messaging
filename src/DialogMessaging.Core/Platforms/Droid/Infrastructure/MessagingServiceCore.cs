@@ -7,13 +7,9 @@ namespace DialogMessaging.Infrastructure
 {
     public static partial class MessagingServiceCore
     {
-        #region Constant Values
-        public const string SavedInstanceBundleKey = "saved_instance_bundle_key";
-        #endregion
-
         #region Fields
         private static long _savedInstanceCounter;
-        private static readonly Dictionary<long, object> _savedInstances = new Dictionary<long, object>();
+        private static readonly Dictionary<long, object> _savedInstances = new();
         #endregion
 
         #region Properties
@@ -62,6 +58,10 @@ namespace DialogMessaging.Infrastructure
 
             _savedInstanceCounter++;
         }
+        #endregion
+
+        #region Constant Values
+        public const string SavedInstanceBundleKey = "saved_instance_bundle_key";
         #endregion
     }
 }

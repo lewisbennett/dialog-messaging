@@ -8,7 +8,7 @@ namespace Sample.MvvmCross.Droid
     public class MessagingDelegate : IMessagingDelegate
     {
         private readonly Color[] _colors = new[] { Color.Red, Color.Green, Color.Blue };
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
         public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig

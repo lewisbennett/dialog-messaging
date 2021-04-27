@@ -10,7 +10,7 @@ namespace DialogMessaging.Core.Base
     public abstract class BaseMessagingService : IMessagingService
     {
         #region Fields
-        private readonly Dictionary<ILoadingConfig, IDisposable> _loadingDialogs = new Dictionary<ILoadingConfig, IDisposable>();
+        private readonly Dictionary<ILoadingConfig, IDisposable> _loadingDialogs = new();
         #endregion
 
         #region Public Methods

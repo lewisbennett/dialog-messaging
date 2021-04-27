@@ -21,7 +21,11 @@ namespace DialogMessaging.Core.Platforms.Droid
     public class DroidMessagingService : BaseMessagingService
     {
         #region Public Methods
-        public IDisposable ShowDialog(AppCompatDialogFragment dialog)
+        /// <summary>
+        /// Shows a dialog.
+        /// </summary>
+        /// <param name="dialog">The dialog to show.</param>
+        public virtual IDisposable ShowDialog(AppCompatDialogFragment dialog)
         {
             if (MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity)
             {
@@ -182,51 +186,51 @@ namespace DialogMessaging.Core.Platforms.Droid
 
         protected override void PresentSnackbar(ISnackbarConfig config)
         {
-            if (!(MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
-                return;
-
-            appCompatActivity.SafeRunOnUIThread(() =>
+            if (MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity)
             {
-                using var snackbar = ConstructSnackbar(appCompatActivity, config);
+                appCompatActivity.SafeRunOnUIThread(() =>
+                {
+                    using var snackbar = ConstructSnackbar(appCompatActivity, config);
 
-                snackbar.Show();
-            });
+                    snackbar.Show();
+                });
+            }
         }
 
         protected override void PresentToast(IToastConfig config)
         {
-            if (!(MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity))
-                return;
-
-            appCompatActivity.SafeRunOnUIThread(() =>
+            if (MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity)
             {
-                var toast = Android_Toast.MakeText(MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity, config.Message, config.Duration);
-
-                // If a layout resource ID has been provided, create the view with the view manager.
-                if (config.LayoutResID.HasValue)
+                appCompatActivity.SafeRunOnUIThread(() =>
                 {
-                    // Inflate the custom Toast view and configure any subviews.
-                    toast.View = MessagingServiceCore.ViewManager.InflateView(config.LayoutResID.Value, null, false, (view, dialogElement, autoHide) =>
+                    var toast = Android_Toast.MakeText(MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity, config.Message, config.Duration);
+
+                    // If a layout resource ID has been provided, create the view with the view manager.
+                    if (config.LayoutResID.HasValue)
                     {
-                        switch (view, dialogElement)
+                        // Inflate the custom Toast view and configure any subviews.
+                        toast.View = MessagingServiceCore.ViewManager.InflateView(config.LayoutResID.Value, null, false, (view, dialogElement, autoHide) =>
                         {
-                            case (TextView textView, DialogElement.Message):
+                            switch (view, dialogElement)
+                            {
+                                case (TextView textView, DialogElement.Message):
 
-                                if (string.IsNullOrWhiteSpace(config.Message) && autoHide)
-                                    textView.Visibility = ViewStates.Gone;
-                                else
-                                    textView.Text = config.Message;
+                                    if (string.IsNullOrWhiteSpace(config.Message) && autoHide)
+                                        textView.Visibility = ViewStates.Gone;
+                                    else
+                                        textView.Text = config.Message;
 
-                                return;
+                                    return;
 
-                            default:
-                                return;
-                        }
-                    });
-                }
+                                default:
+                                    return;
+                            }
+                        });
+                    }
 
-                toast.Show();
-            });
+                    toast.Show();
+                });
+            }
         }
         #endregion
 

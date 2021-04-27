@@ -9,7 +9,6 @@ using DialogMessaging.Interactions.Base;
 using DialogMessaging.Schema;
 using Google.Android.Material.BottomSheet;
 using System;
-using AndroidX_AlertDialog = AndroidX.AppCompat.App.AlertDialog;
 
 namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
 {

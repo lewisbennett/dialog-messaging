@@ -15,17 +15,17 @@ namespace DialogMessaging.Core.Platforms.Droid.ViewManager.Base
         /// <summary>
         /// Gets the active Snackbar anchor views, if any.
         /// </summary>
-        public Dictionary<Context, View> SnackbarAnchorViews { get; } = new Dictionary<Context, View>();
+        public Dictionary<Context, View> SnackbarAnchorViews { get; } = new();
 
         /// <summary>
         /// Gets the active Snackbar containers, if any.
         /// </summary>
-        public Dictionary<Context, View> SnackbarContainers { get; } = new Dictionary<Context, View>();
+        public Dictionary<Context, View> SnackbarContainers { get; } = new();
 
         /// <summary>
         /// Gets a cache of inflated views with DialogMessaging attributes.
         /// </summary>
-        public Dictionary<View, (string, bool)> ViewCache { get; } = new Dictionary<View, (string, bool)>();
+        public Dictionary<View, (string, bool)> ViewCache { get; } = new();
         #endregion
 
         #region Public Methods

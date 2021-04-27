@@ -55,7 +55,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action sheet items.
         /// </summary>
-        public List<ActionSheetItemConfig> Items { get; } = new List<ActionSheetItemConfig>();
+        public List<ActionSheetItemConfig> Items { get; } = new();
         #endregion
     }
 
@@ -80,7 +80,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets the action sheet items.
         /// </summary>
-        public List<ActionSheetItemAsyncConfig> Items { get; } = new List<ActionSheetItemAsyncConfig>();
+        public List<ActionSheetItemAsyncConfig> Items { get; } = new();
         #endregion
     }
 }
