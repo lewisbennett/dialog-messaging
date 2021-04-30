@@ -2,7 +2,7 @@
 
 # DialogMessaging.MvvmCross
 
-DialogMessaging.MvvmCross is a cross platform, customizable dialog messaging service, compatible MvvmCross for Xamarin.Android and Xamarin.iOS.
+DialogMessaging.MvvmCross is a cross platform, customizable dialog messaging service, compatible with MvvmCross for Xamarin.Android and Xamarin.iOS.
 
 ## Getting started
 
