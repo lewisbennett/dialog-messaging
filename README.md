@@ -20,13 +20,13 @@ DialogMessaging is a cross platform, customizable dialog messaging service, comp
 
 \*Synchronous and asynchronous methods are available.
 
-## Getting Started
-
-Coming soon!
+## [Getting Started](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging)
 
 ## [Getting Started (MvvmCross)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.MvvmCross)
 
 ## Samples
+
+[Android project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.Droid)
 
 [MvvmCross core project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.Core)
 
