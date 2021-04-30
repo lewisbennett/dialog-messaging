@@ -76,9 +76,6 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
         {
             base.OnCreate(savedInstanceState);
 
-            // Used to prevent a crash in OnDestroyView.
-            RetainInstance = true;
-
             // Config could be null because the dialog's state has been saved, or something has gone wrong.
             if (Config == null)
             {
@@ -141,7 +138,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
         public override void OnDestroyView()
         {
             // Prevents an unknown exception.
-            if (Dialog != null && RetainInstance)
+            if (Dialog != null)
                 Dialog.SetDismissMessage(null);
 
             base.OnDestroyView();

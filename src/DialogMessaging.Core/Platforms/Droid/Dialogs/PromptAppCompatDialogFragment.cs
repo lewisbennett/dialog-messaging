@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -16,6 +17,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #region Fields
         private TextView _cancelButton, _confirmButton;
         private EditText _editText;
+        private string _enteredText;
         private TextInputLayout _textInputLayout;
         #endregion
 
@@ -92,7 +94,18 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     _editText = editText;
 
-                    _editText.Text = Config.EnteredText;
+                    // Set the EditText's text to the text provided in the config, if any, if previously entered text isn't available.
+                    if (string.IsNullOrWhiteSpace(_enteredText))
+                        _editText.Text = Config.EnteredText;
+
+                    // Otherwise, use and nullify the previously entered text.
+                    else
+                    {
+                        _editText.Text = _enteredText;
+
+                        _enteredText = null;
+                    }
+
                     _editText.InputType = Config.InputType.ToInputTypes();
 
                     // Only set the hint on the EditText if it is not wrapped in a TextInputLayout.
@@ -123,6 +136,14 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Lifecycle
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Get the saved entered text, if any.
+            _enteredText = savedInstanceState?.GetString(EnteredTextSaveID);
+        }
+
         public override void OnResume()
         {
             base.OnResume();
@@ -130,6 +151,17 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             Dialog?.Window.SetSoftInputMode(SoftInput.StateAlwaysVisible);
 
             _editText?.RequestFocus();
+        }
+
+        public override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+
+            // Save the entered text, if any, so it can be restored when the dialog re-appears.
+            var enteredText = _editText?.Text;
+
+            if (!string.IsNullOrWhiteSpace(enteredText))
+                outState.PutString(EnteredTextSaveID, enteredText);
         }
 
         public override void OnDestroy()
@@ -159,6 +191,10 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             : base(handle, transfer)
         {
         }
+        #endregion
+
+        #region Constant Values
+        public const string EnteredTextSaveID = "entered_text";
         #endregion
     }
 }

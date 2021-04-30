@@ -9,6 +9,7 @@ using DialogMessaging.Core.Platforms.Droid.Dialogs;
 using DialogMessaging.Core.Platforms.Shared.Infrastructure;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
+using DialogMessaging.Interactions.Base;
 using DialogMessaging.Schema;
 using Google.Android.Material.BottomSheet;
 using System;
@@ -25,13 +26,16 @@ namespace DialogMessaging.Core.Platforms.Droid
         /// Shows a dialog.
         /// </summary>
         /// <param name="dialog">The dialog to show.</param>
-        public virtual IDisposable ShowDialog(AppCompatDialogFragment dialog)
+        /// <param name="config">The dialog configuration.</param>
+        public virtual IDisposable ShowDialog(AppCompatDialogFragment dialog, IBaseDialogConfig config)
         {
             if (MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity)
             {
-                appCompatActivity.SafeRunOnUIThread(() => dialog.Show(appCompatActivity.SupportFragmentManager, FragmentTag));
+                var fragmentTag = Guid.NewGuid().ToString();
 
-                return new DisposableAction(() => appCompatActivity.SafeRunOnUIThread(dialog.Dismiss));
+                appCompatActivity.SafeRunOnUIThread(() => dialog.Show(appCompatActivity.SupportFragmentManager, fragmentTag));
+
+                return new DisposableAction(() => FindAndDismissDialog(fragmentTag));
             }
 
             return null;
@@ -146,42 +150,42 @@ namespace DialogMessaging.Core.Platforms.Droid
 
         protected override IDisposable PresentActionSheet<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
         {
-            return ShowDialog(ConstructActionSheetDialog(config));
+            return ShowDialog(ConstructActionSheetDialog(config), config);
         }
 
         protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
         {
-            return ShowDialog(ConstructActionSheetBottomDialog(config));
+            return ShowDialog(ConstructActionSheetBottomDialog(config), config);
         }
 
         protected override IDisposable PresentAlert(IAlertConfig config)
         {
-            return ShowDialog(ConstructAlertDialog(config));
+            return ShowDialog(ConstructAlertDialog(config), config);
         }
 
         protected override IDisposable PresentConfirm(IConfirmConfig config)
         {
-            return ShowDialog(ConstructConfirmDialog(config));
+            return ShowDialog(ConstructConfirmDialog(config), config);
         }
 
         protected override IDisposable PresentDelete(IDeleteConfig config)
         {
-            return ShowDialog(ConstructDeleteDialog(config));
+            return ShowDialog(ConstructDeleteDialog(config), config);
         }
 
         protected override IDisposable PresentLoading(ILoadingConfig config)
         {
-            return ShowDialog(ConstructLoadingDialog(config));
+            return ShowDialog(ConstructLoadingDialog(config), config);
         }
 
         protected override IDisposable PresentLogin(ILoginConfig config)
         {
-            return ShowDialog(ConstructLoginDialog(config));
+            return ShowDialog(ConstructLoginDialog(config), config);
         }
 
         protected override IDisposable PresentPrompt(IPromptConfig config)
         {
-            return ShowDialog(ConstructPromptDialog(config));
+            return ShowDialog(ConstructPromptDialog(config), config);
         }
 
         protected override void PresentSnackbar(ISnackbarConfig config)
@@ -229,6 +233,20 @@ namespace DialogMessaging.Core.Platforms.Droid
                     }
 
                     toast.Show();
+                });
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private void FindAndDismissDialog(string dialogFragmentTag)
+        {
+            if (MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity is AppCompatActivity appCompatActivity)
+            {
+                appCompatActivity.SafeRunOnUIThread(() =>
+                {
+                    if (appCompatActivity.SupportFragmentManager.FindFragmentByTag(dialogFragmentTag) is AppCompatDialogFragment dialog)
+                        dialog.Dismiss();
                 });
             }
         }
