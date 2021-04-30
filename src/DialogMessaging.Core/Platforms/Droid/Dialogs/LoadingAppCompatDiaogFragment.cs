@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -51,7 +52,10 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     _determinateProgress = progressBar;
 
-                    _determinateProgress.Min = 0;
+                    // Setting min value of ProgressBar added in API level 26.
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+                        _determinateProgress.Min = 0;
+
                     _determinateProgress.Max = 100;
 
                     SetProgress();
