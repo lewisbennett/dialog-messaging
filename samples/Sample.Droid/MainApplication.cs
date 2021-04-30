@@ -16,16 +16,13 @@ namespace Sample.Droid
         {
             base.OnCreate();
 
+            // Optionally, initialize the intercepting service (ViewPump) before initializing the messaging service.
+            // Useful for if you're using ViewPump for other purposes (for example: providing a custom IInterceptingService).
+            //InterceptingService.Init();
+
             // Initialize the messaging service, passing in the current Application context.
             // Overflow initializer methods are available for more advanced use cases.
             MessagingService.Init(this);
-
-            // The messaging service can be initialized separately from the intercepting service (ViewPump) to provide
-            // additional configuration if you're using ViewPump for other purposes (for example: providing a custom IInterceptingService).
-            // The intercepting service must be initialized before the messaging service if you do it this way.
-            //InterceptingService.Init();
-
-            //MessagingService.Init(this, false);
 
             // Provide the messaging service with a custom messaging delegate.
             // This allows us to be notified when specific dialogs are requested meaning that we can alter

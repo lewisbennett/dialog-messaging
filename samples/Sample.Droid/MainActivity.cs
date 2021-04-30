@@ -3,6 +3,7 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+//using DialogMessaging;
 using Sample.Droid.Messaging;
 using System;
 using ViewPump;
@@ -70,6 +71,11 @@ namespace Sample.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            // The messaging service can also be initialized in your main activity.
+            // We have initialized the messaging service inside MainApplication though instead.
+            // See MainApplication for more details.
+            //MessagingService.Init(this);
 
             SetContentView(Resource.Layout.activity_main);
 

@@ -6,9 +6,7 @@ using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Core.Platforms.Droid.ViewManager;
 using DialogMessaging.Infrastructure;
 using DialogMessaging.MvvmCross.Platforms.Droid.ViewManager;
-using System;
 using ViewPump;
-using ViewPump.Base;
 using ViewPump.Events;
 
 namespace DialogMessaging
@@ -39,20 +37,18 @@ namespace DialogMessaging
         /// Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The current activity.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(AppCompatActivity, bool)" />.</param>
-        public static void Init(AppCompatActivity activity, bool initViewPump = true)
+        public static void Init(AppCompatActivity activity)
         {
-            Init(activity.Application, initViewPump);
+            Init(activity.Application);
         }
 
         /// <summary>
         /// Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(Application, bool)" />.</param>
-        public static void Init(Application application, bool initViewPump = true)
+        public static void Init(Application application)
         {
-            Init(application, new DroidMessagingService(), initViewPump);
+            Init(application, new DroidMessagingService());
         }
 
         /// <summary>
@@ -60,10 +56,9 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="activity">The current activity.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(AppCompatActivity, IDialogMessagingActivityLifecycleCallbacks, bool)" />.</param>
-        public static void Init(AppCompatActivity activity, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, bool initViewPump = true)
+        public static void Init(AppCompatActivity activity, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks)
         {
-            Init(activity.Application, activityLifecycleCallbacks, initViewPump);
+            Init(activity.Application, activityLifecycleCallbacks);
         }
 
         /// <summary>
@@ -71,10 +66,9 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(Application, IDialogMessagingActivityLifecycleCallbacks, bool)" />.</param>
-        public static void Init(Application application, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, bool initViewPump = true)
+        public static void Init(Application application, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks)
         {
-            Init(application, new DroidMessagingService(), activityLifecycleCallbacks, initViewPump);
+            Init(application, new DroidMessagingService(), activityLifecycleCallbacks);
         }
 
         /// <summary>
@@ -82,10 +76,9 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="activity">The current activity.</param>
         /// <param name="messagingService">A custom messaging service.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(AppCompatActivity, IMessagingService, bool)" />.</param>
-        public static void Init(AppCompatActivity activity, IMessagingService messagingService, bool initViewPump = true)
+        public static void Init(AppCompatActivity activity, IMessagingService messagingService)
         {
-            Init(activity.Application, messagingService, initViewPump);
+            Init(activity.Application, messagingService);
         }
 
         /// <summary>
@@ -93,10 +86,9 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="messagingService">A custom messaging service.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(Application, IMessagingService, bool)" />.</param>
-        public static void Init(Application application, IMessagingService messagingService, bool initViewPump = true)
+        public static void Init(Application application, IMessagingService messagingService)
         {
-            Init(application, messagingService, new DialogMessagingActivityLifecycleCallbacks(), initViewPump);
+            Init(application, messagingService, new DialogMessagingActivityLifecycleCallbacks());
         }
 
         /// <summary>
@@ -105,10 +97,9 @@ namespace DialogMessaging
         /// <param name="activity">The current activity.</param>
         /// <param name="messagingService">A custom messaging service.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(AppCompatActivity, IMessagingService, IDialogMessagingActivityLifecycleCallbacks, bool)" />.</param>
-        public static void Init(AppCompatActivity activity, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, bool initViewPump = true)
+        public static void Init(AppCompatActivity activity, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks)
         {
-            Init(activity.Application, messagingService, activityLifecycleCallbacks, initViewPump);
+            Init(activity.Application, messagingService, activityLifecycleCallbacks);
         }
 
         /// <summary>
@@ -117,17 +108,10 @@ namespace DialogMessaging
         /// <param name="application">The application.</param>
         /// <param name="messagingService">A custom messaging service.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
-        /// <param name="initViewPump">Whether or not to initialize ViewPump, if it hasn't been already. You should disable this if you plan to use your own <see cref="IInterceptingService" />, and use <see cref="InterceptingService.Init(IInterceptingService)" /> before calling <see cref="Init(Application, IMessagingService, IDialogMessagingActivityLifecycleCallbacks, bool)" />.</param>
-        public static void Init(Application application, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, bool initViewPump = true)
+        public static void Init(Application application, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks)
         {
             if (InterceptingService.Instance == null)
-            {
-                if (initViewPump)
-                    InterceptingService.Init();
-
-                else
-                    throw new InvalidOperationException("ViewPump has not been initialized.");
-            }
+                InterceptingService.Init();
 
             // Register an event handler so that we can notify the messaging service about inflated views.
             InterceptingService.Instance.ViewInflated += InterceptingService_ViewInflated;
