@@ -1,12 +1,15 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sample.Droid.Messaging
 {
     public class AsyncMessaging : IMessaging
     {
+        private int _loadingCount;
+
         public async void ActionSheet()
         {
             var config = new ActionSheetAsyncConfig
@@ -16,14 +19,14 @@ namespace Sample.Droid.Messaging
                 CancelButtonText = "Cancel"
             };
 
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 1" });
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 2" });
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 3" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 1" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 2" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetAsync(config).ConfigureAwait(false);
+            var item = await MessagingService.Instance.ActionSheetAsync(config);
 
             if (item != null)
-                MessagingService.Instance.Toast($"Clicked: {item.Text}");
+                MessagingService.Instance.Toast($"Clicked: {item.Message}");
         }
 
         public async void ActionSheetBottom()
@@ -35,14 +38,14 @@ namespace Sample.Droid.Messaging
                 CancelButtonText = "Cancel"
             };
 
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 1" });
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 2" });
-            config.Items.Add(new ActionSheetItemAsyncConfig { Text = "Item 3" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 1" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 2" });
+            config.Items.Add(new ActionSheetItemAsyncConfig { Message = "Item 3" });
 
-            var item = await MessagingService.Instance.ActionSheetBottomAsync(config).ConfigureAwait(false);
+            var item = await MessagingService.Instance.ActionSheetBottomAsync(config);
 
             if (item != null)
-                MessagingService.Instance.Toast($"Clicked: {item.Text}");
+                MessagingService.Instance.Toast($"Clicked: {item.Message}");
         }
 
         public async void Alert()
@@ -52,8 +55,7 @@ namespace Sample.Droid.Messaging
                 Title = "Alert Async",
                 Message = "Hello world!",
                 OkButtonText = "Okay"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar("Alerted");
         }
@@ -66,8 +68,7 @@ namespace Sample.Droid.Messaging
                 Message = "Hello world!",
                 ConfirmButtonText = "Confirm",
                 CancelButtonText = "Cancel"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar(confirmed ? "Confirmed" : "Cancelled");
         }
@@ -87,7 +88,9 @@ namespace Sample.Droid.Messaging
 
         public async void Loading()
         {
-            await MessagingService.Instance.ShowLoadingAsync(new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" }, Task.Delay(TimeSpan.FromSeconds(5))).ConfigureAwait(false);
+            var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
+
+            await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++));
         }
 
         public async void Prompt()
@@ -99,8 +102,7 @@ namespace Sample.Droid.Messaging
                 Hint = "Enter some text",
                 ConfirmButtonText = "Enter",
                 CancelButtonText = "Cancel"
-
-            }).ConfigureAwait(false);
+            });
 
             MessagingService.Instance.Snackbar($"You entered: {entry}");
         }
@@ -121,6 +123,30 @@ namespace Sample.Droid.Messaging
             {
                 Message = "Toast"
             });
+        }
+
+        private async Task LoadingDelayAsync(LoadingAsyncConfig config, int loadingCount)
+        {
+            if (loadingCount % 2 == 0)
+            {
+                Timer timer = null;
+
+                await Task.WhenAll(Task.Delay(TimeSpan.FromSeconds(5)), Task.Run(() =>
+                {
+                    timer = new Timer((_) =>
+                    {
+                        if (config.Progress.HasValue)
+                            config.Progress++;
+                        else
+                            config.Progress = 0;
+
+                    }, null, 0, 40);
+                }));
+
+                timer.Dispose();
+            }
+            else
+                await Task.Delay(TimeSpan.FromSeconds(5));
         }
     }
 }

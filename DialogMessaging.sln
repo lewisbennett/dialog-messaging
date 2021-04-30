@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{A86C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogMessaging", "src\DialogMessaging\DialogMessaging.csproj", "{1D2A274F-CCBA-452B-A828-34E6EB889D49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.Droid", "samples\Sample.Droid\Sample.Droid.csproj", "{10EF955A-C2D6-49B9-917D-C214846CB3A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,12 @@ Global
 		{1D2A274F-CCBA-452B-A828-34E6EB889D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D2A274F-CCBA-452B-A828-34E6EB889D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D2A274F-CCBA-452B-A828-34E6EB889D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +58,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3318901A-DFA1-43B3-8012-19BB72C4C44A} = {A86C81E1-7A6B-4723-93A4-FD4362D9327B}
 		{8BE2BB29-9C38-4DA4-9D5C-8AF3178CF7C0} = {A86C81E1-7A6B-4723-93A4-FD4362D9327B}
+		{10EF955A-C2D6-49B9-917D-C214846CB3A5} = {A86C81E1-7A6B-4723-93A4-FD4362D9327B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D8C428FC-863D-45B1-8B43-659513809DAF}

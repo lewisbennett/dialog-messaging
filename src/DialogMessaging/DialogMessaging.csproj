@@ -30,7 +30,6 @@
 
 	<ItemGroup>
 		<Compile Include="Platforms\Shared\**\*.cs" />
-		<PackageReference Include="ViewPump" Version="0.99.0-alpha" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(Configuration)'=='Debug' ">
@@ -43,6 +42,7 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 		<Compile Include="Platforms\Droid\**\*.cs" />
+		<PackageReference Include="ViewPump" Version="0.99.0-alpha" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">

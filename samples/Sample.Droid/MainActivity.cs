@@ -5,7 +5,7 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using Sample.Droid.Messaging;
 using System;
-using ViewPump.Inflation;
+using ViewPump;
 
 namespace Sample.Droid
 {
@@ -62,7 +62,9 @@ namespace Sample.Droid
 
         protected override void AttachBaseContext(Context @base)
         {
-            base.AttachBaseContext(ViewPumpContextWrapper.Wrap(@base));
+            // The base context must be wrapped by the intercepting service.
+            // See ViewPump getting started for more details.
+            base.AttachBaseContext(InterceptingService.Instance.WrapContext(@base));
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
