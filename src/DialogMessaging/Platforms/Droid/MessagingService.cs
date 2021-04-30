@@ -5,7 +5,6 @@ using DialogMessaging.Core.Platforms.Droid.Callbacks;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Core.Platforms.Droid.ViewManager;
 using DialogMessaging.Infrastructure;
-using DialogMessaging.MvvmCross.Platforms.Droid.ViewManager;
 using ViewPump;
 using ViewPump.Events;
 
@@ -116,7 +115,7 @@ namespace DialogMessaging
             // Register an event handler so that we can notify the messaging service about inflated views.
             InterceptingService.Instance.ViewInflated += InterceptingService_ViewInflated;
 
-            DroidInit.Init(application, messagingService, activityLifecycleCallbacks, new ViewPumpViewManager());
+            DroidInit.Init(application, messagingService, activityLifecycleCallbacks);
         }
         #endregion
     }

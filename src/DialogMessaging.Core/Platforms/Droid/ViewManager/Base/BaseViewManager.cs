@@ -38,7 +38,7 @@ namespace DialogMessaging.Core.Platforms.Droid.ViewManager.Base
         /// <param name="callback">A callback containing the newly inflated view, its dialog element and auto hide setting. Only invoked if the view has a DialogMessaging attribute.</param>
         public virtual View InflateView(int layoutResId, ViewGroup container, bool attachToRoot, Action<View, string, bool> callback = null)
         {
-            var view = InflateView(layoutResId, container, attachToRoot);
+            var view = InflateView(MessagingServiceCore.ActivityLifecycleCallbacks.CurrentActivity, layoutResId, container, attachToRoot);
 
             // If no callback has been provided there isn't any point trying to find any attributes.
             if (callback != null)
@@ -89,7 +89,10 @@ namespace DialogMessaging.Core.Platforms.Droid.ViewManager.Base
         #endregion
 
         #region Protected Methods
-        protected abstract View InflateView(int layoutResId, ViewGroup container, bool attachToRoot);
+        protected virtual View InflateView(Context context, int layoutResId, ViewGroup container, bool attachToRoot)
+        {
+            return LayoutInflater.From(context).Inflate(layoutResId, container, attachToRoot);
+        }
         #endregion
     }
 }

@@ -14,12 +14,13 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
         /// <param name="application">The application.</param>
         /// <param name="messagingService">The messaging service.</param>
         /// <param name="activityLifecycleCallbacks">The activity lifecycle callbacks to register.</param>
-        /// <param name="viewManager">The view manager.</param>
-        public static void Init(Application application, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, IViewManager viewManager)
+        /// <param name="viewManager">The view manager, or null to use default.</param>
+        public static void Init(Application application, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, IViewManager viewManager = null)
         {
             MessagingServiceCore.ActivityLifecycleCallbacks = activityLifecycleCallbacks;
             MessagingServiceCore.Instance = messagingService;
-            MessagingServiceCore.ViewManager = viewManager;
+
+            MessagingServiceCore.ViewManager = viewManager ?? new DialogMessagingViewManager();
 
             application.RegisterActivityLifecycleCallbacks(MessagingServiceCore.ActivityLifecycleCallbacks);
         }
