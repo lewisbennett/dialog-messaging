@@ -31,7 +31,7 @@ namespace Sample.MvvmCross.Core.Messaging
 
         public async void ActionSheetBottom()
         {
-            var config = new ActionSheetBottomAsyncConfig
+            var config = new ActionSheetAsyncConfig
             {
                 Title = "Action Sheet Bottom Async",
                 Message = "Hello world!",

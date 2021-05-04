@@ -9,7 +9,7 @@ using System;
 
 namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 {
-    public class ActionSheetBottomSheetDialogFragment<TActionSheetItemConfig> : BaseBottomSheetDialogFragment<IActionSheetBottomConfig<TActionSheetItemConfig>>
+    public class ActionSheetBottomSheetDialogFragment<TActionSheetItemConfig> : BaseBottomSheetDialogFragment<IActionSheetConfig<TActionSheetItemConfig>>
         where TActionSheetItemConfig : IActionSheetItemConfig
     {
         #region Fields
@@ -104,7 +104,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         {
         }
 
-        public ActionSheetBottomSheetDialogFragment(IActionSheetBottomConfig<TActionSheetItemConfig> config)
+        public ActionSheetBottomSheetDialogFragment(IActionSheetConfig<TActionSheetItemConfig> config)
             : base(config)
         {
         }

@@ -29,7 +29,7 @@ namespace Sample.Droid.Messaging
 
         public void ActionSheetBottom()
         {
-            var config = new ActionSheetBottomConfig
+            var config = new ActionSheetConfig
             {
                 Title = "Action Sheet Bottom",
                 Message = "Hello world!",

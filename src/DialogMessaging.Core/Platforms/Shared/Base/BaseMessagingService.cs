@@ -55,7 +55,7 @@ namespace DialogMessaging.Core.Base
         /// Display an action sheet dialog from the bottom of the screen.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public IDisposable ActionSheetBottom(ActionSheetBottomConfig config)
+        public IDisposable ActionSheetBottom(ActionSheetConfig config)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate == null || MessagingServiceCore.Delegate.OnActionSheetBottomRequested(config))
@@ -68,7 +68,7 @@ namespace DialogMessaging.Core.Base
         /// Display an action sheet dialog from the bottom of the screen asynchronously.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
+        public Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnActionSheetBottomRequested(config))
@@ -358,26 +358,66 @@ namespace DialogMessaging.Core.Base
         #endregion
 
         #region Protected Methods
+        /// <summary>
+        /// Presents an action sheet based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentActionSheet<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig;
 
-        protected abstract IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
+        /// <summary>
+        /// Presents a bottom action sheet based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        protected abstract IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig;
 
+        /// <summary>
+        /// Presents an alert dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentAlert(IAlertConfig config);
 
+        /// <summary>
+        /// Presents a confirm dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentConfirm(IConfirmConfig config);
 
+        /// <summary>
+        /// Presents a delete dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentDelete(IDeleteConfig config);
 
+        /// <summary>
+        /// Presents a loading dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentLoading(ILoadingConfig config);
 
+        /// <summary>
+        /// Presents a login dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentLogin(ILoginConfig config);
 
+        /// <summary>
+        /// Presents a prompt dialog based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract IDisposable PresentPrompt(IPromptConfig config);
 
+        /// <summary>
+        /// Presents a snackbar based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract void PresentSnackbar(ISnackbarConfig config);
 
+        /// <summary>
+        /// Presents an toast based on the provided configuration.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
         protected abstract void PresentToast(IToastConfig config);
         #endregion
     }

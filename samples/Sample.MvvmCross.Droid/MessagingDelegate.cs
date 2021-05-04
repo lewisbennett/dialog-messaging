@@ -10,7 +10,7 @@ namespace Sample.MvvmCross.Droid
         private readonly Color[] _colors = new[] { Color.Red, Color.Green, Color.Blue };
         private readonly Random _random = new();
 
-        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
+        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig
         {
             return true;
