@@ -34,7 +34,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets or sets the default value for the Snackbar duration.
         /// </summary>
-        public static int Duration { get; set; }
+        public static int? Duration { get; set; }
 
         /// <summary>
         /// Gets or sets the default value for the message text color.
@@ -89,7 +89,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets or sets the Snackbar duration.
         /// </summary>
-        int Duration { get; set; }
+        int? Duration { get; set; }
 
         /// <summary>
         /// Gets or sets the message text color.
@@ -144,7 +144,7 @@ namespace DialogMessaging.Interactions
         /// <summary>
         /// Gets or sets the Snackbar duration.
         /// </summary>
-        public int Duration { get; set; }
+        public int? Duration { get; set; }
 
         /// <summary>
         /// Gets or sets the message text color.

@@ -12,6 +12,7 @@ using DialogMessaging.Interactions;
 using DialogMessaging.Interactions.Base;
 using DialogMessaging.Schema;
 using Google.Android.Material.BottomSheet;
+using Google.Android.Material.Snackbar;
 using System;
 using System.Linq;
 using Android_Toast = Android.Widget.Toast;
@@ -123,7 +124,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         /// <param name="config">The dialog configuration.</param>
         protected virtual Material_Snackbar ConstructSnackbar(AppCompatActivity appCompatActivity, ISnackbarConfig config)
         {
-            var snackbar = Material_Snackbar.Make(FindSnackbarContainerView(appCompatActivity), config.Message, config.Duration);
+            var snackbar = Material_Snackbar.Make(FindSnackbarContainerView(appCompatActivity), config.Message, config.Duration ?? BaseTransientBottomBar.LengthLong);
 
             // Configure the animation mode, if provided.
             if (config.AnimationMode.HasValue)
