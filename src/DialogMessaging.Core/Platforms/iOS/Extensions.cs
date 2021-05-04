@@ -107,6 +107,23 @@ namespace DialogMessaging.Core.Platforms.iOS
         /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
+        public static void ResizeForTextHeight(this UIButton button, float maxHeight = 960f)
+        {
+            var buttonWidth = button.Frame.Width;
+
+            var intrinsicSize = ((NSString)button.Title(UIControlState.Normal) ?? string.Empty).StringSize(button.Font, new CGSize(buttonWidth, maxHeight), UILineBreakMode.WordWrap);
+
+            var buttonFrame = button.Frame;
+
+            buttonFrame.Size = new CGSize(buttonWidth, intrinsicSize.Height);
+
+            button.Frame = buttonFrame;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
         public static void ResizeForTextHeight(this UILabel label, float maxHeight = 960f)
         {
             var labelWidth = label.Frame.Width;
@@ -118,6 +135,23 @@ namespace DialogMessaging.Core.Platforms.iOS
             labelFrame.Size = new CGSize(labelWidth, intrinsicSize.Height);
 
             label.Frame = labelFrame;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
+        public static void ResizeForTextWidth(this UIButton button, float maxWidth = 960f)
+        {
+            var buttonHeight = button.Frame.Height;
+
+            var intrinsicSize = ((NSString)button.Title(UIControlState.Normal) ?? string.Empty).StringSize(button.Font, new CGSize(maxWidth, buttonHeight), UILineBreakMode.WordWrap);
+
+            var buttonFrame = button.Frame;
+
+            buttonFrame.Size = new CGSize(intrinsicSize.Width, buttonHeight);
+
+            button.Frame = buttonFrame;
         }
 
         /// <summary>
@@ -137,6 +171,44 @@ namespace DialogMessaging.Core.Platforms.iOS
                     Debug.WriteLine(e);
                 }
             });
+        }
+
+        /// <summary>
+        /// Slides a view vertically into focus.
+        /// </summary>
+        /// <param name="animDuration">The duration of the animation.</param>
+        /// <param name="delay">The delay before the animation starts.</param>
+        /// <param name="finishedAction">The action invoked upon animation completion.</param>
+        public static void SlideInVertically(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        {
+            view.Alpha = 0f;
+            view.Transform = CGAffineTransform.MakeIdentity();
+
+            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                view.Alpha = 1f;
+                view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
+
+            }, finishedAction);
+        }
+
+        /// <summary>
+        /// Slides a view vertically out of focus.
+        /// </summary>
+        /// <param name="animDuration">The duration of the animation.</param>
+        /// <param name="delay">The delay before the animation starts.</param>
+        /// <param name="finishedAction">The action invoked upon animation completion.</param>
+        public static void SlideOutVertically(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        {
+            view.Alpha = 1f;
+            view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
+
+            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                view.Alpha = 0f;
+                view.Transform = CGAffineTransform.MakeIdentity();
+
+            }, finishedAction);
         }
         #endregion
     }

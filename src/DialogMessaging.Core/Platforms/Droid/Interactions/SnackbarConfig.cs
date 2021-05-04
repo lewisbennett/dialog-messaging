@@ -162,7 +162,7 @@ namespace DialogMessaging.Interactions
         public TypefaceStyle MessageTypefaceStyle { get; set; }
         #endregion
 
-        #region Cosntructors
+        #region Constructors
         public SnackbarConfig()
         {
             ActionButtonTextColor = SnackbarConfigDefaults.ActionButtonTextColor;

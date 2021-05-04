@@ -4,7 +4,7 @@ using System;
 namespace DialogMessaging.Core.Platforms.iOS.Infrastructure
 {
     public interface ICustomDialog<TConfig>
-        where TConfig : IBaseDialogConfig
+        where TConfig : IBaseInteraction
     {
         #region Methods
         /// <summary>

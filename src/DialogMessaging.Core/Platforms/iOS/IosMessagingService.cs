@@ -10,6 +10,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace DialogMessaging
@@ -22,7 +23,7 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         public virtual UIView BuildCustomDialog<TConfig>(TConfig config)
-            where TConfig : IBaseDialogConfig
+            where TConfig : IBaseInteraction
         {
             if (config.CustomViewType == null)
                 throw new InvalidOperationException("Cannot build custom dialog UIView. CustomViewType is null.");
@@ -62,7 +63,7 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="view">The custom dialog UIView. Must inherit <see cref="ICustomDialog{TConfig}" />.</param>
         public IDisposable ShowCustomDialog<TConfig>(UIView view)
-            where TConfig : IBaseDialogConfig
+            where TConfig : IBaseInteraction
         {
             if (view is not ICustomDialog<TConfig> customDialog)
                 throw new Exception($"Custom view type ({view.GetType().FullName}) does not inherit ICustomDialog.");
@@ -454,7 +455,14 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentSnackbar(ISnackbarConfig config)
         {
-            throw new NotImplementedException();
+            // Assign default view type, if one hasn't already been provided.
+            if (config.CustomViewType == null)
+                config.CustomViewType = typeof(DialogMessagingSnackbar);
+
+            var snackbarDisposable = ShowCustomDialog<ISnackbarConfig>(BuildCustomDialog(config));
+
+            // Asynchronously wait for the Snackbar duration, then dispose (dismiss) the Snackbar safely on the main thread.
+            Task.Delay(config.Duration ?? TimeSpan.FromSeconds(3)).ContinueWith((_) => UIDevice.CurrentDevice.SafeInvokeOnMainThread(snackbarDisposable.Dispose));
         }
 
         /// <summary>

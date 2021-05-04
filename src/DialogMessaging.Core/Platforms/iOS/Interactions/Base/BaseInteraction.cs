@@ -2,7 +2,7 @@
 
 namespace DialogMessaging.Interactions.Base
 {
-    public partial interface IBaseDialogConfig
+    public partial interface IBaseInteraction
     {
         #region Properties
         /// <summary>
@@ -12,7 +12,7 @@ namespace DialogMessaging.Interactions.Base
         #endregion
     }
 
-    public partial class BaseDialogConfig
+    public partial class BaseInteraction
     {
         #region Properties
         /// <summary>
@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions.Base
         #endregion
     }
 
-    public partial class BaseDialogAsyncConfig
+    public partial class BaseAsyncInteraction
     {
         #region Properties
         /// <summary>
