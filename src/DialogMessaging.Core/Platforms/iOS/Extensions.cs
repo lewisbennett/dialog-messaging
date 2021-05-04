@@ -1,4 +1,6 @@
-﻿using DialogMessaging.Schema;
+﻿using CoreGraphics;
+using DialogMessaging.Schema;
+using Foundation;
 using System;
 using System.Diagnostics;
 using UIKit;
@@ -53,6 +55,42 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
+        /// Fades a UIView into focus.
+        /// </summary>
+        /// <param name="animDuration">The duration of the animation.</param>
+        /// <param name="delay">The delay before the animation starts.</param>
+        /// <param name="finishedAction">The action invoked upon animation completion.</param>
+        public static void FadeIn(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        {
+            view.Alpha = 0f;
+            view.Transform = CGAffineTransform.MakeIdentity();
+
+            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                view.Alpha = 1f;
+
+            }, finishedAction);
+        }
+
+        /// <summary>
+        /// Fades a UIView out of focus.
+        /// </summary>
+        /// <param name="animDuration">The duration of the animation.</param>
+        /// <param name="delay">The delay before the animation starts.</param>
+        /// <param name="finishedAction">The action invoked upon animation completion.</param>
+        public static void FadeOut(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        {
+            view.Alpha = 1f;
+            view.Transform = CGAffineTransform.MakeIdentity();
+
+            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            {
+                view.Alpha = 0f;
+
+            }, finishedAction);
+        }
+
+        /// <summary>
         /// Gets the top level UIViewController.
         /// </summary>
         public static UIViewController GetTopViewController(this UIApplication application)
@@ -63,6 +101,23 @@ namespace DialogMessaging.Core.Platforms.iOS
                 viewController = viewController.PresentedViewController;
 
             return viewController;
+        }
+
+        /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
+        public static void ResizeForTextHeight(this UILabel label, float maxHeight = 960f)
+        {
+            var labelWidth = label.Frame.Width;
+
+            var intrinsicSize = ((NSString)label.Text ?? string.Empty).StringSize(label.Font, new CGSize(labelWidth, maxHeight), UILineBreakMode.WordWrap);
+
+            var labelFrame = label.Frame;
+
+            labelFrame.Size = new CGSize(labelWidth, intrinsicSize.Height);
+
+            label.Frame = labelFrame;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using DialogMessaging.Core.Base;
 using DialogMessaging.Core.Platforms.iOS;
+using DialogMessaging.Core.Platforms.iOS.Alerts;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
 using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 using DialogMessaging.Core.Platforms.Shared.Infrastructure;
@@ -321,7 +322,11 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLoading(ILoadingConfig config)
         {
-            throw new NotImplementedException();
+            // Assign default view type, if one hasn't already been provided.
+            if (config.CustomViewType == null)
+                config.CustomViewType = typeof(DialogMessagingLoadingAlert);
+
+            return ShowCustomDialog<ILoadingConfig>(BuildCustomDialog(config));
         }
 
         /// <summary>
