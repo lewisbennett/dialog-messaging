@@ -330,7 +330,60 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLogin(ILoginConfig config)
         {
-            throw new NotImplementedException();
+            if (config.CustomViewType != null)
+                return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
+
+            UIAlertView login = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                login = new UIAlertView
+                {
+                    Title = config.Title,
+                    Message = config.Message,
+                    AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput
+                };
+
+                // Configure the username and password text fields.
+                var usernameTextField = login.GetTextField(0);
+                var passwordTextField = login.GetTextField(1);
+
+                usernameTextField.Placeholder = config.UsernameHint;
+                usernameTextField.ApplyInputType(config.UsernameInputType);
+
+                passwordTextField.Placeholder = config.PasswordHint;
+
+                var actions = new Dictionary<nint, Action>();
+
+                // Add the login button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.LoginButtonText))
+                {
+                    actions[login.AddButton(config.LoginButtonText)] = () =>
+                    {
+                        config.EnteredUsername = usernameTextField.Text;
+                        config.EnteredPassword = passwordTextField.Text;
+
+                        config.LoginButtonClickAction?.Invoke(config.EnteredUsername, config.EnteredPassword);
+                    };
+                }
+
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                    actions[login.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+
+                // Listen for click events.
+                login.Clicked += (s, e) =>
+                {
+                    if (actions.TryGetValue(e.ButtonIndex, out Action action))
+                        action?.Invoke();
+
+                    config.DismissedAction?.Invoke();
+                };
+
+                login.Show();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => login.DismissWithClickedButtonIndex(0, true)));
         }
 
         /// <summary>
