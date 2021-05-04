@@ -236,7 +236,40 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentConfirm(IConfirmConfig config)
         {
-            throw new NotImplementedException();
+            if (config.CustomViewType != null)
+                return ShowCustomDialog<IAlertConfig>(BuildCustomDialog(config));
+
+            UIAlertController alert = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                // Add the confirm button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
+                {
+                    alert.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
+                    {
+                        config.ConfirmButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Present the alert.
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert.DismissViewController(true, null)));
         }
 
         /// <summary>
