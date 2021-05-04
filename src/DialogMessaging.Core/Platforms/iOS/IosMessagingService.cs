@@ -7,6 +7,7 @@ using DialogMessaging.Interactions;
 using DialogMessaging.Interactions.Base;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UIKit;
 
@@ -338,7 +339,55 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentPrompt(IPromptConfig config)
         {
-            throw new NotImplementedException();
+            if (config.CustomViewType != null)
+                return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
+
+            UIAlertView prompt = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                prompt = new UIAlertView
+                {
+                    Title = config.Title,
+                    Message = config.Message,
+                    AlertViewStyle = UIAlertViewStyle.PlainTextInput
+                };
+
+                var textField = prompt.GetTextField(0);
+
+                textField.Placeholder = config.Hint;
+                textField.ApplyInputType(config.InputType);
+
+                var actions = new Dictionary<nint, Action>();
+
+                // Add the confirm button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
+                {
+                    actions[prompt.AddButton(config.ConfirmButtonText)] = () =>
+                    {
+                        config.EnteredText = textField.Text;
+
+                        config.ConfirmButtonClickAction?.Invoke(config.EnteredText);
+                    };
+                }
+
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                    actions[prompt.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+
+                // Listen for click events.
+                prompt.Clicked += (s, e) =>
+                {
+                    if (actions.TryGetValue(e.ButtonIndex, out Action action))
+                        action?.Invoke();
+
+                    config.DismissedAction?.Invoke();
+                };
+
+                prompt.Show();
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => prompt.DismissWithClickedButtonIndex(0, true)));
         }
 
         /// <summary>

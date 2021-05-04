@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DialogMessaging.Schema;
+using System;
 using System.Diagnostics;
 using UIKit;
 
@@ -7,6 +8,50 @@ namespace DialogMessaging.Core.Platforms.iOS
     public static class Extensions
     {
         #region Public Methods
+        /// <summary>
+        /// Configures the UITextField to match the provided input type.
+        /// </summary>
+        /// <param name="inputType">The input type to be applied.</param>
+        public static void ApplyInputType(this UITextField textField, InputType inputType)
+        {
+            textField.ReturnKeyType = UIReturnKeyType.Done;
+
+            textField.ShouldReturn += delegate
+            {
+                return textField.ResignFirstResponder();
+            };
+
+            switch (inputType)
+            {
+                case InputType.EmailAddress:
+                    textField.KeyboardType = UIKeyboardType.EmailAddress;
+                    return;
+
+                case InputType.Name:
+                    textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
+                    return;
+
+                case InputType.Integer:
+                    textField.KeyboardType = UIKeyboardType.NumberPad;
+                    return;
+
+                case InputType.Decimal:
+                    textField.KeyboardType = UIKeyboardType.DecimalPad;
+                    return;
+
+                case InputType.PhoneNumber:
+                    textField.KeyboardType = UIKeyboardType.PhonePad;
+                    return;
+
+                case InputType.URI:
+                    textField.KeyboardType = UIKeyboardType.Url;
+                    return;
+
+                default:
+                    return;
+            }
+        }
+
         /// <summary>
         /// Gets the top level UIViewController.
         /// </summary>
