@@ -3,6 +3,41 @@ using UIKit;
 
 namespace DialogMessaging.Interactions
 {
+    public static partial class SnackbarConfigDefaults
+    {
+        #region Properties
+        /// <summary>
+        /// Gets or sets the default value for the action button font.
+        /// </summary>
+        public static UIFont ActionButtonFont { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the action button text color.
+        /// </summary>
+        public static UIColor ActionButtonTextColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the background color.
+        /// </summary>
+        public static UIColor BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the Snackbar duration.
+        /// </summary>
+        public static TimeSpan? Duration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the message text color.
+        /// </summary>
+        public static UIColor MessageTextColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the default value for the message typeface.
+        /// </summary>
+        public static UIFont MessageFont { get; set; }
+        #endregion
+    }
+
     public partial interface ISnackbarConfig
     {
         #region Properties
@@ -70,6 +105,19 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the message font.
         /// </summary>
         public UIFont MessageFont { get; set; }
+        #endregion
+
+        #region Constructors
+        public SnackbarConfig()
+            : base()
+        {
+            ActionButtonFont = SnackbarConfigDefaults.ActionButtonFont;
+            ActionButtonTextColor = SnackbarConfigDefaults.ActionButtonTextColor;
+            BackgroundColor = SnackbarConfigDefaults.BackgroundColor;
+            Duration = SnackbarConfigDefaults.Duration;
+            MessageTextColor = SnackbarConfigDefaults.MessageTextColor;
+            MessageFont = SnackbarConfigDefaults.MessageFont;
+        }
         #endregion
     }
 }
