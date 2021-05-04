@@ -211,7 +211,7 @@ namespace DialogMessaging
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+                alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
 
                 // Add the OK button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.OkButtonText))
@@ -237,18 +237,18 @@ namespace DialogMessaging
         protected override IDisposable PresentConfirm(IConfirmConfig config)
         {
             if (config.CustomViewType != null)
-                return ShowCustomDialog<IAlertConfig>(BuildCustomDialog(config));
+                return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
 
-            UIAlertController alert = null;
+            UIAlertController confirm = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                var alert = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+                confirm = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
 
                 // Add the confirm button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
-                    alert.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
+                    confirm.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
                     {
                         config.ConfirmButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -258,7 +258,7 @@ namespace DialogMessaging
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    alert.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    confirm.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -266,10 +266,10 @@ namespace DialogMessaging
                 }
 
                 // Present the alert.
-                UIApplication.SharedApplication.GetTopViewController().PresentViewController(alert, true, null);
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(confirm, true, null);
             });
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => alert.DismissViewController(true, null)));
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => confirm.DismissViewController(true, null)));
         }
 
         /// <summary>
@@ -278,7 +278,40 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentDelete(IDeleteConfig config)
         {
-            throw new NotImplementedException();
+            if (config.CustomViewType != null)
+                return ShowCustomDialog<IDeleteConfig>(BuildCustomDialog(config));
+
+            UIAlertController delete = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                delete = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                // Add the delete button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
+                {
+                    delete.AddAction(UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (action) =>
+                    {
+                        config.DeleteButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    delete.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Present the alert.
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(delete, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => delete.DismissViewController(true, null)));
         }
 
         /// <summary>
