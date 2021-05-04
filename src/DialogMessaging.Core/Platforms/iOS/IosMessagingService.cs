@@ -471,7 +471,14 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentToast(IToastConfig config)
         {
-            throw new NotImplementedException();
+            // Assign default view type, if one hasn't already been provided.
+            if (config.CustomViewType == null)
+                config.CustomViewType = typeof(DialogMessagingToast);
+
+            var toastDisposable = ShowCustomDialog<IToastConfig>(BuildCustomDialog(config));
+
+            // Asynchronously wait for the toast duration, then dispose (dismiss) the toast safely on the main thread.
+            Task.Delay(config.Duration ?? TimeSpan.FromSeconds(3)).ContinueWith((_) => UIDevice.CurrentDevice.SafeInvokeOnMainThread(toastDisposable.Dispose));
         }
         #endregion
     }

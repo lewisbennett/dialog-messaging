@@ -155,6 +155,23 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
+        /// Resizes the UILabel so that it can show all of its text.
+        /// </summary>
+        /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
+        public static void ResizeForTextWidth(this UILabel label, float maxWidth = 960f)
+        {
+            var labelHeight = label.Frame.Height;
+
+            var intrinsicSize = ((NSString)label.Text ?? string.Empty).StringSize(label.Font, new CGSize(maxWidth, labelHeight), UILineBreakMode.WordWrap);
+
+            var labelFrame = label.Frame;
+
+            labelFrame.Size = new CGSize(intrinsicSize.Width, labelHeight);
+
+            label.Frame = labelFrame;
+        }
+
+        /// <summary>
         /// Safely invokes an action on the main thread.
         /// </summary>
         /// <param name="action">The action to perform on the main thread.</param>

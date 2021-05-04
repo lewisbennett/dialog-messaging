@@ -43,7 +43,17 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         {
             _config = config;
 
-            MessageLabel.Text = _config.Message;
+            // Configure message.
+            if (!string.IsNullOrWhiteSpace(_config.Message))
+            {
+                if (_config.MessageFont != null)
+                    MessageLabel.Font = _config.MessageFont;
+
+                if (_config.MessageTextColor != null)
+                    MessageLabel.TextColor = _config.MessageTextColor;
+
+                MessageLabel.Text = _config.Message;
+            }
 
             if (config.BackgroundColor != null)
                 BackgroundColor = config.BackgroundColor;
@@ -61,21 +71,6 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
                     ActionButton.SetTitleColor(_config.ActionButtonTextColor, UIControlState.Normal);
 
                 ActionButton.SetTitle(_config.ActionButtonText, UIControlState.Normal);
-            }
-
-            // Hide message label, or configure if text is available.
-            if (string.IsNullOrWhiteSpace(_config.Message))
-                MessageLabel.Hidden = true;
-
-            else
-            {
-                if (_config.MessageFont != null)
-                    MessageLabel.Font = _config.MessageFont;
-
-                if (_config.MessageTextColor != null)
-                    MessageLabel.TextColor = _config.MessageTextColor;
-
-                MessageLabel.Text = _config.Message;
             }
 
             SetNeedsLayout();
