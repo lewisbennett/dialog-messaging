@@ -106,7 +106,45 @@ namespace DialogMessaging
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentActionSheet<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
         {
-            throw new NotImplementedException();
+            if (config.CustomViewType != null)
+                return ShowCustomDialog<IActionSheetConfig<TActionSheetItemConfig>>(BuildCustomDialog(config));
+
+            UIAlertController actionSheet = null;
+
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                actionSheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                // Add cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Add the items, if configured.
+                foreach (var item in config.Items)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.Message))
+                    {
+                        actionSheet.AddAction(UIAlertAction.Create(item.Message, UIAlertActionStyle.Default, (action) =>
+                        {
+                            item.ClickAction?.Invoke();
+
+                            config.ItemClickAction?.Invoke(item);
+                            config.DismissedAction?.Invoke();
+                        }));
+                    }
+                }
+
+                // Present the action sheet.
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(actionSheet, true, null);
+            });
+
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => actionSheet.DismissViewController(true, null)));
         }
 
         /// <summary>
@@ -127,6 +165,16 @@ namespace DialogMessaging
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
                 actionSheet = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.ActionSheet);
+
+                // Add cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                {
+                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
 
                 // Add the items, if configured.
                 foreach (var item in config.Items)
