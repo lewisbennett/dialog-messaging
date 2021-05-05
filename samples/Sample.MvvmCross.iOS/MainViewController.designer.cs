@@ -39,6 +39,9 @@ namespace Sample.MvvmCross.iOS
         UIKit.UIButton LoadingButton { get; set; }
 
         [Outlet]
+        UIKit.UIButton LoginButton { get; set; }
+
+        [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton PromptButton { get; set; }
 

@@ -23,6 +23,7 @@ namespace Sample.MvvmCross.iOS
             bindingSet.Bind(ConfirmButton).To(viewModel => viewModel.ConfirmButtonClickCommand);
             bindingSet.Bind(DeleteButton).To(viewModel => viewModel.DeleteButtonClickCommand);
             bindingSet.Bind(LoadingButton).To(viewModel => viewModel.LoadingButtonClickCommand);
+            bindingSet.Bind(LoginButton).To(viewModel => viewModel.LoginButtonClickCommand);
             bindingSet.Bind(PromptButton).To(viewModel => viewModel.PromptButtonClickCommand);
             bindingSet.Bind(SnackbarButton).To(viewModel => viewModel.SnackbarButtonClickCommand);
             bindingSet.Bind(ToastButton).To(viewModel => viewModel.ToastButtonClickCommand);
