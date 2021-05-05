@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using AndroidX.AppCompat.App;
-using DialogMessaging.Core.Platforms.Droid;
 using DialogMessaging.Core.Platforms.Droid.Callbacks;
 using DialogMessaging.Core.Platforms.Droid.Infrastructure;
 using DialogMessaging.Core.Platforms.Droid.ViewManager;
@@ -47,7 +46,7 @@ namespace DialogMessaging
         /// <param name="application">The application.</param>
         public static void Init(Application application)
         {
-            Init(application, new DroidMessagingService());
+            Init(application, (IMessagingService)null);
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace DialogMessaging
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
         public static void Init(Application application, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks)
         {
-            Init(application, new DroidMessagingService(), activityLifecycleCallbacks);
+            Init(application, null, activityLifecycleCallbacks);
         }
 
         /// <summary>
