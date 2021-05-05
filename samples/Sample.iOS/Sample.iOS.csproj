@@ -136,5 +136,15 @@
       <Version>0.1.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
+      <Project>{84816f57-6790-4c83-8cf2-2f44e11a1007}</Project>
+      <Name>DialogMessaging.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DialogMessaging\DialogMessaging.csproj">
+      <Project>{1d2a274f-ccba-452b-a828-34e6eb889d49}</Project>
+      <Name>DialogMessaging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

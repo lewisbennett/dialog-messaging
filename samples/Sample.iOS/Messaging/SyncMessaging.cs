@@ -1,42 +1,45 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sample.iOS.Messaging
 {
     public class SyncMessaging : IMessaging
     {
+        private int _loadingCount;
+
         public void ActionSheet()
         {
             var config = new ActionSheetConfig
             {
                 Title = "Action Sheet",
                 Message = "Hello world!",
-                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Text}"),
+                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Message}"),
                 CancelButtonText = "Cancel"
             };
 
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 1" });
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 2" });
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 3" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 1" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 2" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 3" });
 
             MessagingService.Instance.ActionSheet(config);
         }
 
         public void ActionSheetBottom()
         {
-            var config = new ActionSheetBottomConfig
+            var config = new ActionSheetConfig
             {
                 Title = "Action Sheet Bottom",
                 Message = "Hello world!",
-                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Text}"),
+                ItemClickAction = (item) => MessagingService.Instance.Toast($"Clicked: {item.Message}"),
                 CancelButtonText = "Cancel"
             };
 
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 1" });
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 2" });
-            config.Items.Add(new ActionSheetItemConfig { Text = "Item 3" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 1" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 2" });
+            config.Items.Add(new ActionSheetItemConfig { Message = "Item 3" });
 
             MessagingService.Instance.ActionSheetBottom(config);
         }
@@ -80,11 +83,13 @@ namespace Sample.iOS.Messaging
 
         public async void Loading()
         {
-            MessagingService.Instance.ShowLoading(new LoadingConfig { Title = "Loading", Message = "Hello World!" });
+            var config = new LoadingConfig { Title = "Loading", Message = "Hello World!" };
 
-            await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+            MessagingService.Instance.ShowLoading(config);
 
-            MessagingService.Instance.HideLoading();
+            await LoadingDelayAsync(config, _loadingCount++);
+
+            MessagingService.Instance.HideLoading(config);
         }
 
         public void Prompt()
@@ -117,6 +122,30 @@ namespace Sample.iOS.Messaging
             {
                 Message = "Toast"
             });
+        }
+
+        private async Task LoadingDelayAsync(LoadingConfig config, int loadingCount)
+        {
+            if (loadingCount % 2 == 0)
+            {
+                Timer timer = null;
+
+                await Task.WhenAll(Task.Delay(TimeSpan.FromSeconds(5)), Task.Run(() =>
+                {
+                    timer = new Timer((_) =>
+                    {
+                        if (config.Progress.HasValue)
+                            config.Progress++;
+                        else
+                            config.Progress = 0;
+
+                    }, null, 0, 40);
+                }));
+
+                timer.Dispose();
+            }
+            else
+                await Task.Delay(TimeSpan.FromSeconds(5));
         }
     }
 }
