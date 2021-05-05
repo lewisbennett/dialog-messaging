@@ -102,7 +102,7 @@ namespace Sample.MvvmCross.Core.Messaging
                 Message = "Enter your login credentials.",
                 UsernameHint = "Username",
                 UsernameInputType = InputType.EmailAddress,
-                PasswordHint = "Password,",
+                PasswordHint = "Password",
                 ShowPasswordHint = "Show password?",
                 LoginButtonText = "Login",
                 CancelButtonText = "Cancel"

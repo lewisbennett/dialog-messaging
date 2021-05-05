@@ -44,7 +44,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             SetPasswordVisibility();
         }
         #endregion
-
+         
         #region Protected Methods
         protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {
@@ -179,8 +179,11 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
             Dialog?.Window.SetSoftInputMode(SoftInput.StateAlwaysVisible);
 
+            // Focus on the username field if a username hasn't already been provided.
             if (string.IsNullOrWhiteSpace(Config.EnteredUsername))
                 _usernameEditText?.RequestFocus();
+
+            // Otherwise, focus on the password field.
             else
                 _passwordEditText?.RequestFocus();
         }

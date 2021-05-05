@@ -18,7 +18,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
         public static void Init(Application application, IMessagingService messagingService, IDialogMessagingActivityLifecycleCallbacks activityLifecycleCallbacks, IViewManager viewManager = null)
         {
             MessagingServiceCore.ActivityLifecycleCallbacks = activityLifecycleCallbacks;
-            MessagingServiceCore.Instance = messagingService;
+            MessagingServiceCore.Instance = messagingService ?? new DroidMessagingService();
 
             MessagingServiceCore.ViewManager = viewManager ?? new DialogMessagingViewManager();
 
