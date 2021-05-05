@@ -11,6 +11,7 @@
     <AssemblyName>Sample.MvvmCross.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+	<LangVersion>9</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
@@ -21,6 +22,7 @@
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
+	<LangVersion>9</LangVersion>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
@@ -32,6 +34,7 @@
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+	<LangVersion>9</LangVersion>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
   </PropertyGroup>
@@ -39,6 +42,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+	<LangVersion>9</LangVersion>
     <OutputPath>bin\iPhone\Debug</OutputPath>
     <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -56,6 +60,7 @@
     <WarningLevel>4</WarningLevel>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchArch>ARM64</MtouchArch>
+	<LangVersion>9</LangVersion>
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
@@ -136,15 +141,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
-      <Project>{b83d091c-da09-4a01-a366-2a8aec34e019}</Project>
+      <Project>{84816f57-6790-4c83-8cf2-2f44e11a1007}</Project>
       <Name>DialogMessaging.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj">
-      <Project>{456075b2-4317-4f27-9fc0-b041ed632415}</Project>
+      <Project>{040e7c29-36a4-4965-acf9-0f30720d2aa5}</Project>
       <Name>DialogMessaging.MvvmCross</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj">
-      <Project>{7cd9555f-58c3-4ed0-bfb3-196ed9c74d49}</Project>
+      <Project>{3318901a-dfa1-43b3-8012-19bb72c4c44a}</Project>
       <Name>Sample.MvvmCross.Core</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 
-namespace DialogMessaging.MvvmCross
+namespace DialogMessaging
 {
     public static partial class MessagingService
     {

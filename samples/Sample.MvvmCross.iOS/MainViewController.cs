@@ -14,19 +14,20 @@ namespace Sample.MvvmCross.iOS
 
             Title = "Sample.MvvmCross.iOS";
 
-            var set = this.CreateBindingSet<MainViewController, MainViewModel>();
+            // Bind the TouchUpInside event of the buttons to the ViewModel's click commands.
+            var bindingSet = this.CreateBindingSet<MainViewController, MainViewModel>();
 
-            set.Bind(ActionSheetButton).To(viewModel => viewModel.ActionSheetButtonClickCommand);
-            set.Bind(ActionSheetBottomButton).To(viewModel => viewModel.ActionSheetBottomButtonClickCommand);
-            set.Bind(AlertButton).To(viewModel => viewModel.AlertButtonClickCommand);
-            set.Bind(ConfirmButton).To(viewModel => viewModel.ConfirmButtonClickCommand);
-            set.Bind(DeleteButton).To(viewModel => viewModel.DeleteButtonClickCommand);
-            set.Bind(LoadingButton).To(viewModel => viewModel.LoadingButtonClickCommand);
-            set.Bind(PromptButton).To(viewModel => viewModel.PromptButtonClickCommand);
-            set.Bind(SnackbarButton).To(viewModel => viewModel.SnackbarButtonClickCommand);
-            set.Bind(ToastButton).To(viewModel => viewModel.ToastButtonClickCommand);
+            bindingSet.Bind(ActionSheetButton).To(viewModel => viewModel.ActionSheetButtonClickCommand);
+            bindingSet.Bind(ActionSheetBottomButton).To(viewModel => viewModel.ActionSheetBottomButtonClickCommand);
+            bindingSet.Bind(AlertButton).To(viewModel => viewModel.AlertButtonClickCommand);
+            bindingSet.Bind(ConfirmButton).To(viewModel => viewModel.ConfirmButtonClickCommand);
+            bindingSet.Bind(DeleteButton).To(viewModel => viewModel.DeleteButtonClickCommand);
+            bindingSet.Bind(LoadingButton).To(viewModel => viewModel.LoadingButtonClickCommand);
+            bindingSet.Bind(PromptButton).To(viewModel => viewModel.PromptButtonClickCommand);
+            bindingSet.Bind(SnackbarButton).To(viewModel => viewModel.SnackbarButtonClickCommand);
+            bindingSet.Bind(ToastButton).To(viewModel => viewModel.ToastButtonClickCommand);
 
-            set.Apply();
+            bindingSet.Apply();
         }
 
         public MainViewController ()

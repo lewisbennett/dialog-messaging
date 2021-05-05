@@ -8,14 +8,16 @@ namespace Sample.iOS
     public class MessagingDelegate : IMessagingDelegate
     {
         private readonly UIColor[] _colors = new[] { UIColor.Red, UIColor.Green, UIColor.Blue };
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
-        public bool OnActionSheetBottomRequested(IActionSheetBottomConfig config)
+        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+            where TActionSheetItemConfig : IActionSheetItemConfig
         {
             return true;
         }
 
-        public bool OnActionSheetRequested(IActionSheetConfig config)
+        public bool OnActionSheetRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+            where TActionSheetItemConfig : IActionSheetItemConfig
         {
             return true;
         }
@@ -40,6 +42,11 @@ namespace Sample.iOS
             return true;
         }
 
+        public bool OnLoadingRequested(ILoadingConfig config)
+        {
+            return true;
+        }
+
         public bool OnLoginRequested(ILoginConfig config)
         {
             return true;
@@ -50,13 +57,9 @@ namespace Sample.iOS
             return true;
         }
 
-        public bool OnShowLoadingRequested(ILoadingConfig config)
-        {
-            return true;
-        }
-
         public bool OnSnackbarRequested(ISnackbarConfig config)
         {
+            // Choose a random color to apply to the background of the snackbar.
             config.BackgroundColor = _colors[_random.Next(0, _colors.Length)];
 
             return true;
