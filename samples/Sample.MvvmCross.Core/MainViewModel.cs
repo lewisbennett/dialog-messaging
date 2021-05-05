@@ -18,6 +18,8 @@ namespace Sample.MvvmCross.Core
 
         public IMvxCommand LoadingButtonClickCommand { get; set; }
 
+        public IMvxCommand LoginButtonClickCommand { get; set; }
+
         public IMvxCommand PromptButtonClickCommand { get; set; }
 
         public IMvxCommand SnackbarButtonClickCommand { get; set; }
@@ -38,6 +40,7 @@ namespace Sample.MvvmCross.Core
             ConfirmButtonClickCommand = new MvxCommand(messaging.Confirm);
             DeleteButtonClickCommand = new MvxCommand(messaging.Delete);
             LoadingButtonClickCommand = new MvxCommand(messaging.Loading);
+            LoginButtonClickCommand = new MvxCommand(messaging.Login);
             PromptButtonClickCommand = new MvxCommand(messaging.Prompt);
             SnackbarButtonClickCommand = new MvxCommand(messaging.Snackbar);
             ToastButtonClickCommand = new MvxCommand(messaging.Toast);

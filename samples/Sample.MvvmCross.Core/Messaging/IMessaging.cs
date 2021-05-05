@@ -8,6 +8,7 @@
         void Confirm();
         void Delete();
         void Loading();
+        void Login();
         void Prompt();
         void Snackbar();
         void Toast();

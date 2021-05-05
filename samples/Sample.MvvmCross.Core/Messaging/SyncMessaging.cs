@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using DialogMessaging.Schema;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -90,6 +91,26 @@ namespace Sample.MvvmCross.Core.Messaging
             await LoadingDelayAsync(config, _loadingCount++);
 
             MessagingService.Instance.HideLoading(config);
+        }
+
+        public void Login()
+        {
+            MessagingService.Instance.Login(new LoginConfig
+            {
+                Title = "Login",
+                Message = "Enter your login credentials.",
+                UsernameHint = "Username",
+                UsernameInputType = InputType.EmailAddress,
+                PasswordHint = "Password,",
+                ShowPasswordHint = "Show password?",
+                LoginButtonText = "Login",
+                CancelButtonText = "Cancel",
+                LoginButtonClickAction = (username, password) =>
+                {
+                    MessagingService.Instance.Snackbar($"Username: {username}\nPassword: {password}");
+                },
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
+            });
         }
 
         public void Prompt()

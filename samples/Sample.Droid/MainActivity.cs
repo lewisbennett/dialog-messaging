@@ -13,7 +13,7 @@ namespace Sample.Droid
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button _actionSheetButton, _actionSheetBottomButton, _alertButton, _confirmButton, _deleteButton, _loadingButton, _promptButton, _snackbarButton, _toastButton;
+        private Button _actionSheetButton, _actionSheetBottomButton, _alertButton, _confirmButton, _deleteButton, _loadingButton, _loginButton, _promptButton, _snackbarButton, _toastButton;
         private IMessaging _messaging;
 
         private void ActionSheetButton_Click(object sender, EventArgs e)
@@ -44,6 +44,11 @@ namespace Sample.Droid
         private void LoadingButton_Click(object sender, EventArgs e)
         {
             _messaging.Loading();
+        }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            _messaging.Login();
         }
 
         private void PromptButton_Click(object sender, EventArgs e)
@@ -85,6 +90,7 @@ namespace Sample.Droid
             _confirmButton = FindViewById<Button>(Resource.Id.confirm_button);
             _deleteButton = FindViewById<Button>(Resource.Id.delete_button);
             _loadingButton = FindViewById<Button>(Resource.Id.loading_button);
+            _loginButton = FindViewById<Button>(Resource.Id.login_button);
             _promptButton = FindViewById<Button>(Resource.Id.prompt_button);
             _snackbarButton = FindViewById<Button>(Resource.Id.snackbar_button);
             _toastButton = FindViewById<Button>(Resource.Id.toast_button);
@@ -104,6 +110,7 @@ namespace Sample.Droid
             _confirmButton.Click += ConfirmButton_Click;
             _deleteButton.Click += DeleteButton_Click;
             _loadingButton.Click += LoadingButton_Click;
+            _loginButton.Click += LoginButton_Click;
             _promptButton.Click += PromptButton_Click;
             _snackbarButton.Click += SnackbarButton_Click;
             _toastButton.Click += ToastButton_Click;
@@ -119,6 +126,7 @@ namespace Sample.Droid
             _confirmButton.Click -= ConfirmButton_Click;
             _deleteButton.Click -= DeleteButton_Click;
             _loadingButton.Click -= LoadingButton_Click;
+            _loginButton.Click += LoginButton_Click;
             _promptButton.Click -= PromptButton_Click;
             _snackbarButton.Click -= SnackbarButton_Click;
             _toastButton.Click -= ToastButton_Click;

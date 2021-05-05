@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using DialogMessaging.Schema;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -91,6 +92,23 @@ namespace Sample.MvvmCross.Core.Messaging
             var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
 
             await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++));
+        }
+
+        public async void Login()
+        {
+            var (username, password) = await MessagingService.Instance.LoginAsync(new LoginAsyncConfig
+            {
+                Title = "Login",
+                Message = "Enter your login credentials.",
+                UsernameHint = "Username",
+                UsernameInputType = InputType.EmailAddress,
+                PasswordHint = "Password,",
+                ShowPasswordHint = "Show password?",
+                LoginButtonText = "Login",
+                CancelButtonText = "Cancel"
+            });
+
+            MessagingService.Instance.Snackbar($"Username: {username}\nPassword: {password}");
         }
 
         public async void Prompt()
