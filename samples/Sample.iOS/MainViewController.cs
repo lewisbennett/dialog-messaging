@@ -38,6 +38,11 @@ namespace Sample.iOS
             _messaging.Loading();
         }
 
+        private void LoginButton_TouchUpInside(object sender, EventArgs e)
+        {
+            _messaging.Login();
+        }
+
         private void PromptButton_TouchUpInside(object sender, EventArgs e)
         {
             _messaging.Prompt();
@@ -72,6 +77,7 @@ namespace Sample.iOS
             ConfirmButton.TouchUpInside += ConfirmButton_TouchUpInside;
             DeleteButton.TouchUpInside += DeleteButton_TouchUpInside;
             LoadingButton.TouchUpInside += LoadingButton_TouchUpInside;
+            LoginButton.TouchUpInside += LoginButton_TouchUpInside;
             PromptButton.TouchUpInside += PromptButton_TouchUpInside;
             SnackbarButton.TouchUpInside += SnackbarButton_TouchUpInside;
             ToastButton.TouchUpInside += ToastButton_TouchUpInside;
@@ -87,6 +93,7 @@ namespace Sample.iOS
             ConfirmButton.TouchUpInside -= ConfirmButton_TouchUpInside;
             DeleteButton.TouchUpInside -= DeleteButton_TouchUpInside;
             LoadingButton.TouchUpInside -= LoadingButton_TouchUpInside;
+            LoginButton.TouchUpInside -= LoginButton_TouchUpInside;
             PromptButton.TouchUpInside -= PromptButton_TouchUpInside;
             SnackbarButton.TouchUpInside -= SnackbarButton_TouchUpInside;
             ToastButton.TouchUpInside -= ToastButton_TouchUpInside;

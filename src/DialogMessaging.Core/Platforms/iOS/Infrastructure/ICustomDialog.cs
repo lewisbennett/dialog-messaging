@@ -6,6 +6,13 @@ namespace DialogMessaging.Core.Platforms.iOS.Infrastructure
     public interface ICustomDialog<TConfig>
         where TConfig : IBaseInteraction
     {
+        #region Properties
+        /// <summary>
+        /// Gets or sets whether the view is currently showing.
+        /// </summary>
+        bool IsShowing { get; set; }
+        #endregion
+
         #region Methods
         /// <summary>
         /// Applies the provided dialog configuration to the view.

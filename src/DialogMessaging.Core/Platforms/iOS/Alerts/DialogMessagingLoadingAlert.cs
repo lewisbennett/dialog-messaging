@@ -41,6 +41,11 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public UIActivityIndicatorView IndeterminateProgress { get; } = new();
 
         /// <summary>
+        /// Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
         /// Gets the message label.
         /// </summary>
         public UILabel MessageLabel { get; } = new();
@@ -100,6 +105,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Dismiss(Action finishedAction = null)
         {
             this.FadeOut(0.2f, finishedAction: finishedAction);
+
+            IsShowing = false;
         }
 
         /// <summary>
@@ -109,6 +116,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Show(Action finishedAction = null)
         {
             this.FadeIn(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 
@@ -206,20 +215,39 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         #region Private Methods
         private void AdjustProgress()
         {
-            if (_config.Progress.HasValue)
+            UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                IndeterminateProgress.Hidden = true;
+                float determinateProgress;
+                bool determinateProgressHidden, indeterminateProgressHidden;
 
-                DeterminateProgress.Progress = _config.Progress.Value / 100f;
-                DeterminateProgress.Hidden = false;
-            }
-            else
-            {
-                IndeterminateProgress.Hidden = false;
+                if (_config.Progress.HasValue)
+                {
+                    indeterminateProgressHidden = true;
 
-                DeterminateProgress.Progress = 0;
-                DeterminateProgress.Hidden = true;
-            }
+                    determinateProgress = _config.Progress.Value / 100f;
+                    determinateProgressHidden = false;
+                }
+                else
+                {
+                    indeterminateProgressHidden = false;
+
+                    determinateProgress = 0;
+                    determinateProgressHidden = true;
+                }
+
+                // Compare the existing 'Hidden' values, so that we can check whether requiring layout again is necessary.
+                if (DeterminateProgress.Hidden != determinateProgressHidden || IndeterminateProgress.Hidden != indeterminateProgressHidden)
+                {
+                    DeterminateProgress.Hidden = determinateProgressHidden;
+                    IndeterminateProgress.Hidden = indeterminateProgressHidden;
+
+                    SetNeedsLayout();
+                }
+
+                DeterminateProgress.Progress = determinateProgress;
+
+                LayoutIfNeeded();
+            });
         }
 
         private void AssignOwnership()

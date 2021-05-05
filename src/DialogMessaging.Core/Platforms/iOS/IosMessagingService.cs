@@ -4,6 +4,7 @@ using DialogMessaging.Core.Platforms.iOS.Alerts;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
 using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 using DialogMessaging.Core.Platforms.Shared.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Interactions.Base;
 using Foundation;
@@ -51,7 +52,7 @@ namespace DialogMessaging
                     throw new Exception($"Custom view type ({config.CustomViewType.FullName}) does not inherit ICustomDialog.");
 
                 // Apply the app's full window bounds to the view and re-layout.
-                view.Frame = UIApplication.SharedApplication.KeyWindow.Bounds;
+                view.Frame = MessagingServiceCore.Window.Bounds;
                 view.LayoutIfNeeded();
             });
 
@@ -70,9 +71,14 @@ namespace DialogMessaging
 
             void showView()
             {
-                UIApplication.SharedApplication.KeyWindow.AddSubview(view);
+                if (!customDialog.IsShowing)
+                {
+                    MessagingServiceCore.Window.AddSubview(view);
 
-                customDialog.Show();
+                    view.LayoutIfNeeded();
+
+                    customDialog.Show();
+                }
             }
 
             void dismissAndShow(UIView existingView)
@@ -84,10 +90,10 @@ namespace DialogMessaging
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                var existingView = UIApplication.SharedApplication.KeyWindow.ViewWithTag(view.Tag);
+                var existingView = MessagingServiceCore.Window.ViewWithTag(view.Tag);
 
                 // Try to dismiss the existing custom dialog gracefully.
-                if (existingView is ICustomDialog<TConfig> existingCustomDialog)
+                if (existingView is ICustomDialog<TConfig> existingCustomDialog && existingCustomDialog.IsShowing)
                     existingCustomDialog.Dismiss(() => dismissAndShow(existingView));
 
                 // Dismiss existing view.
@@ -98,7 +104,11 @@ namespace DialogMessaging
                     showView();
             });
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => customDialog.Dismiss(() => view.RemoveFromSuperview())));
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
+            {
+                if (customDialog.IsShowing)
+                    customDialog.Dismiss(() => view.RemoveFromSuperview());
+            }));
         }
         #endregion
 

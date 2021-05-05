@@ -15,6 +15,11 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
         #region Properties
         /// <summary>
+        /// Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
         /// Gets the message label.
         /// </summary>
         public UILabel MessageLabel { get; } = new ();
@@ -44,6 +49,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Dismiss(Action finishedAction = null)
         {
             this.FadeOut(0.2f, finishedAction: finishedAction);
+
+            IsShowing = false;
         }
 
         /// <summary>
@@ -53,6 +60,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Show(Action finishedAction = null)
         {
             this.FadeIn(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 

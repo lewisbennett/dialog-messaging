@@ -1,4 +1,5 @@
 ﻿using DialogMessaging.Core.Platforms.iOS.Infrastructure;
+using UIKit;
 
 namespace DialogMessaging
 {
@@ -8,18 +9,20 @@ namespace DialogMessaging
         /// <summary>
         /// Initialize the messaging service.
         /// </summary>
-        public static void Init()
+        /// <param name="window">The app's primary <see cref="UIWindow" />.</param>
+        public static void Init(UIWindow window)
         {
-            Init(null);
+            Init(window, null);
         }
 
         /// <summary>
         /// Initialize the messaging service.
         /// </summary>
+        /// <param name="window">The app's primary <see cref="UIWindow" />.</param>
         /// <param name="messagingService">A custom messaging service.</param>
-        public static void Init(IMessagingService messagingService)
+        public static void Init(UIWindow window, IMessagingService messagingService)
         {
-            IosInit.Init(messagingService);
+            IosInit.Init(window, messagingService);
         }
         #endregion
     }

@@ -12,9 +12,9 @@ namespace Sample.iOS
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            // Initialize the messaging service.
+            // Initialize the messaging service, with the app's current window.
             // Overflow initializer methods are available for more advanced use cases.
-            MessagingService.Init();
+            MessagingService.Init(Window);
 
             // Provide the messaging service with a custom messaging delegate.
             // This allows us to be notified when specific dialogs are requested meaning that we can alter

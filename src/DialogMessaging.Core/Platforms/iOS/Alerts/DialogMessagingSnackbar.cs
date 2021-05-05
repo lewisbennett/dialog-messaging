@@ -20,6 +20,11 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public UIButton ActionButton { get; } = new();
 
         /// <summary>
+        /// Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
         /// Gets the message label.
         /// </summary>
         public UILabel MessageLabel { get; } = new();
@@ -28,7 +33,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         #region Event Handlers
         private void ActionButton_TouchUpInside(object sender, EventArgs e)
         {
-            _config?.ActionButtonClickAction?.Invoke();
+            _config.ActionButtonClickAction?.Invoke();
 
             Dismiss();
         }
@@ -55,8 +60,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
                 MessageLabel.Text = _config.Message;
             }
 
-            if (config.BackgroundColor != null)
-                BackgroundColor = config.BackgroundColor;
+            if (_config.BackgroundColor != null)
+                BackgroundColor = _config.BackgroundColor;
 
             // Hide action button, or configure if text is available.
             if (string.IsNullOrWhiteSpace(_config.ActionButtonText))
@@ -84,6 +89,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Dismiss(Action finishedAction = null)
         {
             this.SlideOutVertically(0.2f, finishedAction: finishedAction);
+
+            IsShowing = false;
         }
 
         /// <summary>
@@ -93,6 +100,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         public void Show(Action finishedAction = null)
         {
             this.SlideInVertically(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 

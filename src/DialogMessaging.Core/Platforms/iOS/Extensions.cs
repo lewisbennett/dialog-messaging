@@ -3,6 +3,7 @@ using DialogMessaging.Schema;
 using Foundation;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using UIKit;
 
 namespace DialogMessaging.Core.Platforms.iOS
@@ -65,11 +66,15 @@ namespace DialogMessaging.Core.Platforms.iOS
             view.Alpha = 0f;
             view.Transform = CGAffineTransform.MakeIdentity();
 
-            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
                 view.Alpha = 1f;
 
-            }, finishedAction);
+            }, (hasFinished) =>
+            {
+                if (hasFinished)
+                    finishedAction?.Invoke();
+            });
         }
 
         /// <summary>
@@ -83,11 +88,15 @@ namespace DialogMessaging.Core.Platforms.iOS
             view.Alpha = 1f;
             view.Transform = CGAffineTransform.MakeIdentity();
 
-            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
                 view.Alpha = 0f;
 
-            }, finishedAction);
+            }, (hasFinished) =>
+            {
+                if (hasFinished)
+                    finishedAction?.Invoke();
+            });
         }
 
         /// <summary>
@@ -201,12 +210,16 @@ namespace DialogMessaging.Core.Platforms.iOS
             view.Alpha = 0f;
             view.Transform = CGAffineTransform.MakeIdentity();
 
-            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
                 view.Alpha = 1f;
                 view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
 
-            }, finishedAction);
+            }, (hasFinished) =>
+            {
+                if (hasFinished)
+                    finishedAction?.Invoke();
+            });
         }
 
         /// <summary>
@@ -220,12 +233,16 @@ namespace DialogMessaging.Core.Platforms.iOS
             view.Alpha = 1f;
             view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
 
-            UIView.Animate(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
+            UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
                 view.Alpha = 0f;
                 view.Transform = CGAffineTransform.MakeIdentity();
 
-            }, finishedAction);
+            }, (hasFinished) =>
+            {
+                if (hasFinished)
+                    finishedAction?.Invoke();
+            });
         }
         #endregion
     }

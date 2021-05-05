@@ -18,7 +18,6 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
@@ -26,6 +25,7 @@
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -43,8 +43,6 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
-    <AndroidSupportedAbis>
-    </AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -134,15 +132,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
-      <Project>{b83d091c-da09-4a01-a366-2a8aec34e019}</Project>
+      <Project>{84816F57-6790-4C83-8CF2-2F44E11A1007}</Project>
       <Name>DialogMessaging.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj">
-      <Project>{456075b2-4317-4f27-9fc0-b041ed632415}</Project>
+      <Project>{040E7C29-36A4-4965-ACF9-0F30720D2AA5}</Project>
       <Name>DialogMessaging.MvvmCross</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sample.MvvmCross.Core\Sample.MvvmCross.Core.csproj">
-      <Project>{7CD9555F-58C3-4ED0-BFB3-196ED9C74D49}</Project>
+      <Project>{3318901A-DFA1-43B3-8012-19BB72C4C44A}</Project>
       <Name>Sample.MvvmCross.Core</Name>
     </ProjectReference>
   </ItemGroup>
