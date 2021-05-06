@@ -53,6 +53,17 @@ namespace Sample.Droid
 
         public bool OnLoginRequested(ILoginConfig config)
         {
+            var randomDouble = _random.NextDouble();
+
+            // Randomize whether to show the 'show password' toggle.
+            if (randomDouble > 0.5)
+            {
+                // Randomize whether the 'show password' toggle is pre-selected.
+                config.ShowPassword = randomDouble > 0.75;
+
+                config.ShowPasswordHint = "Show password?";
+            }
+
             return true;
         }
 
