@@ -22,6 +22,11 @@ namespace DialogMessaging.Interactions
         public static UIColor BackgroundColor { get; set; }
 
         /// <summary>
+        /// Gets or sets the default <see cref="Type" /> of the custom view to use for the dialog, if any.
+        /// </summary>
+        public static Type CustomViewType { get; set; }
+
+        /// <summary>
         /// Gets or sets the default value for the Snackbar duration.
         /// </summary>
         public static TimeSpan? Duration { get; set; }
@@ -114,6 +119,7 @@ namespace DialogMessaging.Interactions
             ActionButtonFont = SnackbarConfigDefaults.ActionButtonFont;
             ActionButtonTextColor = SnackbarConfigDefaults.ActionButtonTextColor;
             BackgroundColor = SnackbarConfigDefaults.BackgroundColor;
+            CustomViewType = SnackbarConfigDefaults.CustomViewType;
             Duration = SnackbarConfigDefaults.Duration;
             MessageTextColor = SnackbarConfigDefaults.MessageTextColor;
             MessageFont = SnackbarConfigDefaults.MessageFont;
