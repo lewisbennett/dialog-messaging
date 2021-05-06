@@ -103,7 +103,6 @@ namespace Sample.iOS.Messaging
                 UsernameHint = "Username",
                 UsernameInputType = InputType.EmailAddress,
                 PasswordHint = "Password",
-                ShowPasswordHint = "Show password?",
                 LoginButtonText = "Login",
                 CancelButtonText = "Cancel"
             });

@@ -1,6 +1,7 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using Foundation;
+using Sample.iOS.Dialogs;
 using UIKit;
 
 namespace Sample.iOS
@@ -25,6 +26,7 @@ namespace Sample.iOS
             // These values can be overwritten, and will already have been applied to the dialog configuration
             // object by the time it reaches the messaging delegate.
             SnackbarConfigDefaults.ActionButtonTextColor = UIColor.White;
+            SnackbarConfigDefaults.CustomViewType = typeof(MaterialSnackbar);
             SnackbarConfigDefaults.MessageTextColor = UIColor.White;
 
             return true;

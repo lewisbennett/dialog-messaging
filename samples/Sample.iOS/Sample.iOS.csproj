@@ -135,16 +135,20 @@
     <Compile Include="MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MaterialSnackbar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">
-      <Project>{84816f57-6790-4c83-8cf2-2f44e11a1007}</Project>
+      <Project>{5F3B1D01-E28D-4EA3-902A-19CAD3C06BC6}</Project>
       <Name>DialogMessaging.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\DialogMessaging\DialogMessaging.csproj">
       <Project>{1d2a274f-ccba-452b-a828-34e6eb889d49}</Project>
       <Name>DialogMessaging</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
