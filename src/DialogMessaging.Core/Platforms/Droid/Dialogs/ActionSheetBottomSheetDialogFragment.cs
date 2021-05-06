@@ -47,16 +47,13 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonSecondary):
 
+                    _cancelButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _cancelButton.Visibility = ViewStates.Gone;
+
                     else
-                    {
-                        _cancelButton = button;
-
                         _cancelButton.Text = Config.CancelButtonText;
-
-                        _cancelButton.Click += CancelButton_Click;
-                    }
 
                     return;
 
@@ -69,8 +66,6 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     adapter.AddAll(Config.Items);
 
                     _listView.Adapter = adapter;
-
-                    _listView.ItemClick += ListView_ItemClick;
 
                     return;
 
@@ -86,6 +81,17 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Lifecycle
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            if (_cancelButton != null)
+                _cancelButton.Click += CancelButton_Click;
+
+            if (_listView != null)
+                _listView.ItemClick += ListView_ItemClick;
+        }
+
         public override void OnDestroy()
         {
             base.OnDestroy();

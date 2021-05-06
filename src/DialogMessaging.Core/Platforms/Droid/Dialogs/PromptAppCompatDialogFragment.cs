@@ -61,32 +61,26 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonPrimary):
 
+                    _confirmButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.ConfirmButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _confirmButton.Visibility = ViewStates.Gone;
+
                     else
-                    {
-                        _confirmButton = button;
-
                         _confirmButton.Text = Config.ConfirmButtonText;
-
-                        _confirmButton.Click += ConfirmButton_Click;
-                    }
 
                     return;
 
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonSecondary):
 
+                    _cancelButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _cancelButton.Visibility = ViewStates.Gone;
+
                     else
-                    {
-                        _cancelButton = button;
-
                         _cancelButton.Text = Config.CancelButtonText;
-
-                        _cancelButton.Click += CancelButton_Click;
-                    }
 
                     return;
 
@@ -151,6 +145,12 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             Dialog?.Window.SetSoftInputMode(SoftInput.StateAlwaysVisible);
 
             _editText?.RequestFocus();
+
+            if (_cancelButton != null)
+                _cancelButton.Click += CancelButton_Click;
+
+            if (_confirmButton != null)
+                _confirmButton.Click += ConfirmButton_Click;
         }
 
         public override void OnSaveInstanceState(Bundle outState)

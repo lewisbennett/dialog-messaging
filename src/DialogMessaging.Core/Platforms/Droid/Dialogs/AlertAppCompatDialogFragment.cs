@@ -42,16 +42,13 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonPrimary):
 
+                    _okButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.OkButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _okButton.Visibility = ViewStates.Gone;
+
                     else
-                    {
-                        _okButton = button;
-
                         _okButton.Text = Config.OkButtonText;
-
-                        _okButton.Click += OkButton_Click;
-                    }
 
                     return;
 
@@ -62,6 +59,14 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Lifecycle
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            if (_okButton != null)
+                _okButton.Click += OkButton_Click;
+        }
+
         public override void OnDestroy()
         {
             base.OnDestroy();

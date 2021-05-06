@@ -1,4 +1,5 @@
-﻿using Android.Runtime;
+﻿using Android.OS;
+using Android.Runtime;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
@@ -16,9 +17,11 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
     {
         #region Fields
         private TextView _cancelButton, _loginButton;
+        private string _enteredPassword, _enteredUsername;
         private EditText _passwordEditText, _usernameEditText;
         private TextInputLayout _passwordTextInputLayout, _usernameTextInputLayout;
         private CheckBox _passwordVisibilityCheckBox;
+        private bool? _showPassword;
         #endregion
 
         #region Event Handlers
@@ -69,32 +72,24 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonPrimary):
 
+                    _loginButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.LoginButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _loginButton.Visibility = ViewStates.Gone;
                     else
-                    {
-                        _loginButton = button;
-
                         _loginButton.Text = Config.LoginButtonText;
-
-                        _loginButton.Click += LoginButton_Click;
-                    }
 
                     return;
 
                 // The Android Button inherits from TextView, and using TextView's for buttons is common.
                 case (TextView button, DialogElement.ButtonSecondary):
 
+                    _cancelButton = button;
+
                     if (string.IsNullOrWhiteSpace(Config.CancelButtonText) && autoHide)
-                        button.Visibility = ViewStates.Gone;
+                        _cancelButton.Visibility = ViewStates.Gone;
                     else
-                    {
-                        _cancelButton = button;
-
                         _cancelButton.Text = Config.CancelButtonText;
-
-                        _cancelButton.Click += CancelButton_Click;
-                    }
 
                     return;
 
@@ -102,7 +97,18 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     _usernameEditText = editText;
 
-                    _usernameEditText.Text = Config.EnteredUsername;
+                    // Set the EditText's text to the username provided in the config, if any, if a previously entered username isn't available.
+                    if (string.IsNullOrWhiteSpace(_enteredUsername))
+                        _usernameEditText.Text = Config.EnteredUsername;
+
+                    // Otherwise, use and nullify the previously entered username.
+                    else
+                    {
+                        _usernameEditText.Text = _enteredUsername;
+
+                        _enteredUsername = null;
+                    }
+
                     _usernameEditText.InputType = Config.UsernameInputType.ToInputTypes();
 
                     // Only set the hint on the EditText if it is not wrapped in a TextInputLayout.
@@ -130,7 +136,17 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     _passwordEditText = editText;
 
-                    _passwordEditText.Text = Config.EnteredPassword;
+                    // Set the EditText's text to the password provided in the config, if any, if a previously entered password isn't available.
+                    if (string.IsNullOrWhiteSpace(_enteredPassword))
+                        _passwordEditText.Text = Config.EnteredPassword;
+
+                    // Otherwise, use and nullify the previously entered password.
+                    else
+                    {
+                        _passwordEditText.Text = _enteredPassword;
+
+                        _enteredPassword = null;
+                    }
 
                     // Only set the hint on the EditText if it is not wrapped in a TextInputLayout.
                     if (_passwordTextInputLayout == null)
@@ -141,6 +157,8 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                         Config.PasswordTopIconResID ?? 0,
                         Config.PasswordEndIconResID ?? 0,
                         Config.PasswordBottomIconResID ?? 0);
+
+                    SetPasswordVisibility();
 
                     return;
 
@@ -157,12 +175,26 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
 
                     _passwordVisibilityCheckBox = checkBox;
 
-                    _passwordVisibilityCheckBox.Checked = Config.ShowPassword;
-                    _passwordVisibilityCheckBox.Text = Config.ShowPasswordHint;
+                    if (string.IsNullOrEmpty(Config.ShowPasswordHint) && autoHide)
+                        _passwordVisibilityCheckBox.Visibility = ViewStates.Gone;
+
+                    else
+                    {
+                        // Restore the CheckBox' checked state, if available, then nullify.
+                        if (_showPassword.HasValue)
+                        {
+                            _passwordVisibilityCheckBox.Checked = _showPassword.Value;
+
+                            _showPassword = null;
+                        }
+                        // Otherwise, use the state provided by the config.
+                        else
+                            _passwordVisibilityCheckBox.Checked = Config.ShowPassword;
+
+                        _passwordVisibilityCheckBox.Text = Config.ShowPasswordHint;
+                    }
 
                     SetPasswordVisibility();
-
-                    _passwordVisibilityCheckBox.CheckedChange += PasswordVisibilityCheckBox_CheckedChange;
 
                     return;
 
@@ -173,6 +205,20 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
         #endregion
 
         #region Lifecycle
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Get the saved entered username and password, if any.
+            if (savedInstanceState != null)
+            {
+                _enteredPassword = savedInstanceState.GetString(EnteredPasswordSaveID);
+                _enteredUsername = savedInstanceState.GetString(EnteredUsernameSaveID);
+
+                _showPassword = savedInstanceState.GetBoolean(ShowPasswordSaveID);
+            }
+        }
+
         public override void OnResume()
         {
             base.OnResume();
@@ -186,6 +232,34 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             // Otherwise, focus on the password field.
             else
                 _passwordEditText?.RequestFocus();
+
+            if (_cancelButton != null)
+                _cancelButton.Click += CancelButton_Click;
+
+            if (_loginButton != null)
+                _loginButton.Click += LoginButton_Click;
+
+            if (_passwordVisibilityCheckBox != null)
+                _passwordVisibilityCheckBox.CheckedChange += PasswordVisibilityCheckBox_CheckedChange;
+        }
+
+        public override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+
+            // Save the entered username and password, if any, so it can be restored when the dialog reappears.
+            var enteredPassword = _passwordEditText?.Text;
+            var enteredUsername = _usernameEditText?.Text;
+
+            if (!string.IsNullOrWhiteSpace(enteredPassword))
+                outState.PutString(EnteredPasswordSaveID, enteredPassword);
+
+            if (!string.IsNullOrWhiteSpace(enteredUsername))
+                outState.PutString(EnteredUsernameSaveID, enteredUsername);
+
+            // Save the current 'show password' state, so it can be restored when the dialog reappears.
+            if (_passwordVisibilityCheckBox != null)
+                outState.PutBoolean(ShowPasswordSaveID, _passwordVisibilityCheckBox.Checked);
         }
 
         public override void OnDestroy()
@@ -235,6 +309,12 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                 _passwordEditText.Typeface = typeface;
             }
         }
+        #endregion
+
+        #region Constant Values
+        public const string EnteredPasswordSaveID = "entered_password";
+        public const string EnteredUsernameSaveID = "entered_username";
+        public const string ShowPasswordSaveID = "show_password";
         #endregion
     }
 }
