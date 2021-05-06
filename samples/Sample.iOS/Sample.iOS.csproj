@@ -118,6 +118,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Dialogs\CustomAlert.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -136,6 +137,8 @@
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\MaterialSnackbar.cs" />
+    <Compile Include="Dialogs\CustomAlert.cs" />
+    <Compile Include="Dialogs\CustomAlert.designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DialogMessaging.Core\DialogMessaging.Core.csproj">

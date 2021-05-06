@@ -1,5 +1,6 @@
 ﻿using DialogMessaging;
 using DialogMessaging.Interactions;
+using Sample.MvvmCross.iOS.Dialogs;
 using System;
 using UIKit;
 
@@ -24,6 +25,9 @@ namespace Sample.MvvmCross.iOS
 
         public bool OnAlertRequested(IAlertConfig config)
         {
+            if (_random.NextDouble() > 0.5)
+                config.CustomViewType = typeof(CustomAlert);
+
             return true;
         }
 
