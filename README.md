@@ -7,18 +7,18 @@ DialogMessaging is a cross platform, customizable dialog messaging service, comp
 
 ## Dialogs
 
-- Alert*
-- Confirm*
-- Delete*
-- Loading*
-- Action sheet*
-- Action sheet bottom*
+- Action sheet *
+- Action sheet bottom *
+- Alert *
+- Confirm *
+- Delete *
+- Loading *
 - Login *
-- Prompt*
-- Toast
+- Prompt *
 - Snackbar
+- Toast
 
-\*Synchronous and asynchronous methods are available.
+\* Synchronous and asynchronous methods are available.
 
 ## [Getting Started](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging)
 
