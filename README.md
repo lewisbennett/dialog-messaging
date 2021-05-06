@@ -24,6 +24,10 @@ DialogMessaging is a cross platform, customizable dialog messaging service, comp
 
 ## [Getting Started (MvvmCross)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.MvvmCross)
 
+## [Customization](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.Core/Platforms/Shared/CUSTOMIZATION.md)
+
+## [Customization (Android)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.Core/Platforms/Droid/CUSTOMIZATION.md)
+
 ## Samples
 
 [Android project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.Droid)
