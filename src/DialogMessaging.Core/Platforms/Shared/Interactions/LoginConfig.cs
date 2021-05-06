@@ -47,16 +47,6 @@ namespace DialogMessaging.Interactions
         string PasswordHint { get; set; }
 
         /// <summary>
-        /// Gets or sets whether to show the password.
-        /// </summary>
-        bool ShowPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hint for the show password toggle.
-        /// </summary>
-        string ShowPasswordHint { get; set; }
-
-        /// <summary>
         /// Gets or sets the hint for the username field.
         /// </summary>
         string UsernameHint { get; set; }
@@ -107,16 +97,6 @@ namespace DialogMessaging.Interactions
         public string PasswordHint { get; set; }
 
         /// <summary>
-        /// Gets or sets whether to show the password.
-        /// </summary>
-        public bool ShowPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hint for the show password toggle.
-        /// </summary>
-        public string ShowPasswordHint { get; set; }
-
-        /// <summary>
         /// Gets or sets the hint for the username field.
         /// </summary>
         public string UsernameHint { get; set; }
@@ -165,16 +145,6 @@ namespace DialogMessaging.Interactions
         /// Gets or sets the hint for the password field.
         /// </summary>
         public string PasswordHint { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether to show the password.
-        /// </summary>
-        public bool ShowPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the hint for the show password toggle.
-        /// </summary>
-        public string ShowPasswordHint { get; set; }
 
         /// <summary>
         /// Gets or sets the hint for the username field.

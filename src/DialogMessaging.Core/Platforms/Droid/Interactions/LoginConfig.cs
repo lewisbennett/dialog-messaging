@@ -84,6 +84,16 @@
         int? PasswordTopIconResID { get; set; }
 
         /// <summary>
+        /// Gets or sets whether to show the password.
+        /// </summary>
+        bool ShowPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint for the show password toggle.
+        /// </summary>
+        string ShowPasswordHint { get; set; }
+
+        /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the bottom of username the text field.
         /// </summary>
         int? UsernameBottomIconResID { get; set; }
@@ -127,6 +137,16 @@
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the password text field.
         /// </summary>
         public int? PasswordTopIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to show the password.
+        /// </summary>
+        public bool ShowPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint for the show password toggle.
+        /// </summary>
+        public string ShowPasswordHint { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the bottom of username the text field.
@@ -189,6 +209,16 @@
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the password text field.
         /// </summary>
         public int? PasswordTopIconResID { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to show the password.
+        /// </summary>
+        public bool ShowPassword { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hint for the show password toggle.
+        /// </summary>
+        public string ShowPasswordHint { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the bottom of username the text field.
