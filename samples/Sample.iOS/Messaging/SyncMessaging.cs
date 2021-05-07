@@ -30,7 +30,7 @@ namespace Sample.iOS.Messaging
 
         public void ActionSheetBottom()
         {
-            var config = new ActionSheetConfig
+            var config = new ActionSheetBottomConfig
             {
                 Title = "Action Sheet Bottom",
                 Message = "Hello world!",

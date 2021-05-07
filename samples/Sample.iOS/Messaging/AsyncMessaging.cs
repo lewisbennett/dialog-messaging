@@ -32,7 +32,7 @@ namespace Sample.iOS.Messaging
 
         public async void ActionSheetBottom()
         {
-            var config = new ActionSheetAsyncConfig
+            var config = new ActionSheetBottomAsyncConfig
             {
                 Title = "Action Sheet Bottom Async",
                 Message = "Hello world!",
