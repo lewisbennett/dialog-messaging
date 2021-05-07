@@ -164,11 +164,57 @@ namespace DialogMessaging
         /// Presents a bottom action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
         {
             // iPad's don't like bottom based action sheets, so use a normal action sheet instead.
             if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
-                return PresentActionSheet(config);
+            {
+                IActionSheetConfig<TActionSheetItemConfig> newConfig;
+
+                // Try to convert the provided config to a regular action sheet config.
+                if (config is ActionSheetBottomConfig syncConfig)
+                {
+                    var newSyncConfig = new ActionSheetConfig
+                    {
+                        CancelButtonClickAction = syncConfig.CancelButtonClickAction,
+                        CancelButtonText = syncConfig.CancelButtonText,
+                        CustomViewType = syncConfig.CustomViewType,
+                        Data = syncConfig.Data,
+                        DismissedAction = syncConfig.DismissedAction,
+                        ItemClickAction = syncConfig.ItemClickAction,
+                        Message = syncConfig.Message,
+                        Title = syncConfig.Title
+                    };
+
+                    foreach (var item in syncConfig.Items)
+                        newSyncConfig.Items.Add(item);
+
+                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newSyncConfig;
+                }
+                else if (config is ActionSheetBottomAsyncConfig asyncConfig)
+                {
+                    var newSyncConfig = new ActionSheetAsyncConfig
+                    {
+                        CancelButtonClickAction = asyncConfig.CancelButtonClickAction,
+                        CancelButtonText = asyncConfig.CancelButtonText,
+                        CustomViewType = asyncConfig.CustomViewType,
+                        Data = asyncConfig.Data,
+                        DismissedAction = asyncConfig.DismissedAction,
+                        ItemClickAction = asyncConfig.ItemClickAction,
+                        Message = asyncConfig.Message,
+                        Title = asyncConfig.Title
+                    };
+
+                    foreach (var item in asyncConfig.Items)
+                        newSyncConfig.Items.Add(item);
+
+                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newSyncConfig;
+                }
+                else
+                    throw new Exception($"Action sheet config type is not {nameof(ActionSheetBottomConfig)} or {nameof(ActionSheetBottomAsyncConfig)}");
+
+                return PresentActionSheet(newConfig);
+            }
 
             if (config.CustomViewType != null)
                 return ShowCustomDialog<IActionSheetConfig<TActionSheetItemConfig>>(BuildCustomDialog(config));

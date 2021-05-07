@@ -16,7 +16,7 @@ namespace DialogMessaging
         /// Called when a bottom-based action sheet dialog is requested.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig;
 
         /// <summary>

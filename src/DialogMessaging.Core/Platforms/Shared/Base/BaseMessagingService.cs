@@ -55,7 +55,7 @@ namespace DialogMessaging.Core.Base
         /// Display an action sheet dialog from the bottom of the screen.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public IDisposable ActionSheetBottom(ActionSheetConfig config)
+        public IDisposable ActionSheetBottom(ActionSheetBottomConfig config)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate == null || MessagingServiceCore.Delegate.OnActionSheetBottomRequested(config))
@@ -68,7 +68,7 @@ namespace DialogMessaging.Core.Base
         /// Display an action sheet dialog from the bottom of the screen asynchronously.
         /// </summary>
         /// <param name="config">The action sheet configuration.</param>
-        public Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default)
+        public Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnActionSheetBottomRequested(config))
@@ -369,7 +369,7 @@ namespace DialogMessaging.Core.Base
         /// Presents a bottom action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        protected abstract IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        protected abstract IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig;
 
         /// <summary>

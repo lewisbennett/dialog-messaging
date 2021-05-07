@@ -48,7 +48,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         /// Constructs the internal bottom action sheet dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        protected virtual BottomSheetDialogFragment ConstructActionSheetBottomDialog<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        protected virtual BottomSheetDialogFragment ConstructActionSheetBottomDialog<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig
         {
             return new ActionSheetBottomSheetDialogFragment<TActionSheetItemConfig>(config);
@@ -202,7 +202,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         /// Presents a bottom action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
         {
             return ShowDialog(ConstructActionSheetBottomDialog(config), config);
         }

@@ -24,13 +24,13 @@ namespace DialogMessaging
         /// Display an action sheet dialog from the bottom of the screen.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        IDisposable ActionSheetBottom(ActionSheetConfig config);
+        IDisposable ActionSheetBottom(ActionSheetBottomConfig config);
 
         /// <summary>
         /// Display an action sheet dialog from the bottom of the screen asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetAsyncConfig config, CancellationToken cancellationToken = default);
+        Task<ActionSheetItemAsyncConfig> ActionSheetBottomAsync(ActionSheetBottomAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display an alert dialog.
