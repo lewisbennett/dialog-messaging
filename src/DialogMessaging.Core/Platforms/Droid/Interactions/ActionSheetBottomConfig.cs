@@ -29,9 +29,9 @@
         #region Constructors
         public ActionSheetBottomConfig()
         {
-            Cancelable = ActionSheetConfigDefaults.Cancelable;
-            LayoutResID = ActionSheetConfigDefaults.LayoutResID;
-            StyleResID = ActionSheetConfigDefaults.StyleResID;
+            Cancelable = ActionSheetBottomConfigDefaults.Cancelable;
+            LayoutResID = ActionSheetBottomConfigDefaults.LayoutResID;
+            StyleResID = ActionSheetBottomConfigDefaults.StyleResID;
         }
         #endregion
     }
@@ -41,9 +41,9 @@
         #region Constructors
         public ActionSheetBottomAsyncConfig()
         {
-            Cancelable = ActionSheetConfigDefaults.Cancelable;
-            LayoutResID = ActionSheetConfigDefaults.LayoutResID;
-            StyleResID = ActionSheetConfigDefaults.StyleResID;
+            Cancelable = ActionSheetBottomConfigDefaults.Cancelable;
+            LayoutResID = ActionSheetBottomConfigDefaults.LayoutResID;
+            StyleResID = ActionSheetBottomConfigDefaults.StyleResID;
         }
         #endregion
     }

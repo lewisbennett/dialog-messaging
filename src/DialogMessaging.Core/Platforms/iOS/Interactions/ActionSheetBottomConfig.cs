@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public ActionSheetBottomConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = ActionSheetBottomConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public ActionSheetBottomAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = ActionSheetBottomConfigDefaults.CustomViewType;
         }
         #endregion
     }
