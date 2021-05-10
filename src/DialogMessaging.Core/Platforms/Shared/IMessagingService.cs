@@ -99,6 +99,18 @@ namespace DialogMessaging
         Task<string> PromptAsync(PromptAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Shows a dialog of unknown configuration type.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        IDisposable ShowDialog(object config);
+
+        /// <summary>
+        /// Shows a dialog of unknown configuration type asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        Task ShowDialogAsync(object config, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Display a loading dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
@@ -108,25 +120,27 @@ namespace DialogMessaging
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        Task ShowLoadingAsync(LoadingAsyncConfig config, Task task, CancellationToken cancellationToken = default);
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        Task ShowLoadingAsync(LoadingAsyncConfig config, Func<Task> task, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Task<T> task, CancellationToken cancellationToken = default);
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Func<Task<T>> task, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display a Snackbar.
         /// </summary>
         /// <param name="config">The Snackbar configuration.</param>
-        void Snackbar(SnackbarConfig config);
+        IDisposable Snackbar(SnackbarConfig config);
 
         /// <summary>
         /// Display a Toast.
         /// </summary>
         /// <param name="config">The Toast configuration.</param>
-        void Toast(ToastConfig config);
+        IDisposable Toast(ToastConfig config);
         #endregion
     }
 }

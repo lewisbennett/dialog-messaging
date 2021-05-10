@@ -1,7 +1,9 @@
-﻿using DialogMessaging.Infrastructure;
+﻿using DialogMessaging.Core.Platforms.Shared.Infrastructure;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -281,6 +283,47 @@ namespace DialogMessaging.Core.Base
         }
 
         /// <summary>
+        /// Shows a dialog of unknown configuration type.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public virtual IDisposable ShowDialog(object config)
+        {
+            return config switch
+            {
+                ActionSheetBottomConfig actionSheetBottomConfig => ((IMessagingService)this).ActionSheetBottom(actionSheetBottomConfig),
+                ActionSheetConfig actionSheetConfig => ((IMessagingService)this).ActionSheet(actionSheetConfig),
+                AlertConfig alertConfig => ((IMessagingService)this).Alert(alertConfig),
+                ConfirmConfig confirmConfig => ((IMessagingService)this).Confirm(confirmConfig),
+                DeleteConfig deleteConfig => ((IMessagingService)this).Delete(deleteConfig),
+                LoadingConfig loadingConfig => ((IMessagingService)this).ShowLoading(loadingConfig),
+                LoginConfig loginConfig => ((IMessagingService)this).Login(loginConfig),
+                PromptConfig promptConfig => ((IMessagingService)this).Prompt(promptConfig),
+                SnackbarConfig snackbarConfig => ((IMessagingService)this).Snackbar(snackbarConfig),
+                ToastConfig toastConfig => ((IMessagingService)this).Toast(toastConfig),
+                _ => throw new NotSupportedException($"Dialog configuration object of type {config.GetType().Name} not supported."),
+            };
+        }
+
+        /// <summary>
+        /// Shows a dialog of unknown configuration type asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public virtual Task ShowDialogAsync(object config, CancellationToken cancellationToken = default)
+        {
+            return config switch
+            {
+                ActionSheetBottomAsyncConfig actionSheetBottomAsyncConfig => ((IMessagingService)this).ActionSheetBottomAsync(actionSheetBottomAsyncConfig, cancellationToken),
+                ActionSheetAsyncConfig actionSheetAsyncConfig => ((IMessagingService)this).ActionSheetAsync(actionSheetAsyncConfig, cancellationToken),
+                AlertAsyncConfig alertAsyncConfig => ((IMessagingService)this).AlertAsync(alertAsyncConfig, cancellationToken),
+                ConfirmAsyncConfig confirmAsyncConfig => ((IMessagingService)this).ConfirmAsync(confirmAsyncConfig, cancellationToken),
+                DeleteAsyncConfig deleteAsyncConfig => ((IMessagingService)this).DeleteAsync(deleteAsyncConfig, cancellationToken),
+                LoginAsyncConfig loginAsyncConfig => ((IMessagingService)this).LoginAsync(loginAsyncConfig, cancellationToken),
+                PromptAsyncConfig promptAsyncConfig => ((IMessagingService)this).PromptAsync(promptAsyncConfig, cancellationToken),
+                _ => throw new NotSupportedException($"Dialog configuration object of type {config.GetType().Name} not supported."),
+            };
+        }
+
+        /// <summary>
         /// Display a loading dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
@@ -303,7 +346,8 @@ namespace DialogMessaging.Core.Base
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        public virtual async Task ShowLoadingAsync(LoadingAsyncConfig config, Task task, CancellationToken cancellationToken = default)
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        public virtual async Task ShowLoadingAsync(LoadingAsyncConfig config, Func<Task> task, CancellationToken cancellationToken = default)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnLoadingRequested(config))
@@ -312,10 +356,19 @@ namespace DialogMessaging.Core.Base
             // Register the disposable of the dialog with the cancellation token, then return the task.
             using (cancellationToken.Register(() => HideLoading(config)))
             {
-                var dialog = _loadingDialogs[config] = PresentLoading(config);
+                _loadingDialogs[config] = PresentLoading(config);
 
                 // Add a minimum delay to avoid the loading dialog getting stuck visible in the event of the task completing too quickly.
-                await Task.WhenAll(task, Task.Delay(500)).ContinueWith((_) => HideLoading(config), cancellationToken).ConfigureAwait(false);
+                await Task.Delay(500).ConfigureAwait(false);
+
+                try
+                {
+                    await task.Invoke().ConfigureAwait(false);
+                }
+                finally
+                {
+                    HideLoading(config);
+                }
             }
         }
 
@@ -323,37 +376,60 @@ namespace DialogMessaging.Core.Base
         /// Display a loading dialog asynchronously.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        public virtual async Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Task<T> task, CancellationToken cancellationToken = default)
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        public virtual async Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Func<Task<T>> task, CancellationToken cancellationToken = default)
         {
             // If available, call the delegate to see if presenting this dialog is allowed.
             if (MessagingServiceCore.Delegate != null && !MessagingServiceCore.Delegate.OnLoadingRequested(config))
                 return default;
 
-            await ((IMessagingService)this).ShowLoadingAsync(config, (Task)task, cancellationToken).ConfigureAwait(false);
+            // Register the disposable of the dialog with the cancellation token, then return the task.
+            using (cancellationToken.Register(() => HideLoading(config)))
+            {
+                _loadingDialogs[config] = PresentLoading(config);
 
-            return task.Result;
+                // Add a minimum delay to avoid the loading dialog getting stuck visible in the event of the task completing too quickly.
+                await Task.Delay(500).ConfigureAwait(false);
+
+                T result;
+
+                try
+                {
+                    result = await task.Invoke().ConfigureAwait(false);
+                }
+                finally
+                {
+                    HideLoading(config);
+                }
+
+                return result;
+            }
         }
 
         /// <summary>
         /// Display a Snackbar.
         /// </summary>
         /// <param name="config">The Snackbar configuration.</param>
-        public virtual void Snackbar(SnackbarConfig config)
+        public virtual IDisposable Snackbar(SnackbarConfig config)
         {
             // If available, call the delegate to see if presenting this Snackbar is allowed.
             if (MessagingServiceCore.Delegate == null || MessagingServiceCore.Delegate.OnSnackbarRequested(config))
                 PresentSnackbar(config);
+
+            return new DisposableAction(() => Debug.WriteLine("Toast disposable disposed."));
         }
 
         /// <summary>
         /// Display a Toast.
         /// </summary>
         /// <param name="config">The Toast configuration.</param>
-        public virtual void Toast(ToastConfig config)
+        public virtual IDisposable Toast(ToastConfig config)
         {
             // If available, call the delegate to see if presenting this Snackbar is allowed.
             if (MessagingServiceCore.Delegate == null || MessagingServiceCore.Delegate.OnToastRequested(config))
                 PresentToast(config);
+
+            return new DisposableAction(() => Debug.WriteLine("Toast disposable disposed."));
         }
         #endregion
 
