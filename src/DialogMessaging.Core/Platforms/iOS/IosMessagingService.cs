@@ -410,6 +410,12 @@ namespace DialogMessaging
                 var usernameTextField = login.GetTextField(0);
                 var passwordTextField = login.GetTextField(1);
 
+                if (!string.IsNullOrWhiteSpace(config.EnteredUsername))
+                    usernameTextField.Text = config.EnteredUsername;
+
+                if (!string.IsNullOrWhiteSpace(config.EnteredPassword))
+                    passwordTextField.Text = config.EnteredPassword;
+
                 usernameTextField.Placeholder = config.UsernameHint;
                 usernameTextField.ApplyInputType(config.UsernameInputType);
 
@@ -469,6 +475,9 @@ namespace DialogMessaging
                 };
 
                 var textField = prompt.GetTextField(0);
+
+                if (!string.IsNullOrWhiteSpace(config.EnteredText))
+                    textField.Text = config.EnteredText;
 
                 textField.Placeholder = config.Hint;
                 textField.ApplyInputType(config.InputType);

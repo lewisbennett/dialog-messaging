@@ -91,7 +91,7 @@ namespace Sample.MvvmCross.Core.Messaging
         {
             var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
 
-            await MessagingService.Instance.ShowLoadingAsync(config, LoadingDelayAsync(config, _loadingCount++));
+            await MessagingService.Instance.ShowLoadingAsync(config, () => LoadingDelayAsync(config, _loadingCount++));
         }
 
         public async void Login()

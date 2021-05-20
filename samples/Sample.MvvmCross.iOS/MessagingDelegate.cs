@@ -11,7 +11,7 @@ namespace Sample.MvvmCross.iOS
         private readonly UIColor[] _colors = new[] { UIColor.Red, UIColor.Green, UIColor.Blue };
         private readonly Random _random = new();
 
-        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
             where TActionSheetItemConfig : IActionSheetItemConfig
         {
             return true;
