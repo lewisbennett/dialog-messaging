@@ -289,6 +289,8 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
                 TitleLabel.TextColor = UIColor.LabelColor;
                 MessageLabel.TextColor = UIColor.LabelColor;
+
+                IndeterminateProgress.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.Large;
             }
             // Otherwise, use static theme.
             else
@@ -297,12 +299,13 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
                 TitleLabel.TextColor = UIColor.Black;
                 MessageLabel.TextColor = UIColor.Black;
+
+                IndeterminateProgress.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
             }
 
             DeterminateProgress.ProgressTintColor = UIColor.Blue;
             DeterminateProgress.TrackTintColor = UIColor.LightGray;
 
-            IndeterminateProgress.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.Large;
             IndeterminateProgress.StartAnimating();
 
             TitleLabel.TextAlignment = UITextAlignment.Center;
