@@ -21,6 +21,11 @@ namespace Sample.MvvmCross.iOS.Dialogs
         public UIButton ActionButton { get; } = new();
 
         /// <summary>
+        /// Gets the background view.
+        /// </summary>
+        public UIView BackgroundView { get; } = new();
+
+        /// <summary>
         /// Gets or sets whether the view is currently showing.
         /// </summary>
         public bool IsShowing { get; set; }
@@ -62,7 +67,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
             }
 
             if (_config.BackgroundColor != null)
-                BackgroundColor = _config.BackgroundColor;
+                BackgroundView.BackgroundColor = _config.BackgroundColor;
 
             // Hide action button, or configure if text is available.
             if (string.IsNullOrWhiteSpace(_config.ActionButtonText))
@@ -89,7 +94,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
         public void Dismiss(Action finishedAction = null)
         {
-            this.SlideOutVertically(0.2f, finishedAction: finishedAction);
+            this.SlideOutVertically(-1, 0.3f, finishedAction: finishedAction);
 
             IsShowing = false;
         }
@@ -100,7 +105,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
         public void Show(Action finishedAction = null)
         {
-            this.SlideInVertically(0.2f, finishedAction: finishedAction);
+            this.SlideInVertically(-1, 0.3f, finishedAction: finishedAction);
 
             IsShowing = true;
         }
@@ -114,19 +119,21 @@ namespace Sample.MvvmCross.iOS.Dialogs
         {
             base.LayoutSubviews();
 
-            var keyWindow = UIApplication.SharedApplication.KeyWindow;
+            var containerView = _config?.ContainerView ?? UIApplication.SharedApplication.KeyWindow;
 
-            // Subtract 20 from the width of the view to add a "margin" around the view.
-            var snackbarWidth = (nfloat)Math.Min(600, Bounds.Width - 20);
+            // Subtract 32 from the width of the view to add a "margin" around the view.
+            var snackbarWidth = (nfloat)Math.Min(600, containerView.Frame.Width - 32);
             var snackbarWidthWithPadding = snackbarWidth - 32;
 
             nfloat height;
 
             if (ActionButton.Hidden)
             {
-                MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding - 16, 0);
+                // If the action button is hidden, the message label's frame is simply the allowed width.
+                MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding, 0);
                 MessageLabel.ResizeForTextHeight();
 
+                // The height of the Snackbar is the height of the message label plus padding.
                 height = MessageLabel.Frame.Height + 32;
             }
             else
@@ -137,6 +144,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
                 ActionButton.ResizeForTextHeight();
                 ActionButton.ResizeForTextWidth();
 
+                // The width of the message label is the allowed width, subtract the width of the action button, subtract padding.
                 MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding - ActionButton.Frame.Width - 16, 0);
                 MessageLabel.ResizeForTextHeight();
 
@@ -144,14 +152,21 @@ namespace Sample.MvvmCross.iOS.Dialogs
 
                 if (MessageLabel.Frame.Height > ActionButton.Frame.Height)
                     ActionButton.Center = new CGPoint(ActionButton.Center.X, MessageLabel.Center.Y);
+
                 else
                     MessageLabel.Center = new CGPoint(MessageLabel.Center.X, ActionButton.Center.Y);
 
                 height = (nfloat)Math.Max(MessageLabel.Frame.Height, ActionButton.Frame.Height) + 32;
             }
 
-            Center = new CGPoint(keyWindow.Center.X, 0);
-            Frame = new CGRect(Center.X - (snackbarWidth / 2), keyWindow.Bounds.Height - height - keyWindow.SafeAreaInsets.Bottom, snackbarWidth, height);
+            // Position the view in its final position once displayed.
+            // The animation uses transforms to bring it into and out of view.
+            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2),
+                containerView.Bounds.Height - height - containerView.SafeAreaInsets.Bottom,
+                snackbarWidth,
+                height + containerView.SafeAreaInsets.Bottom);
+
+            BackgroundView.Frame = new CGRect(0, 0, Frame.Width, height);
         }
         #endregion
 
@@ -190,7 +205,9 @@ namespace Sample.MvvmCross.iOS.Dialogs
         #region Private Methods
         private void AssignOwnership()
         {
-            AddSubviews(MessageLabel, ActionButton);
+            AddSubview(BackgroundView);
+
+            BackgroundView.AddSubviews(MessageLabel, ActionButton);
         }
 
         private void Initialize()
@@ -207,7 +224,15 @@ namespace Sample.MvvmCross.iOS.Dialogs
 
         private void StyleViews()
         {
-            BackgroundColor = UIColor.DarkGray;
+            BackgroundColor = UIColor.Clear;
+
+            BackgroundView.BackgroundColor = UIColor.DarkGray;
+
+            BackgroundView.Layer.CornerRadius = 5f;
+            BackgroundView.Layer.MasksToBounds = false;
+            BackgroundView.Layer.ShadowColor = UIColor.Gray.CGColor;
+            BackgroundView.Layer.ShadowOffset = new CGSize(0f, 5f);
+            BackgroundView.Layer.ShadowOpacity = 0.6f;
 
             ActionButton.Font = UIFont.SystemFontOfSize(15, UIFontWeight.Bold);
             ActionButton.SetTitleColor(UIColor.White, UIControlState.Normal);
@@ -215,12 +240,6 @@ namespace Sample.MvvmCross.iOS.Dialogs
             MessageLabel.Font = UIFont.SystemFontOfSize(15);
             MessageLabel.TextColor = UIColor.White;
             MessageLabel.Lines = 0;
-
-            Layer.CornerRadius = 5f;
-            Layer.MasksToBounds = false;
-            Layer.ShadowColor = UIColor.Gray.CGColor;
-            Layer.ShadowOffset = new CGSize(0f, 5f);
-            Layer.ShadowOpacity = 0.6f;
         }
         #endregion
     }

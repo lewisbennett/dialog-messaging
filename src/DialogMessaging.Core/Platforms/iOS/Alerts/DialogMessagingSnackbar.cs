@@ -88,7 +88,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
         public void Dismiss(Action finishedAction = null)
         {
-            this.SlideOutVertically(0.2f, finishedAction: finishedAction);
+            this.SlideOutVertically(-1, 0.3f, finishedAction: finishedAction);
 
             IsShowing = false;
         }
@@ -99,7 +99,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
         public void Show(Action finishedAction = null)
         {
-            this.SlideInVertically(0.2f, finishedAction: finishedAction);
+            this.SlideInVertically(-1, 0.3f, finishedAction: finishedAction);
 
             IsShowing = true;
         }
@@ -113,18 +113,20 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         {
             base.LayoutSubviews();
 
-            var keyWindow = UIApplication.SharedApplication.KeyWindow;
+            var containerView = _config?.ContainerView ?? UIApplication.SharedApplication.KeyWindow;
 
-            var snackbarWidth = (nfloat)Math.Min(600, Bounds.Width);
+            var snackbarWidth = (nfloat)Math.Min(600, containerView.Frame.Width);
             var snackbarWidthWithPadding = snackbarWidth - 32;
 
             nfloat height;
 
             if (ActionButton.Hidden)
             {
-                MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding - 16, 0);
+                // If the action button is hidden, the message label's frame is simply the allowed width.
+                MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding, 0);
                 MessageLabel.ResizeForTextHeight();
 
+                // The height of the Snackbar is the height of the message label plus padding.
                 height = MessageLabel.Frame.Height + 32;   
             }
             else
@@ -135,6 +137,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
                 ActionButton.ResizeForTextHeight();
                 ActionButton.ResizeForTextWidth();
 
+                // The width of the message label is the allowed width, subtract the width of the action button, subtract padding.
                 MessageLabel.Frame = new CGRect(16, 16, snackbarWidthWithPadding - ActionButton.Frame.Width - 16, 0);
                 MessageLabel.ResizeForTextHeight();
 
@@ -142,14 +145,19 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
                 if (MessageLabel.Frame.Height > ActionButton.Frame.Height)
                     ActionButton.Center = new CGPoint(ActionButton.Center.X, MessageLabel.Center.Y);
+
                 else
                     MessageLabel.Center = new CGPoint(MessageLabel.Center.X, ActionButton.Center.Y);
 
                 height = (nfloat)Math.Max(MessageLabel.Frame.Height, ActionButton.Frame.Height) + 32;
             }
 
-            Center = new CGPoint(keyWindow.Center.X, 0);
-            Frame = new CGRect(Center.X - (snackbarWidth / 2), keyWindow.Bounds.Height, snackbarWidth, height + keyWindow.SafeAreaInsets.Bottom);
+            // Position the view in its final position once displayed.
+            // The animation uses transforms to bring it into and out of view.
+            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2),
+                containerView.Bounds.Height - height - containerView.SafeAreaInsets.Bottom,
+                snackbarWidth,
+                height + containerView.SafeAreaInsets.Bottom);
         }
         #endregion
 

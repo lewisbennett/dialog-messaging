@@ -1,4 +1,5 @@
 ﻿using System;
+using DialogMessaging.Infrastructure;
 using UIKit;
 
 namespace DialogMessaging.Interactions
@@ -62,6 +63,13 @@ namespace DialogMessaging.Interactions
         UIColor BackgroundColor { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="UIView" /> that the Snackbar should be contained within.
+        ///
+        /// Please note that the Snackbar view isn't added to this view as a subview. This view should be used a reference for where to position the Snackbar on the screen.
+        /// </summary>
+        UIView ContainerView { get; set; }
+
+        /// <summary>
         /// Gets or sets the duration of the Snackbar.
         /// </summary>
         TimeSpan? Duration { get; set; }
@@ -97,6 +105,13 @@ namespace DialogMessaging.Interactions
         public UIColor BackgroundColor { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="UIView" /> that the Snackbar should be contained within.
+        ///
+        /// Please note that the Snackbar view isn't added to this view as a subview. This view should be used a reference for where to position the Snackbar on the screen.
+        /// </summary>
+        public UIView ContainerView { get; set; }
+
+        /// <summary>
         /// Gets or sets the duration of the Snackbar.
         /// </summary>
         public TimeSpan? Duration { get; set; }
@@ -123,6 +138,8 @@ namespace DialogMessaging.Interactions
             Duration = SnackbarConfigDefaults.Duration;
             MessageTextColor = SnackbarConfigDefaults.MessageTextColor;
             MessageFont = SnackbarConfigDefaults.MessageFont;
+
+            ContainerView = MessagingServiceCore.Window;
         }
         #endregion
     }

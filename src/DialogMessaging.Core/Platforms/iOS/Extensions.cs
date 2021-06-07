@@ -1,4 +1,5 @@
 ﻿using CoreGraphics;
+using DialogMessaging.Infrastructure;
 using DialogMessaging.Schema;
 using Foundation;
 using System;
@@ -202,18 +203,25 @@ namespace DialogMessaging.Core.Platforms.iOS
         /// <summary>
         /// Slides a view vertically into focus.
         /// </summary>
+        /// <param name="direction">The direction to slide the view in via. Top (positive) or bottom (negative).</param>
         /// <param name="animDuration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation starts.</param>
         /// <param name="finishedAction">The action invoked upon animation completion.</param>
-        public static void SlideInVertically(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        public static void SlideInVertically(this UIView view, int direction, float animDuration, float delay = 0, Action finishedAction = null)
         {
-            view.Alpha = 0f;
-            view.Transform = CGAffineTransform.MakeIdentity();
+            nfloat ty;
+
+            if (direction > 0)
+                ty = 0 - view.Frame.Height;
+
+            else
+                ty = MessagingServiceCore.Window.Bounds.Height - view.Frame.Y;
+
+            view.Transform = CGAffineTransform.MakeTranslation(0, ty);
 
             UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
-                view.Alpha = 1f;
-                view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
+                view.Transform = CGAffineTransform.MakeIdentity();
 
             }, (hasFinished) =>
             {
@@ -225,18 +233,25 @@ namespace DialogMessaging.Core.Platforms.iOS
         /// <summary>
         /// Slides a view vertically out of focus.
         /// </summary>
+        /// <param name="direction">The direction to slide the view in via. Top (positive) or bottom (negative).</param>
         /// <param name="animDuration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation starts.</param>
         /// <param name="finishedAction">The action invoked upon animation completion.</param>
-        public static void SlideOutVertically(this UIView view, float animDuration, float delay = 0, Action finishedAction = null)
+        public static void SlideOutVertically(this UIView view, int direction, float animDuration, float delay = 0, Action finishedAction = null)
         {
-            view.Alpha = 1f;
-            view.Transform = CGAffineTransform.MakeTranslation(0, -1 * view.Bounds.Height);
+            view.Transform = CGAffineTransform.MakeIdentity();
 
             UIView.AnimateNotify(animDuration, delay, UIViewAnimationOptions.CurveEaseInOut, () =>
             {
-                view.Alpha = 0f;
-                view.Transform = CGAffineTransform.MakeIdentity();
+                nfloat ty;
+
+                if (direction > 0)
+                    ty = 0 - view.Frame.Height;
+
+                else
+                    ty = MessagingServiceCore.Window.Bounds.Height - view.Frame.Y;
+
+                view.Transform = CGAffineTransform.MakeTranslation(0, ty);
 
             }, (hasFinished) =>
             {
