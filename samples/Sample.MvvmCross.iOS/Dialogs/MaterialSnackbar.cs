@@ -119,7 +119,9 @@ namespace Sample.MvvmCross.iOS.Dialogs
         {
             base.LayoutSubviews();
 
-            var containerView = _config?.ContainerView ?? UIApplication.SharedApplication.KeyWindow;
+            var keyWindow = UIApplication.SharedApplication.KeyWindow;
+
+            var containerView = _config?.ContainerView ?? keyWindow;
 
             // Subtract 32 from the width of the view to add a "margin" around the view.
             var snackbarWidth = (nfloat)Math.Min(600, containerView.Frame.Width - 32);
@@ -161,10 +163,11 @@ namespace Sample.MvvmCross.iOS.Dialogs
 
             // Position the view in its final position once displayed.
             // The animation uses transforms to bring it into and out of view.
-            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2),
-                containerView.Bounds.Height - height - containerView.SafeAreaInsets.Bottom,
-                snackbarWidth,
-                height + containerView.SafeAreaInsets.Bottom);
+            var containerViewRect = containerView.ConvertRectToView(containerView.Frame, keyWindow);
+
+            var y = keyWindow.Bounds.Height - containerView.SafeAreaInsets.Bottom - height - containerViewRect.Y;
+
+            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2), y, snackbarWidth, keyWindow.Bounds.Height - y);
 
             BackgroundView.Frame = new CGRect(0, 0, Frame.Width, height);
         }

@@ -1,4 +1,5 @@
 ﻿using CoreGraphics;
+using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 using DialogMessaging.Interactions;
 using Foundation;
@@ -18,6 +19,11 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         /// Gets the action button.
         /// </summary>
         public UIButton ActionButton { get; } = new();
+
+        /// <summary>
+        /// Gets the background view.
+        /// </summary>
+        public UIView BackgroundView { get; } = new();
 
         /// <summary>
         /// Gets or sets whether the view is currently showing.
@@ -61,7 +67,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
             }
 
             if (_config.BackgroundColor != null)
-                BackgroundColor = _config.BackgroundColor;
+                BackgroundView.BackgroundColor = _config.BackgroundColor;
 
             // Hide action button, or configure if text is available.
             if (string.IsNullOrWhiteSpace(_config.ActionButtonText))
@@ -113,7 +119,9 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         {
             base.LayoutSubviews();
 
-            var containerView = _config?.ContainerView ?? UIApplication.SharedApplication.KeyWindow;
+            var keyWindow = UIApplication.SharedApplication.KeyWindow;
+
+            var containerView = _config?.ContainerView ?? keyWindow;
 
             var snackbarWidth = (nfloat)Math.Min(600, containerView.Frame.Width);
             var snackbarWidthWithPadding = snackbarWidth - 32;
@@ -127,7 +135,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
                 MessageLabel.ResizeForTextHeight();
 
                 // The height of the Snackbar is the height of the message label plus padding.
-                height = MessageLabel.Frame.Height + 32;   
+                height = MessageLabel.Frame.Height + 32;
             }
             else
             {
@@ -154,10 +162,13 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
             // Position the view in its final position once displayed.
             // The animation uses transforms to bring it into and out of view.
-            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2),
-                containerView.Bounds.Height - height - containerView.SafeAreaInsets.Bottom,
-                snackbarWidth,
-                height + containerView.SafeAreaInsets.Bottom);
+            var containerViewRect = containerView.ConvertRectToView(containerView.Frame, keyWindow);
+
+            var y = keyWindow.Bounds.Height - containerView.SafeAreaInsets.Bottom - height - containerViewRect.Y;
+
+            Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2), y, snackbarWidth, keyWindow.Bounds.Height - y);
+
+            BackgroundView.Frame = new CGRect(0, 0, Frame.Width, height);
         }
         #endregion
 
@@ -196,7 +207,9 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         #region Private Methods
         private void AssignOwnership()
         {
-            AddSubviews(MessageLabel, ActionButton);
+            AddSubview(BackgroundView);
+
+            BackgroundView.AddSubviews(MessageLabel, ActionButton);
         }
 
         private void Initialize()
@@ -213,7 +226,9 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
         private void StyleViews()
         {
-            BackgroundColor = UIColor.DarkGray;
+            BackgroundColor = UIColor.Clear;
+
+            BackgroundView.BackgroundColor = UIColor.DarkGray;
 
             ActionButton.Font = UIFont.SystemFontOfSize(15, UIFontWeight.Bold);
             ActionButton.SetTitleColor(UIColor.White, UIControlState.Normal);
