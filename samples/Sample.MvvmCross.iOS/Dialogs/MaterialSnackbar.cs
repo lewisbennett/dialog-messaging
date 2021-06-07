@@ -165,7 +165,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
             // The animation uses transforms to bring it into and out of view.
             var containerViewRect = containerView.ConvertRectToView(containerView.Frame, keyWindow);
 
-            var y = keyWindow.Bounds.Height - containerView.SafeAreaInsets.Bottom - height - containerViewRect.Y;
+            var y = containerViewRect.Y + containerViewRect.Height - containerView.SafeAreaInsets.Bottom - height;
 
             Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2), y, snackbarWidth, keyWindow.Bounds.Height - y);
 
