@@ -1,4 +1,5 @@
-﻿using MvvmCross.Binding;
+﻿using Microsoft.Extensions.Logging;
+using MvvmCross.Binding;
 using MvvmCross.Platforms.Android.Core;
 using Sample.MvvmCross.Droid.Binding;
 
@@ -9,6 +10,16 @@ namespace Sample.MvvmCross.Droid
         protected override MvxBindingBuilder CreateBindingBuilder()
         {
             return new BindingBuilder();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            return null;
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return null;
         }
     }
 }
