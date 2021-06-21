@@ -115,11 +115,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     if (_usernameTextInputLayout == null)
                         _usernameEditText.Hint = Config.UsernameHint;
 
-                    _usernameEditText.SetCompoundDrawablesRelativeWithIntrinsicBounds(
-                        Config.UsernameStartIconResID ?? 0,
-                        Config.UsernameTopIconResID ?? 0,
-                        Config.UsernameEndIconResID ?? 0,
-                        Config.UsernameBottomIconResID ?? 0);
+                    _usernameEditText.UpdateCompoundDrawables(Context, Config.UsernameLeftIconResID, Config.UsernameTopIconResID, Config.UsernameRightIconResID, Config.UsernameBottomIconResID);
 
                     return;
 
@@ -152,11 +148,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     if (_passwordTextInputLayout == null)
                         _passwordEditText.Hint = Config.PasswordHint;
 
-                    _passwordEditText.SetCompoundDrawablesRelativeWithIntrinsicBounds(
-                        Config.PasswordStartIconResID ?? 0,
-                        Config.PasswordTopIconResID ?? 0,
-                        Config.PasswordEndIconResID ?? 0,
-                        Config.PasswordBottomIconResID ?? 0);
+                    _passwordEditText.UpdateCompoundDrawables(Context, Config.PasswordLeftIconResID, Config.PasswordTopIconResID, Config.PasswordRightIconResID, Config.PasswordBottomIconResID);
 
                     SetPasswordVisibility();
 

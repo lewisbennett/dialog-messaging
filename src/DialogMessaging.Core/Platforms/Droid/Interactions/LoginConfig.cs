@@ -19,14 +19,14 @@
         public static int? PasswordBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the end of the password text field.
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the left of the password text field.
         /// </summary>
-        public static int? PasswordEndIconResID { get; set; }
+        public static int? PasswordLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the start of the password text field.
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the right of the password text field.
         /// </summary>
-        public static int? PasswordStartIconResID { get; set; }
+        public static int? PasswordRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the default value for the resource ID of the drawable to be displayed at the top of the password text field.
@@ -44,14 +44,14 @@
         public static int? UsernameBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the end of the username text field.
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the left of the username text field.
         /// </summary>
-        public static int? UsernameEndIconResID { get; set; }
+        public static int? UsernameLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the start of the username text field.
+        /// Gets or sets the default value for the resource ID of the drawable to be displayed at the right of the username text field.
         /// </summary>
-        public static int? UsernameStartIconResID { get; set; }
+        public static int? UsernameRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the default value for the resource ID of the drawable to be displayed at the top of the username text field.
@@ -69,14 +69,14 @@
         int? PasswordBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the password text field.
         /// </summary>
-        int? PasswordEndIconResID { get; set; }
+        int? PasswordLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the password text field.
         /// </summary>
-        int? PasswordStartIconResID { get; set; }
+        int? PasswordRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the password text field.
@@ -99,14 +99,14 @@
         int? UsernameBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the username text field.
         /// </summary>
-        int? UsernameEndIconResID { get; set; }
+        int? UsernameLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the username text field.
         /// </summary>
-        int? UsernameStartIconResID { get; set; }
+        int? UsernameRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the username text field.
@@ -124,14 +124,14 @@
         public int? PasswordBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the password text field.
         /// </summary>
-        public int? PasswordEndIconResID { get; set; }
+        public int? PasswordLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the password text field.
         /// </summary>
-        public int? PasswordStartIconResID { get; set; }
+        public int? PasswordRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the password text field.
@@ -154,14 +154,14 @@
         public int? UsernameBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the username text field.
         /// </summary>
-        public int? UsernameEndIconResID { get; set; }
+        public int? UsernameLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the username text field.
         /// </summary>
-        public int? UsernameStartIconResID { get; set; }
+        public int? UsernameRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the username text field.
@@ -175,13 +175,13 @@
             Cancelable = LoginConfigDefaults.Cancelable;
             LayoutResID = LoginConfigDefaults.LayoutResID;
             PasswordBottomIconResID = LoginConfigDefaults.PasswordBottomIconResID;
-            PasswordEndIconResID = LoginConfigDefaults.PasswordEndIconResID;
-            PasswordStartIconResID = LoginConfigDefaults.PasswordStartIconResID;
+            PasswordRightIconResID = LoginConfigDefaults.PasswordRightIconResID;
+            PasswordLeftIconResID = LoginConfigDefaults.PasswordLeftIconResID;
             PasswordTopIconResID = LoginConfigDefaults.PasswordTopIconResID;
             StyleResID = LoginConfigDefaults.StyleResID;
             UsernameBottomIconResID = LoginConfigDefaults.UsernameBottomIconResID;
-            UsernameEndIconResID = LoginConfigDefaults.UsernameEndIconResID;
-            UsernameStartIconResID = LoginConfigDefaults.UsernameStartIconResID;
+            UsernameRightIconResID = LoginConfigDefaults.UsernameRightIconResID;
+            UsernameLeftIconResID = LoginConfigDefaults.UsernameLeftIconResID;
             UsernameTopIconResID = LoginConfigDefaults.UsernameTopIconResID;
         }
         #endregion
@@ -196,14 +196,14 @@
         public int? PasswordBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the password text field.
         /// </summary>
-        public int? PasswordEndIconResID { get; set; }
+        public int? PasswordLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the password text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the password text field.
         /// </summary>
-        public int? PasswordStartIconResID { get; set; }
+        public int? PasswordRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the password text field.
@@ -226,14 +226,14 @@
         public int? UsernameBottomIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the end of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the left of the username text field.
         /// </summary>
-        public int? UsernameEndIconResID { get; set; }
+        public int? UsernameLeftIconResID { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the drawable to be displayed at the start of the username text field.
+        /// Gets or sets the resource ID of the drawable to be displayed at the right of the username text field.
         /// </summary>
-        public int? UsernameStartIconResID { get; set; }
+        public int? UsernameRightIconResID { get; set; }
 
         /// <summary>
         /// Gets or sets the resource ID of the drawable to be displayed at the top of the username text field.
@@ -247,13 +247,13 @@
             Cancelable = LoginConfigDefaults.Cancelable;
             LayoutResID = LoginConfigDefaults.LayoutResID;
             PasswordBottomIconResID = LoginConfigDefaults.PasswordBottomIconResID;
-            PasswordEndIconResID = LoginConfigDefaults.PasswordEndIconResID;
-            PasswordStartIconResID = LoginConfigDefaults.PasswordStartIconResID;
+            PasswordRightIconResID = LoginConfigDefaults.PasswordRightIconResID;
+            PasswordLeftIconResID = LoginConfigDefaults.PasswordLeftIconResID;
             PasswordTopIconResID = LoginConfigDefaults.PasswordTopIconResID;
             StyleResID = LoginConfigDefaults.StyleResID;
             UsernameBottomIconResID = LoginConfigDefaults.UsernameBottomIconResID;
-            UsernameEndIconResID = LoginConfigDefaults.UsernameEndIconResID;
-            UsernameStartIconResID = LoginConfigDefaults.UsernameStartIconResID;
+            UsernameRightIconResID = LoginConfigDefaults.UsernameRightIconResID;
+            UsernameLeftIconResID = LoginConfigDefaults.UsernameLeftIconResID;
             UsernameTopIconResID = LoginConfigDefaults.UsernameTopIconResID;
         }
         #endregion

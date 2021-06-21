@@ -106,11 +106,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     if (_textInputLayout == null)
                         _editText.Hint = Config.Hint;
 
-                    _editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(
-                        Config.StartIconResID ?? 0,
-                        Config.TopIconResID ?? 0,
-                        Config.EndIconResID ?? 0,
-                        Config.BottomIconResID ?? 0);
+                    _editText.UpdateCompoundDrawables(Context, Config.LeftIconResID, Config.TopIconResID, Config.RightIconResID, Config.BottomIconResID);
 
                     return;
 
