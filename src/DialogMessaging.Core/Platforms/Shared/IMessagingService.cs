@@ -69,10 +69,24 @@ namespace DialogMessaging
         Task<bool> DeleteAsync(DeleteAsyncConfig config, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Hide a loading dialog.
+        /// Display a loading dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
-        void HideLoading(ILoadingConfig config);
+        IDisposable Loading(LoadingConfig config);
+
+        /// <summary>
+        /// Display a loading dialog asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        Task LoadingAsync(LoadingAsyncConfig config, Func<Task> task, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Display a loading dialog asynchronously.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        /// <param name="task">A function to retrieve the task to execute.</param>
+        Task<T> LoadingAsync<T>(LoadingAsyncConfig config, Func<Task<T>> task, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display a login dialog.
@@ -109,26 +123,6 @@ namespace DialogMessaging
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         Task ShowDialogAsync(object config, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Display a loading dialog.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        IDisposable ShowLoading(LoadingConfig config);
-
-        /// <summary>
-        /// Display a loading dialog asynchronously.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        /// <param name="task">A function to retrieve the task to execute.</param>
-        Task ShowLoadingAsync(LoadingAsyncConfig config, Func<Task> task, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Display a loading dialog asynchronously.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        /// <param name="task">A function to retrieve the task to execute.</param>
-        Task<T> ShowLoadingAsync<T>(LoadingAsyncConfig config, Func<Task<T>> task, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Display a Snackbar.

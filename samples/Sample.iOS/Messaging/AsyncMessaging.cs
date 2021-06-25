@@ -91,7 +91,7 @@ namespace Sample.iOS.Messaging
         {
             var config = new LoadingAsyncConfig { Title = "Loading Async", Message = "Hello World!" };
 
-            await MessagingService.Instance.ShowLoadingAsync(config, () => LoadingDelayAsync(config, _loadingCount++));
+            await MessagingService.Instance.LoadingAsync(config, () => LoadingDelayAsync(config, _loadingCount++));
         }
 
         public async void Login()

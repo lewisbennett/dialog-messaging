@@ -86,11 +86,11 @@ namespace Sample.iOS.Messaging
         {
             var config = new LoadingConfig { Title = "Loading", Message = "Hello World!" };
 
-            MessagingService.Instance.ShowLoading(config);
+            var loading = MessagingService.Instance.Loading(config);
 
             await LoadingDelayAsync(config, _loadingCount++);
 
-            MessagingService.Instance.HideLoading(config);
+            loading.Dispose();
         }
 
         public void Login()
