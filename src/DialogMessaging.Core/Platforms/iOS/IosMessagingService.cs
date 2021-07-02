@@ -130,7 +130,7 @@ namespace DialogMessaging
                 // Add cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -142,7 +142,7 @@ namespace DialogMessaging
                 {
                     if (!string.IsNullOrWhiteSpace(item.Message))
                     {
-                        actionSheet.AddAction(UIAlertAction.Create(item.Message, UIAlertActionStyle.Default, (action) =>
+                        actionSheet.AddAction(UIAlertAction.Create(item.Message, UIAlertActionStyle.Default, (_) =>
                         {
                             item.ClickAction?.Invoke();
 
@@ -227,7 +227,7 @@ namespace DialogMessaging
                 // Add cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    actionSheet.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -239,7 +239,7 @@ namespace DialogMessaging
                 {
                     if (!string.IsNullOrWhiteSpace(item.Message))
                     {
-                        actionSheet.AddAction(UIAlertAction.Create(item.Message, UIAlertActionStyle.Default, (action) =>
+                        actionSheet.AddAction(UIAlertAction.Create(item.Message, UIAlertActionStyle.Default, (_) =>
                         {
                             item.ClickAction?.Invoke();
 
@@ -274,7 +274,7 @@ namespace DialogMessaging
                 // Add the OK button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.OkButtonText))
                 {
-                    alert.AddAction(UIAlertAction.Create(config.OkButtonText, UIAlertActionStyle.Default, (action) =>
+                    alert.AddAction(UIAlertAction.Create(config.OkButtonText, UIAlertActionStyle.Default, (_) =>
                     {
                         config.OkButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -306,7 +306,7 @@ namespace DialogMessaging
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    confirm.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    confirm.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -316,7 +316,7 @@ namespace DialogMessaging
                 // Add the confirm button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
-                    confirm.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
+                    confirm.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (_) =>
                     {
                         config.ConfirmButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -348,7 +348,7 @@ namespace DialogMessaging
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    delete.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    delete.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -358,7 +358,7 @@ namespace DialogMessaging
                 // Add the delete button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
                 {
-                    delete.AddAction(UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (action) =>
+                    delete.AddAction(UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (_) =>
                     {
                         config.DeleteButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -423,7 +423,7 @@ namespace DialogMessaging
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    login.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    login.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -433,7 +433,7 @@ namespace DialogMessaging
                 // Add the login button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.LoginButtonText))
                 {
-                    login.AddAction(UIAlertAction.Create(config.LoginButtonText, UIAlertActionStyle.Default, (action) =>
+                    login.AddAction(UIAlertAction.Create(config.LoginButtonText, UIAlertActionStyle.Default, (_) =>
                     {
                         var enteredUsername = login.TextFields[0].Text;
                         var enteredPassword = login.TextFields[1].Text;
@@ -480,7 +480,7 @@ namespace DialogMessaging
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
-                    prompt.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    prompt.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (_) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
@@ -490,7 +490,7 @@ namespace DialogMessaging
                 // Add the confirm button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
-                    prompt.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
+                    prompt.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (_) =>
                     {
                         var enteredText = prompt.TextFields[0].Text;
 
