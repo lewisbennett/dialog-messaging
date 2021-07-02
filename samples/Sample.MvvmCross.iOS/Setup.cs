@@ -7,7 +7,7 @@ namespace Sample.MvvmCross.iOS
     {
         protected override ILoggerFactory CreateLogFactory()
         {
-            return null;
+            return new LoggerFactory();
         }
 
         protected override ILoggerProvider CreateLogProvider()
