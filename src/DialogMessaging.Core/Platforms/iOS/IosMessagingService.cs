@@ -304,22 +304,22 @@ namespace DialogMessaging
             {
                 confirm = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
 
-                // Add the confirm button, if configured.
-                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
-                {
-                    confirm.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
-                    {
-                        config.ConfirmButtonClickAction?.Invoke();
-                        config.DismissedAction?.Invoke();
-                    }));
-                }
-
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
                     confirm.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Add the confirm button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
+                {
+                    confirm.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
+                    {
+                        config.ConfirmButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
                     }));
                 }
@@ -346,22 +346,22 @@ namespace DialogMessaging
             {
                 delete = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
 
-                // Add the delete button, if configured.
-                if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
-                {
-                    delete.AddAction(UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (action) =>
-                    {
-                        config.DeleteButtonClickAction?.Invoke();
-                        config.DismissedAction?.Invoke();
-                    }));
-                }
-
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
                 {
                     delete.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
                     {
                         config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
+
+                // Add the delete button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.DeleteButtonText))
+                {
+                    delete.AddAction(UIAlertAction.Create(config.DeleteButtonText, UIAlertActionStyle.Destructive, (action) =>
+                    {
+                        config.DeleteButtonClickAction?.Invoke();
                         config.DismissedAction?.Invoke();
                     }));
                 }
@@ -423,6 +423,10 @@ namespace DialogMessaging
 
                 var actions = new Dictionary<nint, Action>();
 
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                    actions[login.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+
                 // Add the login button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.LoginButtonText))
                 {
@@ -434,10 +438,6 @@ namespace DialogMessaging
                         config.LoginButtonClickAction?.Invoke(config.EnteredUsername, config.EnteredPassword);
                     };
                 }
-
-                // Add the cancel button, if configured.
-                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-                    actions[login.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
 
                 // Listen for click events.
                 login.Clicked += (s, e) =>
@@ -484,6 +484,10 @@ namespace DialogMessaging
 
                 var actions = new Dictionary<nint, Action>();
 
+                // Add the cancel button, if configured.
+                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
+                    actions[prompt.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+
                 // Add the confirm button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
@@ -494,10 +498,6 @@ namespace DialogMessaging
                         config.ConfirmButtonClickAction?.Invoke(config.EnteredText);
                     };
                 }
-
-                // Add the cancel button, if configured.
-                if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-                    actions[prompt.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
 
                 // Listen for click events.
                 prompt.Clicked += (s, e) =>
