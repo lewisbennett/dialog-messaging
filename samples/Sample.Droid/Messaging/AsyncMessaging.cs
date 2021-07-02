@@ -71,7 +71,7 @@ namespace Sample.Droid.Messaging
                 CancelButtonText = "Cancel"
             });
 
-            MessagingService.Instance.Snackbar(confirmed ? "Confirmed" : "Cancelled");
+            MessagingService.Instance.Snackbar(confirmed ? "Confirmed" : "Canceled");
         }
 
         public async void Delete()
@@ -84,7 +84,7 @@ namespace Sample.Droid.Messaging
                 CancelButtonText = "Cancel"
             });
 
-            MessagingService.Instance.Snackbar(deleted ? "Deleted" : "Cancelled");
+            MessagingService.Instance.Snackbar(deleted ? "Deleted" : "Canceled");
         }
 
         public async void Loading()

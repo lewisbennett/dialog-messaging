@@ -65,7 +65,7 @@ namespace Sample.Droid.Messaging
                 ConfirmButtonText = "Confirm",
                 ConfirmButtonClickAction = () => MessagingService.Instance.Snackbar("Confirmed"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Canceled")
             });
         }
 
@@ -78,7 +78,7 @@ namespace Sample.Droid.Messaging
                 DeleteButtonText = "Delete",
                 DeleteButtonClickAction = () => MessagingService.Instance.Snackbar("Deleted"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Canceled")
             });
         }
 
@@ -109,7 +109,7 @@ namespace Sample.Droid.Messaging
                 {
                     MessagingService.Instance.Snackbar($"Username: {username}\nPassword: {password}");
                 },
-                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Canceled")
             });
         }
 
@@ -123,7 +123,7 @@ namespace Sample.Droid.Messaging
                 ConfirmButtonText = "Enter",
                 ConfirmButtonClickAction = (s) => MessagingService.Instance.Snackbar($"You entered: {s}"),
                 CancelButtonText = "Cancel",
-                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Cancelled")
+                CancelButtonClickAction = () => MessagingService.Instance.Snackbar("Canceled")
             });
         }
 
