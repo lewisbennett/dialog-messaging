@@ -216,7 +216,7 @@ namespace DialogMessaging
             }
 
             if (config.CustomViewType != null)
-                return ShowCustomDialog<IActionSheetConfig<TActionSheetItemConfig>>(BuildCustomDialog(config));
+                return ShowCustomDialog<IActionSheetBottomConfig<TActionSheetItemConfig>>(BuildCustomDialog(config));
 
             UIAlertController actionSheet = null;
 
