@@ -1,4 +1,8 @@
-﻿using DialogMessaging.Core.Base;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using DialogMessaging.Core.Base;
 using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Alerts;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
@@ -8,10 +12,6 @@ using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Interactions.Base;
 using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
 using UIKit;
 
 namespace DialogMessaging
@@ -395,63 +395,63 @@ namespace DialogMessaging
             if (config.CustomViewType != null)
                 return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
 
-            UIAlertView login = null;
+            UIAlertController login = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                login = new UIAlertView
+                login = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                // Add the username text field.
+                login.AddTextField((textField) =>
                 {
-                    Title = config.Title,
-                    Message = config.Message,
-                    AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput
-                };
+                    textField.ApplyInputType(config.UsernameInputType);
 
-                // Configure the username and password text fields.
-                var usernameTextField = login.GetTextField(0);
-                var passwordTextField = login.GetTextField(1);
+                    textField.Placeholder = config.UsernameHint;
+                    textField.Text = config.EnteredUsername;
+                });
 
-                if (!string.IsNullOrWhiteSpace(config.EnteredUsername))
-                    usernameTextField.Text = config.EnteredUsername;
+                // Add the password text field.
+                login.AddTextField((textField) =>
+                {
+                    textField.SecureTextEntry = true;
 
-                if (!string.IsNullOrWhiteSpace(config.EnteredPassword))
-                    passwordTextField.Text = config.EnteredPassword;
+                    textField.Placeholder = config.PasswordHint;
+                    textField.Text = config.EnteredPassword;
 
-                usernameTextField.Placeholder = config.UsernameHint;
-                usernameTextField.ApplyInputType(config.UsernameInputType);
-
-                passwordTextField.Placeholder = config.PasswordHint;
-
-                var actions = new Dictionary<nint, Action>();
+                    textField.BecomeFirstResponder();
+                });
 
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-                    actions[login.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+                {
+                    login.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
 
                 // Add the login button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.LoginButtonText))
                 {
-                    actions[login.AddButton(config.LoginButtonText)] = () =>
+                    login.AddAction(UIAlertAction.Create(config.LoginButtonText, UIAlertActionStyle.Default, (action) =>
                     {
-                        config.EnteredUsername = usernameTextField.Text;
-                        config.EnteredPassword = passwordTextField.Text;
+                        var enteredUsername = login.TextFields[0].Text;
+                        var enteredPassword = login.TextFields[1].Text;
 
-                        config.LoginButtonClickAction?.Invoke(config.EnteredUsername, config.EnteredPassword);
-                    };
+                        config.EnteredUsername = enteredUsername;
+                        config.EnteredPassword = enteredPassword;
+
+                        config.LoginButtonClickAction?.Invoke(enteredUsername, enteredPassword);
+                        config.DismissedAction?.Invoke();
+                    }));
                 }
 
-                // Listen for click events.
-                login.Clicked += (s, e) =>
-                {
-                    if (actions.TryGetValue(e.ButtonIndex, out Action action))
-                        action?.Invoke();
-
-                    config.DismissedAction?.Invoke();
-                };
-
-                login.Show();
+                // Present the alert.
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(login, true, null);
             });
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => login.DismissWithClickedButtonIndex(0, true)));
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => login.DismissViewController(true, null)));
         }
 
         /// <summary>
