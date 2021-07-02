@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using DialogMessaging.Core.Base;
@@ -463,55 +462,50 @@ namespace DialogMessaging
             if (config.CustomViewType != null)
                 return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
 
-            UIAlertView prompt = null;
+            UIAlertController prompt = null;
 
             UIDevice.CurrentDevice.SafeInvokeOnMainThread(() =>
             {
-                prompt = new UIAlertView
+                prompt = UIAlertController.Create(config.Title, config.Message, UIAlertControllerStyle.Alert);
+
+                // Add the text field.
+                prompt.AddTextField((textField) =>
                 {
-                    Title = config.Title,
-                    Message = config.Message,
-                    AlertViewStyle = UIAlertViewStyle.PlainTextInput
-                };
+                    textField.ApplyInputType(config.InputType);
 
-                var textField = prompt.GetTextField(0);
-
-                if (!string.IsNullOrWhiteSpace(config.EnteredText))
+                    textField.Placeholder = config.Hint;
                     textField.Text = config.EnteredText;
-
-                textField.Placeholder = config.Hint;
-                textField.ApplyInputType(config.InputType);
-
-                var actions = new Dictionary<nint, Action>();
+                });
 
                 // Add the cancel button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.CancelButtonText))
-                    actions[prompt.AddButton(config.CancelButtonText)] = config.CancelButtonClickAction;
+                {
+                    prompt.AddAction(UIAlertAction.Create(config.CancelButtonText, UIAlertActionStyle.Cancel, (action) =>
+                    {
+                        config.CancelButtonClickAction?.Invoke();
+                        config.DismissedAction?.Invoke();
+                    }));
+                }
 
                 // Add the confirm button, if configured.
                 if (!string.IsNullOrWhiteSpace(config.ConfirmButtonText))
                 {
-                    actions[prompt.AddButton(config.ConfirmButtonText)] = () =>
+                    prompt.AddAction(UIAlertAction.Create(config.ConfirmButtonText, UIAlertActionStyle.Default, (action) =>
                     {
-                        config.EnteredText = textField.Text;
+                        var enteredText = prompt.TextFields[0].Text;
 
-                        config.ConfirmButtonClickAction?.Invoke(config.EnteredText);
-                    };
+                        config.EnteredText = enteredText;
+
+                        config.ConfirmButtonClickAction?.Invoke(enteredText);
+                        config.DismissedAction?.Invoke();
+                    }));
                 }
 
-                // Listen for click events.
-                prompt.Clicked += (s, e) =>
-                {
-                    if (actions.TryGetValue(e.ButtonIndex, out Action action))
-                        action?.Invoke();
-
-                    config.DismissedAction?.Invoke();
-                };
-
-                prompt.Show();
+                // Present the alert.
+                UIApplication.SharedApplication.GetTopViewController().PresentViewController(prompt, true, null);
             });
 
-            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => prompt.DismissWithClickedButtonIndex(0, true)));
+            return new DisposableAction(() => UIDevice.CurrentDevice.SafeInvokeOnMainThread(() => prompt.DismissViewController(true, null)));
         }
 
         /// <summary>
