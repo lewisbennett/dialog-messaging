@@ -1,21 +1,32 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
 	<PropertyGroup>
+		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release'">high</GitInfoReportImportance>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
 		<LangVersion>9</LangVersion>
+	</PropertyGroup>
 
+	<PropertyGroup>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+	</PropertyGroup>
+
+	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+
+	<PropertyGroup>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
-		<Version>0.99.17-alpha</Version>
 		<Authors>Lewis Bennett</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<UserSecretsId>f9fc9907-4aa0-4877-9a9d-e4bb4b36a006</UserSecretsId>
 		<Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
-		<AssemblyVersion>0.99.17.0</AssemblyVersion>
-		<FileVersion>0.99.17.0</FileVersion>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
@@ -29,16 +40,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
 		<Compile Include="Platforms\Shared\**\*.cs" />
+		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" PrivateAssets="All" />
 		<PackageReference Include="MvvmCross" Version="8.0.1" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(Configuration)'=='Debug' ">
-		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(Configuration)'=='Release' ">
-		<PackageReference Include="DialogMessaging.Core" Version="0.99.17-alpha" />
+		<PackageReference Include="GitInfo" Version="2.1.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
@@ -49,11 +61,16 @@
 		<Compile Include="Platforms\iOS\**\*.cs" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Include="..\..\LICENSE">
-	    <Pack>True</Pack>
-	    <PackagePath></PackagePath>
-	  </None>
-	</ItemGroup>
+	<Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec;_GetProjectVersion" DependsOnTargets="GitVersion">
+		<PropertyGroup>
+			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>
+			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-$(GitCommit)</Version>
+			<Version Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</Version>
+
+			<PackageVersion Condition="$(GitBranch) == 'master'">$(GitBaseTag)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-$(GitCommit)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</PackageVersion>
+		</PropertyGroup>
+	</Target>
 
 </Project>
