@@ -11,14 +11,11 @@ jobs:
       - checkout
       - run:
           name: Install Android SDK
-          command: sdkmanager "android-29"
+          command: sdkmanager "platforms;android-29"
   build:
     executor: windows/default
     steps:
       - checkout
-      - run:
-          name: Install Android SDK
-          command: sdkmanager "platform-tools" "platforms;android-29"
       - run:
           name: Restore
           command: dotnet restore
