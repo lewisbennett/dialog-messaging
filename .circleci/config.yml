@@ -13,7 +13,7 @@ jobs:
           command: Set-Location -Path "C:/Program Files (x86)/Android/android-sdk/tools/bin"
       - run:
           name: Install Android SDK
-          command: sdkmanager "platforms;android-29"
+          command: .\sdkmanager "platforms;android-29"
       - run:
           name: Restore
           command: dotnet restore
