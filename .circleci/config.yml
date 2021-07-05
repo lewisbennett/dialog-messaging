@@ -1,21 +1,17 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@1.0.3
   windows: circleci/windows@2.4.0
 
 jobs:
-  setup-android:
-    executor: android/android
+  build:
+    executor: windows/default
     steps:
       - checkout
       - run:
           name: Install Android SDK
           command: sdkmanager "platforms;android-29"
-  build:
-    executor: windows/default
-    steps:
-      - checkout
+          working_directory: C:/Program Files (x86)/Android/android-sdk/tools/bin
       - run:
           name: Restore
           command: dotnet restore
@@ -38,7 +34,6 @@ workflows:
   version: 2
   main:
     jobs:
-      - setup-android
       - build:
           context:
             - NuGet
