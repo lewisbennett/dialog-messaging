@@ -10,6 +10,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install Android SDK
+          command: sdkmanager "platform-tools" "platforms;android-29"
+      - run:
           name: Restore
           command: dotnet restore
       - run:
