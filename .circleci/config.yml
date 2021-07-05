@@ -5,6 +5,13 @@ orbs:
   windows: circleci/windows@2.4.0
 
 jobs:
+  setup-android:
+    executor: android/android
+    steps:
+      - checkout
+      - run:
+          name: Install Android SDK
+          command: sdkmanager "android-29"
   build:
     executor: windows/default
     steps:
@@ -34,6 +41,7 @@ workflows:
   version: 2
   main:
     jobs:
+      - setup-android
       - build:
           context:
             - NuGet
