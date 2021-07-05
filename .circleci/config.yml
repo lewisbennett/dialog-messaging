@@ -1,11 +1,18 @@
 version: 2.1
 
+orbs:
+  win: circleci/windows@2.4.0
+
 jobs:
   build:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:5.0
+    executor:
+      name: win/vs2019
+      shell: powershell.exe
     steps:
       - checkout
+      - run:
+          name: Restore
+          command: dotnet restore
       - run:
           name: Build DialogMessaging
           command: msbuild /p:Configuration=Release src/DialogMessaging/DialogMessaging.csproj
