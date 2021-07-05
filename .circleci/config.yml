@@ -24,9 +24,9 @@ workflows:
     jobs:
       - build:
           context:
-              - NuGet
+            - NuGet
           filters:
-              branches:
-                  only:
-                      - master
-                      - develop
+            branches:
+              only:
+                - master
+                - develop
