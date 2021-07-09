@@ -6,7 +6,7 @@ using UIKit;
 
 namespace Sample.iOS
 {
-    [Register ("AppDelegate")]
+    [Register("AppDelegate")]
     public class AppDelegate : UIApplicationDelegate
     {
         public override UIWindow Window { get; set; }

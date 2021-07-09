@@ -4,7 +4,6 @@ using DialogMessaging.Schema;
 using Foundation;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using UIKit;
 
 namespace DialogMessaging.Core.Platforms.iOS

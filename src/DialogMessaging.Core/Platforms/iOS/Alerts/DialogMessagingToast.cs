@@ -22,7 +22,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         /// <summary>
         /// Gets the message label.
         /// </summary>
-        public UILabel MessageLabel { get; } = new ();
+        public UILabel MessageLabel { get; } = new();
         #endregion
 
         #region Public Methods

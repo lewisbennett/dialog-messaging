@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using DialogMessaging.Core.Base;
+﻿using DialogMessaging.Core.Base;
 using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Alerts;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
@@ -11,6 +8,9 @@ using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Interactions.Base;
 using Foundation;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace DialogMessaging

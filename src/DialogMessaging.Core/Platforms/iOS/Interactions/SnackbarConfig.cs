@@ -1,5 +1,5 @@
-﻿using System;
-using DialogMessaging.Infrastructure;
+﻿using DialogMessaging.Infrastructure;
+using System;
 using UIKit;
 
 namespace DialogMessaging.Interactions

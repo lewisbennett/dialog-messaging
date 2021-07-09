@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DialogMessaging.Core.Platforms.Shared.Infrastructure;
+using DialogMessaging.Infrastructure;
+using DialogMessaging.Interactions;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using DialogMessaging.Core.Platforms.Shared.Infrastructure;
-using DialogMessaging.Infrastructure;
-using DialogMessaging.Interactions;
 
 namespace DialogMessaging.Core.Base
 {

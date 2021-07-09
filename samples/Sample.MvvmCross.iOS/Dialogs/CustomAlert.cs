@@ -1,11 +1,11 @@
-﻿using System;
-using CoreGraphics;
-using DialogMessaging.Core.Platforms.iOS.Infrastructure;
-using Foundation;
-using UIKit;
-using DialogMessaging.Interactions;
+﻿using CoreGraphics;
 using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
+using DialogMessaging.Core.Platforms.iOS.Infrastructure;
+using DialogMessaging.Interactions;
+using Foundation;
+using System;
+using UIKit;
 
 namespace Sample.MvvmCross.iOS.Dialogs
 {

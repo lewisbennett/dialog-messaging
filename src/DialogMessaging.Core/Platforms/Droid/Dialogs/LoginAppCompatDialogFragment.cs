@@ -47,7 +47,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             SetPasswordVisibility();
         }
         #endregion
-         
+
         #region Protected Methods
         protected override void ConfigureDialogBuilder(AlertDialog.Builder builder)
         {

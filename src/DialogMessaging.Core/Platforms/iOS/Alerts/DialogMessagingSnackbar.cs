@@ -1,5 +1,4 @@
 ﻿using CoreGraphics;
-using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 using DialogMessaging.Interactions;
 using Foundation;

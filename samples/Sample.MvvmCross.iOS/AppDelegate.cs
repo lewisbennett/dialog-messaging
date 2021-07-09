@@ -7,7 +7,7 @@ using UIKit;
 
 namespace Sample.MvvmCross.iOS
 {
-    [Register ("AppDelegate")]
+    [Register("AppDelegate")]
     public class AppDelegate : MvxApplicationDelegate<Setup, Core.App>
     {
         public override UIWindow Window { get; set; }

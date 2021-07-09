@@ -99,8 +99,8 @@ namespace Sample.iOS
             ToastButton.TouchUpInside -= ToastButton_TouchUpInside;
         }
 
-        public MainViewController (IntPtr handle)
-            : base (handle)
+        public MainViewController(IntPtr handle)
+            : base(handle)
         {
         }
     }

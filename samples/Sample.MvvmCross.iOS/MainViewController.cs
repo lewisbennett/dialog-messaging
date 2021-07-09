@@ -31,8 +31,8 @@ namespace Sample.MvvmCross.iOS
             bindingSet.Apply();
         }
 
-        public MainViewController ()
-            : base ("Main", null)
+        public MainViewController()
+            : base("Main", null)
         {
         }
     }
