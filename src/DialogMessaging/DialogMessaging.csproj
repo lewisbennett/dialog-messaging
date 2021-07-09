@@ -64,11 +64,11 @@
 	<Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec;_GetProjectVersion" DependsOnTargets="GitVersion">
 		<PropertyGroup>
 			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>
-			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-$(GitCommit)</Version>
+			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-C$(GitCommit)</Version>
 			<Version Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</Version>
 
 			<PackageVersion Condition="$(GitBranch) == 'master'">$(GitBaseTag)</PackageVersion>
-			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-$(GitCommit)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-C$(GitCommit)</PackageVersion>
 			<PackageVersion Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</PackageVersion>
 		</PropertyGroup>
 	</Target>
