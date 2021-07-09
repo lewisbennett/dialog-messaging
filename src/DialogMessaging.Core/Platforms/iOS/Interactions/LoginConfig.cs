@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public LoginConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = LoginConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public LoginAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = LoginConfigDefaults.CustomViewType;
         }
         #endregion
     }

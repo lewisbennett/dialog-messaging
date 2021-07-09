@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public ConfirmConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = ConfirmConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public ConfirmAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = ConfirmConfigDefaults.CustomViewType;
         }
         #endregion
     }

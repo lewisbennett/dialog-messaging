@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public DeleteConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = DeleteConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public DeleteAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = DeleteConfigDefaults.CustomViewType;
         }
         #endregion
     }

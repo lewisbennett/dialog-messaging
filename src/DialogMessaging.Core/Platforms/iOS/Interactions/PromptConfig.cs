@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public PromptConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = PromptConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public PromptAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = PromptConfigDefaults.CustomViewType;
         }
         #endregion
     }

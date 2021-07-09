@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public AlertConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = AlertConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public AlertAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = AlertConfigDefaults.CustomViewType;
         }
         #endregion
     }

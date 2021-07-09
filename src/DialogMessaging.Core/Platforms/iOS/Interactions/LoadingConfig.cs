@@ -22,7 +22,7 @@ namespace DialogMessaging.Interactions
         public LoadingConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = LoadingConfigDefaults.CustomViewType;
         }
         #endregion
     }
@@ -33,7 +33,7 @@ namespace DialogMessaging.Interactions
         public LoadingAsyncConfig()
             : base()
         {
-            CustomViewType = ActionSheetConfigDefaults.CustomViewType;
+            CustomViewType = LoadingConfigDefaults.CustomViewType;
         }
         #endregion
     }
