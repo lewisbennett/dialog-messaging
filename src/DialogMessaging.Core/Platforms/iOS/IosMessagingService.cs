@@ -392,7 +392,7 @@ namespace DialogMessaging
         protected override IDisposable PresentLogin(ILoginConfig config)
         {
             if (config.CustomViewType != null)
-                return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
+                return ShowCustomDialog<ILoginConfig>(BuildCustomDialog(config));
 
             UIAlertController login = null;
 
@@ -460,7 +460,7 @@ namespace DialogMessaging
         protected override IDisposable PresentPrompt(IPromptConfig config)
         {
             if (config.CustomViewType != null)
-                return ShowCustomDialog<IConfirmConfig>(BuildCustomDialog(config));
+                return ShowCustomDialog<IPromptConfig>(BuildCustomDialog(config));
 
             UIAlertController prompt = null;
 
