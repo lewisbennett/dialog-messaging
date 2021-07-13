@@ -177,7 +177,6 @@ namespace DialogMessaging
                     {
                         CancelButtonClickAction = syncConfig.CancelButtonClickAction,
                         CancelButtonText = syncConfig.CancelButtonText,
-                        CustomViewType = syncConfig.CustomViewType,
                         Data = syncConfig.Data,
                         DismissedAction = syncConfig.DismissedAction,
                         ItemClickAction = syncConfig.ItemClickAction,
@@ -192,11 +191,10 @@ namespace DialogMessaging
                 }
                 else if (config is ActionSheetBottomAsyncConfig asyncConfig)
                 {
-                    var newSyncConfig = new ActionSheetAsyncConfig
+                    var newAsyncConfig = new ActionSheetAsyncConfig
                     {
                         CancelButtonClickAction = asyncConfig.CancelButtonClickAction,
                         CancelButtonText = asyncConfig.CancelButtonText,
-                        CustomViewType = asyncConfig.CustomViewType,
                         Data = asyncConfig.Data,
                         DismissedAction = asyncConfig.DismissedAction,
                         ItemClickAction = asyncConfig.ItemClickAction,
@@ -205,9 +203,9 @@ namespace DialogMessaging
                     };
 
                     foreach (var item in asyncConfig.Items)
-                        newSyncConfig.Items.Add(item);
+                        newAsyncConfig.Items.Add(item);
 
-                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newSyncConfig;
+                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newAsyncConfig;
                 }
                 else
                     throw new Exception($"Action sheet config type is not {nameof(ActionSheetBottomConfig)} or {nameof(ActionSheetBottomAsyncConfig)}");
