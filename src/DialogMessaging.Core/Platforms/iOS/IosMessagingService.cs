@@ -168,8 +168,6 @@ namespace DialogMessaging
             // iPad's don't like bottom based action sheets, so use a normal action sheet instead.
             if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
             {
-                IActionSheetConfig<TActionSheetItemConfig> newConfig;
-
                 // Try to convert the provided config to a regular action sheet config.
                 if (config is ActionSheetBottomConfig syncConfig)
                 {
@@ -187,7 +185,7 @@ namespace DialogMessaging
                     foreach (var item in syncConfig.Items)
                         newSyncConfig.Items.Add(item);
 
-                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newSyncConfig;
+                    return ActionSheet(newSyncConfig);
                 }
                 else if (config is ActionSheetBottomAsyncConfig asyncConfig)
                 {
@@ -205,12 +203,10 @@ namespace DialogMessaging
                     foreach (var item in asyncConfig.Items)
                         newAsyncConfig.Items.Add(item);
 
-                    newConfig = (IActionSheetConfig<TActionSheetItemConfig>)newAsyncConfig;
+                    return ActionSheetAsync(newAsyncConfig);
                 }
                 else
                     throw new Exception($"Action sheet config type is not {nameof(ActionSheetBottomConfig)} or {nameof(ActionSheetBottomAsyncConfig)}");
-
-                return PresentActionSheet(newConfig);
             }
 
             if (config.CustomViewType != null)
