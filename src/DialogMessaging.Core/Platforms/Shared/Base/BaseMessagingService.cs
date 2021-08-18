@@ -222,9 +222,6 @@ namespace DialogMessaging.Core.Base
             // Register the disposable of the dialog with the cancellation token, then return the task.
             using (cancellationToken.Register(() => dialog.Dispose()))
             {
-                // Add a minimum delay to avoid the loading dialog getting stuck visible in the event of the task completing too quickly.
-                await Task.Delay(500).ConfigureAwait(false);
-
                 try
                 {
                     await task.Invoke().ConfigureAwait(false);
@@ -252,9 +249,6 @@ namespace DialogMessaging.Core.Base
             // Register the disposable of the dialog with the cancellation token, then return the task.
             using (cancellationToken.Register(() => dialog.Dispose()))
             {
-                // Add a minimum delay to avoid the loading dialog getting stuck visible in the event of the task completing too quickly.
-                await Task.Delay(500).ConfigureAwait(false);
-
                 T result;
 
                 try
