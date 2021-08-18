@@ -20,6 +20,10 @@
 		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+		<DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.Core\DialogMessaging.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="Resources\**\*.xml" />
 		<Compile Include="Platforms\Shared\**\*.cs" />
