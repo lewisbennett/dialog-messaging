@@ -20,7 +20,6 @@
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -28,6 +27,10 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
 		<NoWarn>1701;1702;1591;1573</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(GitBranch) == 'develop' or $(GitBranch) == 'master'">
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
@@ -66,12 +69,10 @@
 	<Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec;_GetProjectVersion" DependsOnTargets="GitVersion">
 		<PropertyGroup>
 			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>
-			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-C$(GitCommit)</Version>
-			<Version Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</Version>
+			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</Version>
 
 			<PackageVersion Condition="$(GitBranch) == 'master'">$(GitBaseTag)</PackageVersion>
-			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-C$(GitCommit)</PackageVersion>
-			<PackageVersion Condition="$(GitBranch) != 'develop' and $(GitBranch) != 'master'">$(GitBaseTag)-$(GitBranch)-$(GitCommit)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</PackageVersion>
 		</PropertyGroup>
 	</Target>
 

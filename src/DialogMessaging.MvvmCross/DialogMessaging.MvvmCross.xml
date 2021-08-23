@@ -96,25 +96,25 @@
             <summary>Repository URL: https://github.com/lewisbennett/dialog-messaging.git</summary>
         </member>
         <member name="F:ThisAssembly.Git.Branch">
-            <summary>Branch: working</summary>
+            <summary>Branch: develop</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commit">
-            <summary>Commit: aec58a7</summary>
+            <summary>Commit: 75c849d</summary>
         </member>
         <member name="F:ThisAssembly.Git.Sha">
-            <summary>Sha: aec58a7adb2801fcb64000b3a214ffbfab732cfb</summary>
+            <summary>Sha: 75c849d6147cf4274315cd7394acbcbbb6acba13</summary>
         </member>
         <member name="F:ThisAssembly.Git.CommitDate">
-            <summary>Commit date: 2021-08-18T16:05:04+01:00</summary>
+            <summary>Commit date: 2021-08-18T17:54:21+01:00</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commits">
-            <summary>Commits on top of base version: 4</summary>
+            <summary>Commits on top of base version: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.Tag">
-            <summary>Tag: 0.99.22-4-gaec58a7</summary>
+            <summary>Tag: 0.99.23</summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseTag">
-            <summary>Base tag: 0.99.22</summary>
+            <summary>Base tag: 0.99.23</summary>
         </member>
         <member name="T:ThisAssembly.Git.BaseVersion">
             <summary>Provides access to the base version information used to determine the <see cref="T:ThisAssembly.Git.SemVer" />.</summary>      
@@ -126,7 +126,7 @@
             <summary>Minor: 99</summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseVersion.Patch">
-            <summary>Patch: 22</summary>
+            <summary>Patch: 23</summary>
         </member>
         <member name="T:ThisAssembly.Git.SemVer">
             <summary>Provides access to SemVer information for the current assembly.</summary>
@@ -138,7 +138,7 @@
             <summary>Minor: 99</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Patch">
-            <summary>Patch: 26</summary>
+            <summary>Patch: 23</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Label">
             <summary>Label: </summary>
