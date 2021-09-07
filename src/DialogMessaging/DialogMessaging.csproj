@@ -27,7 +27,7 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
 		<NoWarn>1701;1702;1591;1573</NoWarn>
-		<PackageIcon>Logo.png</PackageIcon>
+		<PackageIcon>Icon.png</PackageIcon>
 		<PackageIconUrl />
 	</PropertyGroup>
 
@@ -47,7 +47,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\Assets\Logo.png">
+		<None Include="..\..\Assets\Icon.png">
 		  <Pack>True</Pack>
 		  <PackagePath></PackagePath>
 		</None>
