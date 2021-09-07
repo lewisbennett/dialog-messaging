@@ -1,6 +1,12 @@
+![logo](https://github.com/lewisbennett/dialog-messaging/blob/working/Assets/Logo.png?raw=true)
+
+<div align="center">
+
 [![License: Apache](https://img.shields.io/badge/License-Apache-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![GitHub forks](https://img.shields.io/nuget/dt/DialogMessaging.svg)](https://www.nuget.org/packages/DialogMessaging/)
 [![GitHub forks](https://img.shields.io/nuget/dt/DialogMessaging.MvvmCross.svg)](https://www.nuget.org/packages/DialogMessaging.MvvmCross/)
+  
+</div>
 
 # DialogMessaging
 
