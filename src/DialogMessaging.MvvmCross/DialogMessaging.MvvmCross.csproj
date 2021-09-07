@@ -20,13 +20,15 @@
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
-		<Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
+		<Description>A customizable, cross platform, dialog messaging service for Xamarin.Android and Xamarin.iOS, compatible with MvvmCross.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
 		<NoWarn>1701;1702;1591;1573</NoWarn>
+		<PackageIcon>Logo.png</PackageIcon>
+		<PackageIconUrl />
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(GitBranch) == 'develop' or $(GitBranch) == 'master'">
@@ -45,6 +47,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\..\Assets\Logo.png">
+		  <Pack>True</Pack>
+		  <PackagePath></PackagePath>
+		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>

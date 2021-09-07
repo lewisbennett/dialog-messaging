@@ -9,7 +9,7 @@
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
-		<Description>DialogMessaging is a cross platform, customizable dialog messaging service.</Description>
+		<Description></Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
