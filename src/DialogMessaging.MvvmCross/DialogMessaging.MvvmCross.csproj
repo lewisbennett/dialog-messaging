@@ -57,8 +57,8 @@
 		</None>
 		<Compile Include="Platforms\Shared\**\*.cs" />
 		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" PrivateAssets="All" />
-		<PackageReference Include="MvvmCross" Version="8.0.1" />
-		<PackageReference Include="GitInfo" Version="2.1.2">
+		<PackageReference Include="MvvmCross" Version="8.0.2" />
+		<PackageReference Include="GitInfo" Version="2.2.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>

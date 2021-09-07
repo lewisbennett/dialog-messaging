@@ -57,7 +57,7 @@
 		</None>
 		<Compile Include="Platforms\Shared\**\*.cs" />
 		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" PrivateAssets="All" />
-		<PackageReference Include="GitInfo" Version="2.1.2">
+		<PackageReference Include="GitInfo" Version="2.2.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -65,7 +65,7 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 		<Compile Include="Platforms\Droid\**\*.cs" />
-		<PackageReference Include="ViewPump" Version="0.99.0-alpha" />
+		<PackageReference Include="ViewPump" Version="1.0.0" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
