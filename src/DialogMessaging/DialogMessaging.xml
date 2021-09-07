@@ -87,31 +87,31 @@
             <summary>Provides access to the git information for the current assembly.</summary>
         </member>
         <member name="F:ThisAssembly.Git.IsDirty">
-            <summary>IsDirty: true</summary>
+            <summary>IsDirty: false</summary>
         </member>
         <member name="F:ThisAssembly.Git.IsDirtyString">
-            <summary>IsDirtyString: true</summary>
+            <summary>IsDirtyString: false</summary>
         </member>
         <member name="F:ThisAssembly.Git.RepositoryUrl">
             <summary>Repository URL: https://github.com/lewisbennett/dialog-messaging.git</summary>
         </member>
         <member name="F:ThisAssembly.Git.Branch">
-            <summary>Branch: working</summary>
+            <summary>Branch: master</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commit">
-            <summary>Commit: 71a34b4</summary>
+            <summary>Commit: beed79a</summary>
         </member>
         <member name="F:ThisAssembly.Git.Sha">
-            <summary>Sha: 71a34b47c1ac55f59be5a56c8908c165c2035b99</summary>
+            <summary>Sha: beed79a9c015539eb8bc111f1c183eaf2dd1dc37</summary>
         </member>
         <member name="F:ThisAssembly.Git.CommitDate">
-            <summary>Commit date: 2021-09-07T12:20:25+01:00</summary>
+            <summary>Commit date: 2021-09-07T12:29:00+01:00</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commits">
-            <summary>Commits on top of base version: 2</summary>
+            <summary>Commits on top of base version: 3</summary>
         </member>
         <member name="F:ThisAssembly.Git.Tag">
-            <summary>Tag: 1.0.0-2-g71a34b4</summary>
+            <summary>Tag: 1.0.0-3-gbeed79a</summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseTag">
             <summary>Base tag: 1.0.0</summary>
@@ -138,7 +138,7 @@
             <summary>Minor: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Patch">
-            <summary>Patch: 2</summary>
+            <summary>Patch: 3</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Label">
             <summary>Label: </summary>
