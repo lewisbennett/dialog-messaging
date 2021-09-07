@@ -1,4 +1,4 @@
-![logo](https://github.com/lewisbennett/dialog-messaging/blob/working/Assets/Logo.png?raw=true)
+![logo](https://github.com/lewisbennett/dialog-messaging/blob/master/Assets/Logo.png?raw=true)
 
 <div align="center">
 
@@ -27,25 +27,25 @@ DialogMessaging is a cross platform, customizable dialog messaging service, comp
 
 \* Synchronous and asynchronous methods are available.
 
-## [Getting Started](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging)
+## [Getting Started](https://github.com/lewisbennett/dialog-messaging/tree/master/src/DialogMessaging)
 
-## [Getting Started (MvvmCross)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.MvvmCross)
+## [Getting Started (MvvmCross)](https://github.com/lewisbennett/dialog-messaging/tree/master/src/DialogMessaging.MvvmCross)
 
-## [Customization](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.Core/Platforms/Shared/CUSTOMIZATION.md)
+## [Customization](https://github.com/lewisbennett/dialog-messaging/tree/master/src/DialogMessaging.Core/Platforms/Shared/CUSTOMIZATION.md)
 
-## [Customization (Android)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.Core/Platforms/Droid/CUSTOMIZATION.md)
+## [Customization (Android)](https://github.com/lewisbennett/dialog-messaging/tree/master/src/DialogMessaging.Core/Platforms/Droid/CUSTOMIZATION.md)
 
-## [Customization (iOS)](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/src/DialogMessaging.Core/Platforms/iOS/CUSTOMIZATION.md)
+## [Customization (iOS)](https://github.com/lewisbennett/dialog-messaging/tree/master/src/DialogMessaging.Core/Platforms/iOS/CUSTOMIZATION.md)
 
 ## Samples
 
-[Android project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.Droid)
+[Android project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.Droid)
 
-[iOS project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.iOS)
+[iOS project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.iOS)
 
-[MvvmCross core project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.Core)
+[MvvmCross core project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.MvvmCross.Core)
 
-[MvvmCross Android project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.Droid)
+[MvvmCross Android project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.MvvmCross.Droid)
 
-[MvvmCross iOS project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.MvvmCross.iOS)
+[MvvmCross iOS project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.MvvmCross.iOS)
 
