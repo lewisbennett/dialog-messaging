@@ -21,4 +21,4 @@ public class AppDelegate : UIApplicationDelegate
 }
 ```
 
-[Full example](https://github.com/lewisbennett/dialog-messaging/blob/release-1.0.0/samples/Sample.iOS/AppDelegate.cs) available in the [iOS sample project](https://github.com/lewisbennett/dialog-messaging/tree/release-1.0.0/samples/Sample.iOS).
+[Full example](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.iOS/AppDelegate.cs) available in the [iOS sample project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.iOS).
