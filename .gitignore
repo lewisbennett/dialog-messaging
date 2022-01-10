@@ -351,3 +351,11 @@ MigrationBackup/
 
 # DS_Store - from Visual Studio for Mac
 **/.DS_Store
+
+# JetBrains
+.idea
+
+# Documentation Files
+src/DialogMessaging/DialogMessaging.xml
+src/DialogMessaging.Core/DialogMessaging.Core.xml
+src/DialogMessaging.MvvmCross/DialogMessaging.MvvmCross.xml
