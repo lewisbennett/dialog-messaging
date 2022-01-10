@@ -2,14 +2,14 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
-		<LangVersion>9</LangVersion>
+		<LangVersion>10</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
-		<Description></Description>
+		<Description>A customizable, cross platform, dialog messaging service for Xamarin.Android and Xamarin.iOS, compatible with MvvmCross.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>

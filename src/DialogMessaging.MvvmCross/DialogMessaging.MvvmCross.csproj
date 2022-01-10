@@ -3,9 +3,9 @@
 	<PropertyGroup>
 		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release'">high</GitInfoReportImportance>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
-		<LangVersion>9</LangVersion>
+		<LangVersion>10</LangVersion>
 	</PropertyGroup>
-
+	
 	<PropertyGroup>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
 	</PropertyGroup>

@@ -3,9 +3,9 @@
 	<PropertyGroup>
 		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release'">high</GitInfoReportImportance>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
-		<LangVersion>9</LangVersion>
+		<LangVersion>10</LangVersion>
 	</PropertyGroup>
-
+	
 	<PropertyGroup>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
 	</PropertyGroup>
@@ -65,7 +65,7 @@
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 		<Compile Include="Platforms\Droid\**\*.cs" />
-		<PackageReference Include="ViewPump" Version="1.0.1" />
+		<PackageReference Include="ViewPump" Version="1.0.3" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
