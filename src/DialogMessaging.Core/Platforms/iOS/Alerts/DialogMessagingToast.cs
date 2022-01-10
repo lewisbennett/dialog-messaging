@@ -13,61 +13,9 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         private IToastConfig _config;
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets or sets whether the view is currently showing.
-        /// </summary>
-        public bool IsShowing { get; set; }
-
-        /// <summary>
-        /// Gets the message label.
-        /// </summary>
-        public UILabel MessageLabel { get; } = new();
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        /// Applies the provided dialog configuration to the view.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        public void ApplyDialogConfig(IToastConfig config)
-        {
-            _config = config;
-
-            // Configure message.
-            if (!string.IsNullOrWhiteSpace(_config.Message))
-                MessageLabel.Text = _config.Message;
-
-            SetNeedsLayout();
-            LayoutIfNeeded();
-        }
-
-        /// <summary>
-        /// Dismisses the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
-        public void Dismiss(Action finishedAction = null)
-        {
-            this.FadeOut(0.2f, finishedAction: finishedAction);
-
-            IsShowing = false;
-        }
-
-        /// <summary>
-        /// Shows the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
-        public void Show(Action finishedAction = null)
-        {
-            this.FadeIn(0.2f, finishedAction: finishedAction);
-
-            IsShowing = true;
-        }
-        #endregion
-
         #region Lifecycle
         /// <summary>
-        /// Lays out subviews.
+        ///     Lays out subviews.
         /// </summary>
         public override void LayoutSubviews()
         {
@@ -88,6 +36,58 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
             Frame = new CGRect(Center.X - (toastWidth / 2), keyWindow.Bounds.Height - (keyWindow.Bounds.Height / 5), toastWidth, MessageLabel.Frame.Height + 32);
 
             Layer.CornerRadius = (MessageLabel.Font.LineHeight + 32) / 2;
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        ///     Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
+        ///     Gets the message label.
+        /// </summary>
+        public UILabel MessageLabel { get; } = new();
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        ///     Applies the provided dialog configuration to the view.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public void ApplyDialogConfig(IToastConfig config)
+        {
+            _config = config;
+
+            // Configure message.
+            if (!string.IsNullOrWhiteSpace(_config.Message))
+                MessageLabel.Text = _config.Message;
+
+            SetNeedsLayout();
+            LayoutIfNeeded();
+        }
+
+        /// <summary>
+        ///     Dismisses the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
+        public void Dismiss(Action finishedAction = null)
+        {
+            this.FadeOut(0.2f, finishedAction: finishedAction);
+
+            IsShowing = false;
+        }
+
+        /// <summary>
+        ///     Shows the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
+        public void Show(Action finishedAction = null)
+        {
+            this.FadeIn(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 

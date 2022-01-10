@@ -1,12 +1,11 @@
 ﻿using UIKit;
 
-namespace Sample.iOS
+namespace Sample.iOS;
+
+public class Application
 {
-    public class Application
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            UIApplication.Main(args, null, "AppDelegate");
-        }
+        UIApplication.Main(args, null, "AppDelegate");
     }
 }

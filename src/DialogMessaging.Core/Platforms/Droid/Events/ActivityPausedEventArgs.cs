@@ -1,23 +1,21 @@
-﻿using Android.App;
-using System;
+﻿using System;
+using Android.App;
 
-namespace DialogMessaging.Core.Platforms.Droid.Events
+namespace DialogMessaging.Core.Platforms.Droid.Events;
+
+public class ActivityPausedEventArgs : EventArgs
 {
-    public class ActivityPausedEventArgs : EventArgs
+    #region Constructors
+    public ActivityPausedEventArgs(Activity activity)
     {
-        #region Properties
-        /// <summary>
-        /// Gets the paused activity.
-        /// </summary>
-        public Activity Activity { get; }
-        #endregion
-
-        #region Constructors
-        public ActivityPausedEventArgs(Activity activity)
-            : base()
-        {
-            Activity = activity;
-        }
-        #endregion
+        Activity = activity;
     }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    ///     Gets the paused activity.
+    /// </summary>
+    public Activity Activity { get; }
+    #endregion
 }
