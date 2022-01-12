@@ -7,7 +7,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Infrastructure
     {
         #region Public Methods
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="window">The app's primary <see cref="UIWindow" />.</param>
         /// <param name="messagingService">The messaging service.</param>

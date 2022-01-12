@@ -1,16 +1,24 @@
-﻿namespace Sample.Droid.Messaging
+﻿namespace Sample.Droid.Messaging;
+
+public interface IMessaging
 {
-    public interface IMessaging
-    {
-        void ActionSheet();
-        void ActionSheetBottom();
-        void Alert();
-        void Confirm();
-        void Delete();
-        void Loading();
-        void Login();
-        void Prompt();
-        void Snackbar();
-        void Toast();
-    }
+    void ActionSheet();
+
+    void ActionSheetBottom();
+
+    void Alert();
+
+    void Confirm();
+
+    void Delete();
+
+    void Loading();
+
+    void Login();
+
+    void Prompt();
+
+    void Snackbar();
+
+    void Toast();
 }

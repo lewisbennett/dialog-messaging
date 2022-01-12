@@ -13,28 +13,6 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         private ISnackbarConfig _config;
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets the action button.
-        /// </summary>
-        public UIButton ActionButton { get; } = new();
-
-        /// <summary>
-        /// Gets the background view.
-        /// </summary>
-        public UIView BackgroundView { get; } = new();
-
-        /// <summary>
-        /// Gets or sets whether the view is currently showing.
-        /// </summary>
-        public bool IsShowing { get; set; }
-
-        /// <summary>
-        /// Gets the message label.
-        /// </summary>
-        public UILabel MessageLabel { get; } = new();
-        #endregion
-
         #region Event Handlers
         private void ActionButton_TouchUpInside(object sender, EventArgs e)
         {
@@ -44,75 +22,9 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         }
         #endregion
 
-        #region Public Methods
-        /// <summary>
-        /// Applies the provided dialog configuration to the view.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        public void ApplyDialogConfig(ISnackbarConfig config)
-        {
-            _config = config;
-
-            // Configure message.
-            if (!string.IsNullOrWhiteSpace(_config.Message))
-            {
-                if (_config.MessageFont != null)
-                    MessageLabel.Font = _config.MessageFont;
-
-                if (_config.MessageTextColor != null)
-                    MessageLabel.TextColor = _config.MessageTextColor;
-
-                MessageLabel.Text = _config.Message;
-            }
-
-            if (_config.BackgroundColor != null)
-                BackgroundView.BackgroundColor = _config.BackgroundColor;
-
-            // Hide action button, or configure if text is available.
-            if (string.IsNullOrWhiteSpace(_config.ActionButtonText))
-                ActionButton.Hidden = true;
-
-            else
-            {
-                if (_config.ActionButtonFont != null)
-                    ActionButton.TitleLabel.Font = _config.ActionButtonFont;
-
-                if (_config.ActionButtonTextColor != null)
-                    ActionButton.SetTitleColor(_config.ActionButtonTextColor, UIControlState.Normal);
-
-                ActionButton.SetTitle(_config.ActionButtonText, UIControlState.Normal);
-            }
-
-            SetNeedsLayout();
-            LayoutIfNeeded();
-        }
-
-        /// <summary>
-        /// Dismisses the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
-        public void Dismiss(Action finishedAction = null)
-        {
-            this.SlideOutVertically(-1, 0.3f, finishedAction: finishedAction);
-
-            IsShowing = false;
-        }
-
-        /// <summary>
-        /// Shows the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
-        public void Show(Action finishedAction = null)
-        {
-            this.SlideInVertically(-1, 0.3f, finishedAction: finishedAction);
-
-            IsShowing = true;
-        }
-        #endregion
-
         #region Lifecycle
         /// <summary>
-        /// Lays out subviews.
+        ///     Lays out subviews.
         /// </summary>
         public override void LayoutSubviews()
         {
@@ -168,6 +80,94 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
             Frame = new CGRect(containerView.Center.X - (snackbarWidth / 2), y, snackbarWidth, keyWindow.Bounds.Height - y);
 
             BackgroundView.Frame = new CGRect(0, 0, Frame.Width, height);
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        ///     Gets the action button.
+        /// </summary>
+        public UIButton ActionButton { get; } = new();
+
+        /// <summary>
+        ///     Gets the background view.
+        /// </summary>
+        public UIView BackgroundView { get; } = new();
+
+        /// <summary>
+        ///     Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
+        ///     Gets the message label.
+        /// </summary>
+        public UILabel MessageLabel { get; } = new();
+        #endregion
+
+        #region Public Methods
+        /// <summary>
+        ///     Applies the provided dialog configuration to the view.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public void ApplyDialogConfig(ISnackbarConfig config)
+        {
+            _config = config;
+
+            // Configure message.
+            if (!string.IsNullOrWhiteSpace(_config.Message))
+            {
+                if (_config.MessageFont != null)
+                    MessageLabel.Font = _config.MessageFont;
+
+                if (_config.MessageTextColor != null)
+                    MessageLabel.TextColor = _config.MessageTextColor;
+
+                MessageLabel.Text = _config.Message;
+            }
+
+            if (_config.BackgroundColor != null)
+                BackgroundView.BackgroundColor = _config.BackgroundColor;
+
+            // Hide action button, or configure if text is available.
+            if (string.IsNullOrWhiteSpace(_config.ActionButtonText))
+                ActionButton.Hidden = true;
+
+            else
+            {
+                if (_config.ActionButtonFont != null)
+                    ActionButton.TitleLabel.Font = _config.ActionButtonFont;
+
+                if (_config.ActionButtonTextColor != null)
+                    ActionButton.SetTitleColor(_config.ActionButtonTextColor, UIControlState.Normal);
+
+                ActionButton.SetTitle(_config.ActionButtonText, UIControlState.Normal);
+            }
+
+            SetNeedsLayout();
+            LayoutIfNeeded();
+        }
+
+        /// <summary>
+        ///     Dismisses the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
+        public void Dismiss(Action finishedAction = null)
+        {
+            this.SlideOutVertically(-1, 0.3f, finishedAction: finishedAction);
+
+            IsShowing = false;
+        }
+
+        /// <summary>
+        ///     Shows the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
+        public void Show(Action finishedAction = null)
+        {
+            this.SlideInVertically(-1, 0.3f, finishedAction: finishedAction);
+
+            IsShowing = true;
         }
         #endregion
 

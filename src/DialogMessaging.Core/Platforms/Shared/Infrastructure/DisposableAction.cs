@@ -1,30 +1,29 @@
 ﻿using System;
 
-namespace DialogMessaging.Core.Platforms.Shared.Infrastructure
+namespace DialogMessaging.Core.Platforms.Shared.Infrastructure;
+
+public class DisposableAction : IDisposable
 {
-    public class DisposableAction : IDisposable
+    #region Constructors
+    public DisposableAction(Action action)
     {
-        #region Properties
-        /// <summary>
-        /// Gets the action.
-        /// </summary>
-        public Action Action { get; }
-        #endregion
-
-        #region Methods
-        void IDisposable.Dispose()
-        {
-            Action?.Invoke();
-
-            GC.SuppressFinalize(this);
-        }
-        #endregion
-
-        #region Constructors
-        public DisposableAction(Action action)
-        {
-            Action = action;
-        }
-        #endregion
+        Action = action;
     }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    ///     Gets the action.
+    /// </summary>
+    public Action Action { get; }
+    #endregion
+
+    #region Methods
+    void IDisposable.Dispose()
+    {
+        Action?.Invoke();
+
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }

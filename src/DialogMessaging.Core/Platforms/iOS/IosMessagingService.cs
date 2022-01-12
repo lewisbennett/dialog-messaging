@@ -19,7 +19,7 @@ namespace DialogMessaging
     {
         #region Public Methods
         /// <summary>
-        /// Builds the <see cref="UIView" /> for a custom dialog configuration.
+        ///     Builds the <see cref="UIView" /> for a custom dialog configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         public virtual UIView BuildCustomDialog<TConfig>(TConfig config)
@@ -59,7 +59,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Shows a custom dialog.
+        ///     Shows a custom dialog.
         /// </summary>
         /// <param name="view">The custom dialog UIView. Must inherit <see cref="ICustomDialog{TConfig}" />.</param>
         public IDisposable ShowCustomDialog<TConfig>(UIView view)
@@ -113,7 +113,7 @@ namespace DialogMessaging
 
         #region Protected Methods
         /// <summary>
-        /// Presents an action sheet based on the provided configuration.
+        ///     Presents an action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentActionSheet<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
@@ -160,7 +160,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a bottom action sheet based on the provided configuration.
+        ///     Presents a bottom action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
@@ -251,7 +251,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents an alert dialog based on the provided configuration.
+        ///     Presents an alert dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentAlert(IAlertConfig config)
@@ -283,7 +283,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a confirm dialog based on the provided configuration.
+        ///     Presents a confirm dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentConfirm(IConfirmConfig config)
@@ -325,7 +325,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a delete dialog based on the provided configuration.
+        ///     Presents a delete dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentDelete(IDeleteConfig config)
@@ -367,7 +367,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a loading dialog based on the provided configuration.
+        ///     Presents a loading dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLoading(ILoadingConfig config)
@@ -380,7 +380,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a login dialog based on the provided configuration.
+        ///     Presents a login dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLogin(ILoginConfig config)
@@ -448,7 +448,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a prompt dialog based on the provided configuration.
+        ///     Presents a prompt dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentPrompt(IPromptConfig config)
@@ -503,7 +503,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents a snackbar based on the provided configuration.
+        ///     Presents a snackbar based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentSnackbar(ISnackbarConfig config)
@@ -519,7 +519,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Presents an toast based on the provided configuration.
+        ///     Presents an toast based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentToast(IToastConfig config)

@@ -1,23 +1,21 @@
-﻿using Android.App;
-using System;
+﻿using System;
+using Android.App;
 
-namespace DialogMessaging.Core.Platforms.Droid.Events
+namespace DialogMessaging.Core.Platforms.Droid.Events;
+
+public class ActivityResumedEventArgs : EventArgs
 {
-    public class ActivityResumedEventArgs : EventArgs
+    #region Constructors
+    public ActivityResumedEventArgs(Activity activity)
     {
-        #region Properties
-        /// <summary>
-        /// Gets the resumed activity.
-        /// </summary>
-        public Activity Activity { get; }
-        #endregion
-
-        #region Constructors
-        public ActivityResumedEventArgs(Activity activity)
-            : base()
-        {
-            Activity = activity;
-        }
-        #endregion
+        Activity = activity;
     }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    ///     Gets the resumed activity.
+    /// </summary>
+    public Activity Activity { get; }
+    #endregion
 }
