@@ -10,7 +10,7 @@
 		<RootNamespace>Sample.iOS</RootNamespace>
 		<AssemblyName>Sample.iOS</AssemblyName>
 		<IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<MtouchEnableSGenConc>true</MtouchEnableSGenConc>
 		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
 		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -33,7 +33,7 @@
 		<Optimize>true</Optimize>
 		<OutputPath>bin\iPhoneSimulator\Release</OutputPath>
 		<ErrorReport>prompt</ErrorReport>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<WarningLevel>4</WarningLevel>
 		<MtouchLink>None</MtouchLink>
 		<MtouchArch>x86_64</MtouchArch>
@@ -47,7 +47,7 @@
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
 		<MtouchArch>ARM64</MtouchArch>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 		<CodesignKey>iPhone Developer</CodesignKey>
 		<MtouchDebug>true</MtouchDebug>
@@ -57,7 +57,7 @@
 		<Optimize>true</Optimize>
 		<OutputPath>bin\iPhone\Release</OutputPath>
 		<ErrorReport>prompt</ErrorReport>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<WarningLevel>4</WarningLevel>
 		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 		<MtouchArch>ARM64</MtouchArch>

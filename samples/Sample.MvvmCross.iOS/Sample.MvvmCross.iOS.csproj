@@ -11,7 +11,7 @@
 		<AssemblyName>Sample.MvvmCross.iOS</AssemblyName>
 		<IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
 		<MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
 		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	</PropertyGroup>
@@ -34,7 +34,7 @@
 		<OutputPath>bin\iPhoneSimulator\Release</OutputPath>
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<MtouchLink>None</MtouchLink>
 		<MtouchArch>x86_64</MtouchArch>
 	</PropertyGroup>
@@ -42,7 +42,7 @@
 		<DebugSymbols>true</DebugSymbols>
 		<DebugType>full</DebugType>
 		<Optimize>false</Optimize>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<OutputPath>bin\iPhone\Debug</OutputPath>
 		<DefineConstants>DEBUG</DefineConstants>
 		<ErrorReport>prompt</ErrorReport>
@@ -60,7 +60,7 @@
 		<WarningLevel>4</WarningLevel>
 		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 		<MtouchArch>ARM64</MtouchArch>
-		<LangVersion>10</LangVersion>
+		<LangVersion>9</LangVersion>
 		<CodesignKey>iPhone Developer</CodesignKey>
 		<MtouchLink>SdkOnly</MtouchLink>
 	</PropertyGroup>
