@@ -7,7 +7,7 @@ namespace DialogMessaging
     {
         #region Public Methods
         /// <summary>
-        ///     Initialize the messaging service.
+        /// Initialize the messaging service.
         /// </summary>
         /// <param name="window">The app's primary <see cref="UIWindow" />.</param>
         public static void Init(UIWindow window)
@@ -16,7 +16,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        ///     Initialize the messaging service.
+        /// Initialize the messaging service.
         /// </summary>
         /// <param name="window">The app's primary <see cref="UIWindow" />.</param>
         /// <param name="messagingService">A custom messaging service.</param>

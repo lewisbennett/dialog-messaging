@@ -12,7 +12,7 @@ namespace DialogMessaging.Core.Platforms.iOS
     {
         #region Public Methods
         /// <summary>
-        ///     Configures the UITextField to match the provided input type.
+        /// Configures the UITextField to match the provided input type.
         /// </summary>
         /// <param name="inputType">The input type to be applied.</param>
         public static void ApplyInputType(this UITextField textField, InputType inputType)
@@ -27,49 +27,36 @@ namespace DialogMessaging.Core.Platforms.iOS
             switch (inputType)
             {
                 case InputType.EmailAddress:
-
                     textField.KeyboardType = UIKeyboardType.EmailAddress;
-
                     return;
 
                 case InputType.Name:
-
                     textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
-
                     return;
 
                 case InputType.Integer:
-
                     textField.KeyboardType = UIKeyboardType.NumberPad;
-
                     return;
 
                 case InputType.Decimal:
-
                     textField.KeyboardType = UIKeyboardType.DecimalPad;
-
                     return;
 
                 case InputType.PhoneNumber:
-
                     textField.KeyboardType = UIKeyboardType.PhonePad;
-
                     return;
 
                 case InputType.URI:
-
                     textField.KeyboardType = UIKeyboardType.Url;
-
                     return;
 
                 default:
-
                     return;
             }
         }
 
         /// <summary>
-        ///     Fades a UIView into focus.
+        /// Fades a UIView into focus.
         /// </summary>
         /// <param name="animDuration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation starts.</param>
@@ -91,7 +78,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Fades a UIView out of focus.
+        /// Fades a UIView out of focus.
         /// </summary>
         /// <param name="animDuration">The duration of the animation.</param>
         /// <param name="delay">The delay before the animation starts.</param>
@@ -113,7 +100,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Gets the top level UIViewController.
+        /// Gets the top level UIViewController.
         /// </summary>
         public static UIViewController GetTopViewController(this UIApplication application)
         {
@@ -126,7 +113,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Resizes the UILabel so that it can show all of its text.
+        /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
         public static void ResizeForTextHeight(this UIButton button, float maxHeight = 960f)
@@ -143,7 +130,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Resizes the UILabel so that it can show all of its text.
+        /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum height that the label can be sized to.</param>
         public static void ResizeForTextHeight(this UILabel label, float maxHeight = 960f)
@@ -160,7 +147,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Resizes the UILabel so that it can show all of its text.
+        /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
         public static void ResizeForTextWidth(this UIButton button, float maxWidth = 960f)
@@ -177,7 +164,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Resizes the UILabel so that it can show all of its text.
+        /// Resizes the UILabel so that it can show all of its text.
         /// </summary>
         /// <param name="maxHeight">The maximum width that the label can be sized to.</param>
         public static void ResizeForTextWidth(this UILabel label, float maxWidth = 960f)
@@ -194,7 +181,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Safely invokes an action on the main thread.
+        /// Safely invokes an action on the main thread.
         /// </summary>
         /// <param name="action">The action to perform on the main thread.</param>
         public static void SafeInvokeOnMainThread(this UIDevice device, Action action)
@@ -213,7 +200,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Slides a view vertically into focus.
+        /// Slides a view vertically into focus.
         /// </summary>
         /// <param name="direction">The direction to slide the view in via. Top (positive) or bottom (negative).</param>
         /// <param name="animDuration">The duration of the animation.</param>
@@ -243,7 +230,7 @@ namespace DialogMessaging.Core.Platforms.iOS
         }
 
         /// <summary>
-        ///     Slides a view vertically out of focus.
+        /// Slides a view vertically out of focus.
         /// </summary>
         /// <param name="direction">The direction to slide the view in via. Top (positive) or bottom (negative).</param>
         /// <param name="animDuration">The duration of the animation.</param>

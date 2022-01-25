@@ -1,24 +1,16 @@
-﻿namespace Sample.MvvmCross.Core.Messaging;
-
-public interface IMessaging
+﻿namespace Sample.MvvmCross.Core.Messaging
 {
-    void ActionSheet();
-
-    void ActionSheetBottom();
-
-    void Alert();
-
-    void Confirm();
-
-    void Delete();
-
-    void Loading();
-
-    void Login();
-
-    void Prompt();
-
-    void Snackbar();
-
-    void Toast();
+    public interface IMessaging
+    {
+        void ActionSheet();
+        void ActionSheetBottom();
+        void Alert();
+        void Confirm();
+        void Delete();
+        void Loading();
+        void Login();
+        void Prompt();
+        void Snackbar();
+        void Toast();
+    }
 }

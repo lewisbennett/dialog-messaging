@@ -5,48 +5,48 @@ using DialogMessaging.Infrastructure;
 using DialogMessaging.Interactions;
 using DialogMessaging.Schema;
 
-namespace DialogMessaging.Core.Platforms.Droid.Infrastructure;
-
-public class ActionSheetDefaultArrayAdapter<TActionSheetItemConfig> : ArrayAdapter<TActionSheetItemConfig>
-    where TActionSheetItemConfig : IActionSheetItemConfig
+namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
 {
-    #region Constructors
-    public ActionSheetDefaultArrayAdapter(Context context)
-        : base(context, 0)
+    public class ActionSheetDefaultArrayAdapter<TActionSheetItemConfig> : ArrayAdapter<TActionSheetItemConfig>
+        where TActionSheetItemConfig : IActionSheetItemConfig
     {
-    }
-    #endregion
-
-    #region Public Methods
-    /// <summary>
-    ///     Gets a View that displays the data at the specified position in the data set.
-    /// </summary>
-    public override View GetView(int position, View convertView, ViewGroup parent)
-    {
-        var item = GetItem(position);
-
-        return MessagingServiceCore.ViewManager.InflateView(item.LayoutResID ?? Resource.Layout.dialog_default_action_sheet_item, parent, false, (v, d, a) => ConfigureView(v, d, a, item));
-    }
-    #endregion
-
-    #region Private Methods
-    private void ConfigureView(View view, string dialogElement, bool autoHide, TActionSheetItemConfig item)
-    {
-        switch (view, dialogElement)
+        #region Public Methods
+        /// <summary>
+        /// Gets a View that displays the data at the specified position in the data set.
+        /// </summary>
+        public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            case (TextView textView, DialogElement.Message):
+            var item = GetItem(position);
 
-                if (string.IsNullOrWhiteSpace(item.Message) && autoHide)
-                    textView.Visibility = ViewStates.Gone;
-                else
-                    textView.Text = item.Message;
-
-                return;
-
-            default:
-
-                return;
+            return MessagingServiceCore.ViewManager.InflateView(item.LayoutResID ?? Resource.Layout.dialog_default_action_sheet_item, parent, false, (v, d, a) => ConfigureView(v, d, a, item));
         }
+        #endregion
+
+        #region Constructors
+        public ActionSheetDefaultArrayAdapter(Context context)
+            : base(context, 0)
+        {
+        }
+        #endregion
+
+        #region Private Methods
+        private void ConfigureView(View view, string dialogElement, bool autoHide, TActionSheetItemConfig item)
+        {
+            switch (view, dialogElement)
+            {
+                case (TextView textView, DialogElement.Message):
+
+                    if (string.IsNullOrWhiteSpace(item.Message) && autoHide)
+                        textView.Visibility = ViewStates.Gone;
+                    else
+                        textView.Text = item.Message;
+
+                    return;
+
+                default:
+                    return;
+            }
+        }
+        #endregion
     }
-    #endregion
 }

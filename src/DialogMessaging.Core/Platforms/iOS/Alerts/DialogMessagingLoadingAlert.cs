@@ -14,27 +14,116 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         private ILoadingConfig _config;
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets the alert background.
+        /// </summary>
+        public UIView AlertBackground { get; } = new();
+
+        /// <summary>
+        /// Gets the alert background blur.
+        /// </summary>
+        public UIVisualEffectView AlertBackgroundBlur { get; } = new();
+
+        /// <summary>
+        /// Gets the determinate progress view.
+        /// </summary>
+        public UIProgressView DeterminateProgress { get; } = new(UIProgressViewStyle.Bar);
+
+        /// <summary>
+        /// Gets the dimmer background.
+        /// </summary>
+        public UIView DimmerBackground { get; } = new();
+
+        /// <summary>
+        /// Gets the indeterminate progress view.
+        /// </summary>
+        public UIActivityIndicatorView IndeterminateProgress { get; } = new();
+
+        /// <summary>
+        /// Gets or sets whether the view is currently showing.
+        /// </summary>
+        public bool IsShowing { get; set; }
+
+        /// <summary>
+        /// Gets the message label.
+        /// </summary>
+        public UILabel MessageLabel { get; } = new();
+
+        /// <summary>
+        /// Gets the title label.
+        /// </summary>
+        public UILabel TitleLabel { get; } = new();
+        #endregion
+
         #region Event Handlers
         private void Config_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(_config.Progress):
-
                     AdjustProgress();
-
                     return;
 
                 default:
-
                     return;
             }
         }
         #endregion
 
+        #region Public Methods
+        /// <summary>
+        /// Applies the provided dialog configuration to the view.
+        /// </summary>
+        /// <param name="config">The dialog configuration.</param>
+        public void ApplyDialogConfig(ILoadingConfig config)
+        {
+            // Unregister the previous event handler, if a previous configuration is available.
+            if (_config != null)
+                _config.PropertyChanged -= Config_PropertyChanged;
+
+            _config = config;
+
+            AdjustProgress();
+
+            TitleLabel.Text = _config.Title;
+            MessageLabel.Text = _config.Message;
+
+            TitleLabel.Hidden = string.IsNullOrWhiteSpace(TitleLabel.Text);
+            MessageLabel.Hidden = string.IsNullOrWhiteSpace(MessageLabel.Text);
+
+            _config.PropertyChanged += Config_PropertyChanged;
+
+            SetNeedsLayout();
+            LayoutIfNeeded();
+        }
+
+        /// <summary>
+        /// Dismisses the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
+        public void Dismiss(Action finishedAction = null)
+        {
+            this.FadeOut(0.2f, finishedAction: finishedAction);
+
+            IsShowing = false;
+        }
+
+        /// <summary>
+        /// Shows the custom dialog.
+        /// </summary>
+        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
+        public void Show(Action finishedAction = null)
+        {
+            this.FadeIn(0.2f, finishedAction: finishedAction);
+
+            IsShowing = true;
+        }
+        #endregion
+
         #region Lifecycle
         /// <summary>
-        ///     Lays out subviews.
+        /// Lays out subviews.
         /// </summary>
         public override void LayoutSubviews()
         {
@@ -88,98 +177,6 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
             AlertBackground.Frame = new CGRect(AlertBackground.Frame.X, AlertBackground.Frame.Y, alertWidth, alertHeight);
 
             AlertBackgroundBlur.Frame = new CGRect(0, 0, AlertBackground.Frame.Width, AlertBackground.Frame.Height);
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        ///     Gets the alert background.
-        /// </summary>
-        public UIView AlertBackground { get; } = new();
-
-        /// <summary>
-        ///     Gets the alert background blur.
-        /// </summary>
-        public UIVisualEffectView AlertBackgroundBlur { get; } = new();
-
-        /// <summary>
-        ///     Gets the determinate progress view.
-        /// </summary>
-        public UIProgressView DeterminateProgress { get; } = new(UIProgressViewStyle.Bar);
-
-        /// <summary>
-        ///     Gets the dimmer background.
-        /// </summary>
-        public UIView DimmerBackground { get; } = new();
-
-        /// <summary>
-        ///     Gets the indeterminate progress view.
-        /// </summary>
-        public UIActivityIndicatorView IndeterminateProgress { get; } = new();
-
-        /// <summary>
-        ///     Gets or sets whether the view is currently showing.
-        /// </summary>
-        public bool IsShowing { get; set; }
-
-        /// <summary>
-        ///     Gets the message label.
-        /// </summary>
-        public UILabel MessageLabel { get; } = new();
-
-        /// <summary>
-        ///     Gets the title label.
-        /// </summary>
-        public UILabel TitleLabel { get; } = new();
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        ///     Applies the provided dialog configuration to the view.
-        /// </summary>
-        /// <param name="config">The dialog configuration.</param>
-        public void ApplyDialogConfig(ILoadingConfig config)
-        {
-            // Unregister the previous event handler, if a previous configuration is available.
-            if (_config != null)
-                _config.PropertyChanged -= Config_PropertyChanged;
-
-            _config = config;
-
-            AdjustProgress();
-
-            TitleLabel.Text = _config.Title;
-            MessageLabel.Text = _config.Message;
-
-            TitleLabel.Hidden = string.IsNullOrWhiteSpace(TitleLabel.Text);
-            MessageLabel.Hidden = string.IsNullOrWhiteSpace(MessageLabel.Text);
-
-            _config.PropertyChanged += Config_PropertyChanged;
-
-            SetNeedsLayout();
-            LayoutIfNeeded();
-        }
-
-        /// <summary>
-        ///     Dismisses the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
-        public void Dismiss(Action finishedAction = null)
-        {
-            this.FadeOut(0.2f, finishedAction: finishedAction);
-
-            IsShowing = false;
-        }
-
-        /// <summary>
-        ///     Shows the custom dialog.
-        /// </summary>
-        /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
-        public void Show(Action finishedAction = null)
-        {
-            this.FadeIn(0.2f, finishedAction: finishedAction);
-
-            IsShowing = true;
         }
         #endregion
 

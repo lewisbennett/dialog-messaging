@@ -1,35 +1,36 @@
-﻿namespace DialogMessaging.Interactions;
-
-public static partial class ActionSheetItemConfigDefaults
+﻿namespace DialogMessaging.Interactions
 {
-    #region Properties
-    /// <summary>
-    ///     Gets or sets the default value for the resource ID of the layout to use.
-    /// </summary>
-    public static int? LayoutResID { get; set; }
-    #endregion
-}
-
-public partial interface IActionSheetItemConfig
-{
-}
-
-public partial class ActionSheetItemConfig
-{
-    #region Constructors
-    public ActionSheetItemConfig()
+    public static partial class ActionSheetItemConfigDefaults
     {
-        LayoutResID = ActionSheetItemConfigDefaults.LayoutResID;
+        #region Properties
+        /// <summary>
+        /// Gets or sets the default value for the resource ID of the layout to use.
+        /// </summary>
+        public static int? LayoutResID { get; set; }
+        #endregion
     }
-    #endregion
-}
 
-public partial class ActionSheetItemAsyncConfig
-{
-    #region Constructors
-    public ActionSheetItemAsyncConfig()
+    public partial interface IActionSheetItemConfig
     {
-        LayoutResID = ActionSheetItemConfigDefaults.LayoutResID;
     }
-    #endregion
+
+    public partial class ActionSheetItemConfig
+    {
+        #region Constructors
+        public ActionSheetItemConfig()
+        {
+            LayoutResID = ActionSheetItemConfigDefaults.LayoutResID;
+        }
+        #endregion
+    }
+
+    public partial class ActionSheetItemAsyncConfig
+    {
+        #region Constructors
+        public ActionSheetItemAsyncConfig()
+        {
+            LayoutResID = ActionSheetItemConfigDefaults.LayoutResID;
+        }
+        #endregion
+    }
 }

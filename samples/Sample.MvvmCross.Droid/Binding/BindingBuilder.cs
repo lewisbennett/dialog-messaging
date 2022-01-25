@@ -1,12 +1,13 @@
 ﻿using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.Binders;
 
-namespace Sample.MvvmCross.Droid.Binding;
-
-public class BindingBuilder : MvxAndroidBindingBuilder
+namespace Sample.MvvmCross.Droid.Binding
 {
-    protected override IMvxAndroidViewBinderFactory CreateAndroidViewBinderFactory()
+    public class BindingBuilder : MvxAndroidBindingBuilder
     {
-        return new ViewBinderFactory();
+        protected override IMvxAndroidViewBinderFactory CreateAndroidViewBinderFactory()
+        {
+            return new ViewBinderFactory();
+        }
     }
 }

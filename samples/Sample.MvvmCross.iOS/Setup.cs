@@ -1,18 +1,18 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Platforms.Ios.Core;
-using Sample.MvvmCross.Core;
 
-namespace Sample.MvvmCross.iOS;
-
-public class Setup : MvxIosSetup<App>
+namespace Sample.MvvmCross.iOS
 {
-    protected override ILoggerFactory CreateLogFactory()
+    public class Setup : MvxIosSetup<Core.App>
     {
-        return new LoggerFactory();
-    }
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            return new LoggerFactory();
+        }
 
-    protected override ILoggerProvider CreateLogProvider()
-    {
-        return null;
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return null;
+        }
     }
 }

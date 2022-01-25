@@ -1,11 +1,12 @@
 ﻿using MvvmCross.Platforms.Android.Binding.Binders;
 
-namespace Sample.MvvmCross.Droid.Binding;
-
-public class ViewBinderFactory : IMvxAndroidViewBinderFactory
+namespace Sample.MvvmCross.Droid.Binding
 {
-    public IMvxAndroidViewBinder Create(object source)
+    public class ViewBinderFactory : IMvxAndroidViewBinderFactory
     {
-        return new ViewBinder(source);
+        public IMvxAndroidViewBinder Create(object source)
+        {
+            return new ViewBinder(source);
+        }
     }
 }

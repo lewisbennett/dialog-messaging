@@ -2,17 +2,9 @@
 
 ## Getting started
 
-At the entry point for your app, call `DialogMessaging.MessagingService.Init(...)`. You need to provide an activity or
-application reference, and you can optionally provide your
-own [`IDialogMessagingActivityLifecycleCallbacks`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Droid/Callbacks/IDialogMessagingActivityLifecycleCallbacks.cs)
-and/or [`IMessagingService`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Shared/IMessagingService.cs)
-implementations.
+At the entry point for your app, call `DialogMessaging.MessagingService.Init(...)`. You need to provide an activity or application reference, and you can optionally provide your own [`IDialogMessagingActivityLifecycleCallbacks`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Droid/Callbacks/IDialogMessagingActivityLifecycleCallbacks.cs) and/or [`IMessagingService`](https://github.com/lewisbennett/dialog-messaging/blob/master/src/DialogMessaging.Core/Platforms/Shared/IMessagingService.cs) implementations.
 
-In order for dialog layouts to function properly, DialogMessaging needs to be notified when an Android view has been
-inflated within your app. This functionality is provided
-by [ViewPump](https://github.com/lewisbennett/viewpump/tree/master). DialogMessaging will automatically initialize
-ViewPump for you if it hasn't already been initialized. This means that DialogMessaging will respect any configuration
-you make to ViewPump as long as ViewPump is initialized first. For example:
+In order for dialog layouts to function properly, DialogMessaging needs to be notified when an Android view has been inflated within your app. This functionality is provided by [ViewPump](https://github.com/lewisbennett/viewpump/tree/master). DialogMessaging will automatically initialize ViewPump for you if it hasn't already been initialized. This means that DialogMessaging will respect any configuration you make to ViewPump as long as ViewPump is initialized first. For example:
 
 ```
 public override void OnCreate()
@@ -27,6 +19,4 @@ public override void OnCreate()
 }
 ```
 
-[Full example](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.Droid/MainApplication.cs)
-available in
-the [Android sample project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.Droid).
+[Full example](https://github.com/lewisbennett/dialog-messaging/blob/master/samples/Sample.Droid/MainApplication.cs) available in the [Android sample project](https://github.com/lewisbennett/dialog-messaging/tree/master/samples/Sample.Droid).

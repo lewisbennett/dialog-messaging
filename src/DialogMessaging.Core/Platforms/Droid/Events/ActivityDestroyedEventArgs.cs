@@ -1,21 +1,23 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
+using System;
 
-namespace DialogMessaging.Core.Platforms.Droid.Events;
-
-public class ActivityDestroyedEventArgs : EventArgs
+namespace DialogMessaging.Core.Platforms.Droid.Events
 {
-    #region Constructors
-    public ActivityDestroyedEventArgs(Activity activity)
+    public class ActivityDestroyedEventArgs : EventArgs
     {
-        Activity = activity;
-    }
-    #endregion
+        #region Properties
+        /// <summary>
+        /// Gets the destroyed activity.
+        /// </summary>
+        public Activity Activity { get; }
+        #endregion
 
-    #region Properties
-    /// <summary>
-    ///     Gets the destroyed activity.
-    /// </summary>
-    public Activity Activity { get; }
-    #endregion
+        #region Constructors
+        public ActivityDestroyedEventArgs(Activity activity)
+            : base()
+        {
+            Activity = activity;
+        }
+        #endregion
+    }
 }

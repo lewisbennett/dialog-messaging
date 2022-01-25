@@ -6,7 +6,7 @@ namespace DialogMessaging.Infrastructure
     {
         #region Properties
         /// <summary>
-        ///     Gets or sets the app's primary <see cref="UIWindow" />.
+        /// Gets or sets the app's primary <see cref="UIWindow" />.
         /// </summary>
         public static UIWindow Window { get; internal set; }
         #endregion

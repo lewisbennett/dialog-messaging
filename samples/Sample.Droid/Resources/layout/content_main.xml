@@ -1,81 +1,81 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	app:DialogElement="SnackbarContainer">
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:padding="10dp">
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/action_sheet_button"
-			android:textAllCaps="false"
-			android:text="Action sheet" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/action_sheet_bottom_button"
-			android:textAllCaps="false"
-			android:text="Action sheet bottom" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/alert_button"
-			android:textAllCaps="false"
-			android:text="Alert" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/confirm_button"
-			android:textAllCaps="false"
-			android:text="Confirm" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/delete_button"
-			android:textAllCaps="false"
-			android:text="Delete" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/loading_button"
-			android:textAllCaps="false"
-			android:text="Loading" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/login_button"
-			android:textAllCaps="false"
-			android:text="Login" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/prompt_button"
-			android:textAllCaps="false"
-			android:text="Prompt" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:id="@+id/snackbar_button"
-			android:textAllCaps="false"
-			android:text="Snackbar" />
-		<Button
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/toast_button"
-			android:textAllCaps="false"
-			android:text="Toast" />
-	</LinearLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:DialogElement="SnackbarContainer">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/action_sheet_button"
+            android:textAllCaps="false"
+            android:text="Action sheet" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/action_sheet_bottom_button"
+            android:textAllCaps="false"
+            android:text="Action sheet bottom" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/alert_button"
+            android:textAllCaps="false"
+            android:text="Alert" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/confirm_button"
+            android:textAllCaps="false"
+            android:text="Confirm" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/delete_button"
+            android:textAllCaps="false"
+            android:text="Delete" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/loading_button"
+            android:textAllCaps="false"
+            android:text="Loading" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/login_button"
+            android:textAllCaps="false"
+            android:text="Login" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/prompt_button"
+            android:textAllCaps="false"
+            android:text="Prompt" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/snackbar_button"
+            android:textAllCaps="false"
+            android:text="Snackbar" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toast_button"
+            android:textAllCaps="false"
+            android:text="Toast" />
+    </LinearLayout>
 </ScrollView>

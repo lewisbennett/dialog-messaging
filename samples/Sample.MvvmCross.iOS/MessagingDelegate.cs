@@ -1,76 +1,77 @@
-﻿using System;
-using DialogMessaging;
+﻿using DialogMessaging;
 using DialogMessaging.Interactions;
 using Sample.MvvmCross.iOS.Dialogs;
+using System;
 using UIKit;
 
-namespace Sample.MvvmCross.iOS;
-
-public class MessagingDelegate : IMessagingDelegate
+namespace Sample.MvvmCross.iOS
 {
-    private readonly UIColor[] _colors = { UIColor.Red, UIColor.Green, UIColor.Blue };
-    private readonly Random _random = new();
-
-    public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
-        where TActionSheetItemConfig : IActionSheetItemConfig
+    public class MessagingDelegate : IMessagingDelegate
     {
-        return true;
-    }
+        private readonly UIColor[] _colors = new[] { UIColor.Red, UIColor.Green, UIColor.Blue };
+        private readonly Random _random = new();
 
-    public bool OnActionSheetRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
-        where TActionSheetItemConfig : IActionSheetItemConfig
-    {
-        return true;
-    }
+        public bool OnActionSheetBottomRequested<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
+            where TActionSheetItemConfig : IActionSheetItemConfig
+        {
+            return true;
+        }
 
-    public bool OnAlertRequested(IAlertConfig config)
-    {
-        if (_random.NextDouble() > 0.5)
-            config.CustomViewType = typeof(CustomAlert);
+        public bool OnActionSheetRequested<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
+            where TActionSheetItemConfig : IActionSheetItemConfig
+        {
+            return true;
+        }
 
-        return true;
-    }
+        public bool OnAlertRequested(IAlertConfig config)
+        {
+            if (_random.NextDouble() > 0.5)
+                config.CustomViewType = typeof(CustomAlert);
 
-    public bool OnConfirmRequested(IConfirmConfig config)
-    {
-        return true;
-    }
+            return true;
+        }
 
-    public bool OnDeleteRequested(IDeleteConfig config)
-    {
-        return true;
-    }
+        public bool OnConfirmRequested(IConfirmConfig config)
+        {
+            return true;
+        }
 
-    public bool OnLoadingRequested(ILoadingConfig config)
-    {
-        return true;
-    }
+        public bool OnDeleteRequested(IDeleteConfig config)
+        {
+            return true;
+        }
 
-    public bool OnLoginRequested(ILoginConfig config)
-    {
-        return true;
-    }
+        public bool OnHideLoadingRequested()
+        {
+            return true;
+        }
 
-    public bool OnPromptRequested(IPromptConfig config)
-    {
-        return true;
-    }
+        public bool OnLoadingRequested(ILoadingConfig config)
+        {
+            return true;
+        }
 
-    public bool OnSnackbarRequested(ISnackbarConfig config)
-    {
-        // Choose a random color to apply to the background of the snackbar.
-        config.BackgroundColor = _colors[_random.Next(0, _colors.Length)];
+        public bool OnLoginRequested(ILoginConfig config)
+        {
+            return true;
+        }
 
-        return true;
-    }
+        public bool OnPromptRequested(IPromptConfig config)
+        {
+            return true;
+        }
 
-    public bool OnToastRequested(IToastConfig config)
-    {
-        return true;
-    }
+        public bool OnSnackbarRequested(ISnackbarConfig config)
+        {
+            // Choose a random color to apply to the background of the snackbar.
+            config.BackgroundColor = _colors[_random.Next(0, _colors.Length)];
 
-    public bool OnHideLoadingRequested()
-    {
-        return true;
+            return true;
+        }
+
+        public bool OnToastRequested(IToastConfig config)
+        {
+            return true;
+        }
     }
 }

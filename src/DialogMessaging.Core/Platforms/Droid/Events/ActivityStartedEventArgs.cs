@@ -1,21 +1,23 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
+using System;
 
-namespace DialogMessaging.Core.Platforms.Droid.Events;
-
-public class ActivityStartedEventArgs : EventArgs
+namespace DialogMessaging.Core.Platforms.Droid.Events
 {
-    #region Constructors
-    public ActivityStartedEventArgs(Activity activity)
+    public class ActivityStartedEventArgs : EventArgs
     {
-        Activity = activity;
-    }
-    #endregion
+        #region Properties
+        /// <summary>
+        /// Gets the started activity.
+        /// </summary>
+        public Activity Activity { get; }
+        #endregion
 
-    #region Properties
-    /// <summary>
-    ///     Gets the started activity.
-    /// </summary>
-    public Activity Activity { get; }
-    #endregion
+        #region Constructors
+        public ActivityStartedEventArgs(Activity activity)
+            : base()
+        {
+            Activity = activity;
+        }
+        #endregion
+    }
 }

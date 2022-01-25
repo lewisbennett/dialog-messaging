@@ -1,366 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB"
-	version="3.0"
-	toolsVersion="17701"
-	targetRuntime="iOS.CocoaTouch"
-	propertyAccessControl="none"
-	useAutolayout="YES"
-	useTraitCollections="YES"
-	colorMatched="YES">
-	<device id="retina6_1"
-		orientation="portrait"
-		appearance="light" />
-	<dependencies>
-		<deployment identifier="iOS" />
-		<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin"
-			version="17703" />
-		<capability name="System colors in document resources"
-			minToolsVersion="11.0" />
-		<capability name="documents saved in the Xcode 8 format"
-			minToolsVersion="8.0" />
-	</dependencies>
-	<objects>
-		<placeholder placeholderIdentifier="IBFilesOwner"
-			id="-1"
-			userLabel="File's Owner"
-			customClass="MainViewController">
-			<connections>
-				<outlet property="ActionSheetBottomButton"
-					destination="170"
-					id="name-outlet-170" />
-				<outlet property="ActionSheetButton"
-					destination="169"
-					id="name-outlet-169" />
-				<outlet property="AlertButton"
-					destination="171"
-					id="name-outlet-171" />
-				<outlet property="ConfirmButton"
-					destination="172"
-					id="name-outlet-172" />
-				<outlet property="DeleteButton"
-					destination="173"
-					id="name-outlet-173" />
-				<outlet property="LoadingButton"
-					destination="174"
-					id="name-outlet-174" />
-				<outlet property="LoginButton"
-					destination="BWg-Hj-6Qi"
-					id="bbU-5N-ngo" />
-				<outlet property="PromptButton"
-					destination="175"
-					id="name-outlet-175" />
-				<outlet property="SnackbarButton"
-					destination="176"
-					id="name-outlet-176" />
-				<outlet property="ToastButton"
-					destination="177"
-					id="name-outlet-177" />
-				<outlet property="view"
-					destination="1"
-					id="RRd-Eg-VrN" />
-			</connections>
-		</placeholder>
-		<placeholder placeholderIdentifier="IBFirstResponder"
-			id="-2"
-			customClass="UIResponder" />
-		<view contentMode="scaleToFill"
-			id="1">
-			<rect key="frame"
-				x="0.0"
-				y="0.0"
-				width="414"
-				height="896" />
-			<autoresizingMask key="autoresizingMask"
-				widthSizable="YES"
-				heightSizable="YES" />
-			<subviews>
-				<scrollView clipsSubviews="YES"
-					multipleTouchEnabled="YES"
-					contentMode="scaleToFill"
-					translatesAutoresizingMaskIntoConstraints="NO"
-					id="153">
-					<rect key="frame"
-						x="0.0"
-						y="0.0"
-						width="414"
-						height="896" />
-					<subviews>
-						<view contentMode="scaleToFill"
-							translatesAutoresizingMaskIntoConstraints="NO"
-							id="158">
-							<rect key="frame"
-								x="0.0"
-								y="0.0"
-								width="414"
-								height="410" />
-							<subviews>
-								<stackView opaque="NO"
-									contentMode="scaleToFill"
-									axis="vertical"
-									spacing="10"
-									translatesAutoresizingMaskIntoConstraints="NO"
-									id="165">
-									<rect key="frame"
-										x="137"
-										y="10"
-										width="140"
-										height="390" />
-									<subviews>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="169">
-											<rect key="frame"
-												x="0.0"
-												y="0.0"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Action sheet" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="170">
-											<rect key="frame"
-												x="0.0"
-												y="40"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Action sheet bottom" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="171">
-											<rect key="frame"
-												x="0.0"
-												y="80"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Alert" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="172">
-											<rect key="frame"
-												x="0.0"
-												y="120"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Confirm" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="173">
-											<rect key="frame"
-												x="0.0"
-												y="160"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Delete" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="174">
-											<rect key="frame"
-												x="0.0"
-												y="200"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Loading" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="BWg-Hj-6Qi">
-											<rect key="frame"
-												x="0.0"
-												y="240"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Login" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="175">
-											<rect key="frame"
-												x="0.0"
-												y="280"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Prompt" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="176">
-											<rect key="frame"
-												x="0.0"
-												y="320"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Snackbar" />
-										</button>
-										<button opaque="NO"
-											contentMode="scaleToFill"
-											contentHorizontalAlignment="center"
-											contentVerticalAlignment="center"
-											buttonType="system"
-											lineBreakMode="middleTruncation"
-											translatesAutoresizingMaskIntoConstraints="NO"
-											id="177">
-											<rect key="frame"
-												x="0.0"
-												y="360"
-												width="140"
-												height="30" />
-											<state key="normal"
-												title="Toast" />
-										</button>
-									</subviews>
-								</stackView>
-							</subviews>
-							<color key="backgroundColor"
-								systemColor="systemBackgroundColor" />
-							<constraints>
-								<constraint firstAttribute="height"
-									priority="250"
-									constant="128"
-									id="164" />
-								<constraint firstItem="165"
-									firstAttribute="top"
-									secondItem="158"
-									secondAttribute="top"
-									constant="10"
-									id="166" />
-								<constraint firstAttribute="bottom"
-									secondItem="165"
-									secondAttribute="bottom"
-									constant="10"
-									id="167" />
-								<constraint firstItem="165"
-									firstAttribute="centerX"
-									secondItem="158"
-									secondAttribute="centerX"
-									id="168" />
-							</constraints>
-						</view>
-					</subviews>
-					<constraints>
-						<constraint firstItem="158"
-							firstAttribute="top"
-							secondItem="153"
-							secondAttribute="top"
-							id="159" />
-						<constraint firstItem="158"
-							firstAttribute="leading"
-							secondItem="153"
-							secondAttribute="leading"
-							id="160" />
-						<constraint firstAttribute="trailing"
-							secondItem="158"
-							secondAttribute="trailing"
-							id="161" />
-						<constraint firstAttribute="bottom"
-							secondItem="158"
-							secondAttribute="bottom"
-							priority="250"
-							id="162" />
-						<constraint firstItem="158"
-							firstAttribute="width"
-							secondItem="153"
-							secondAttribute="width"
-							id="163" />
-					</constraints>
-				</scrollView>
-			</subviews>
-			<color key="backgroundColor"
-				red="1"
-				green="1"
-				blue="1"
-				alpha="1"
-				colorSpace="custom"
-				customColorSpace="sRGB" />
-			<constraints>
-				<constraint firstItem="153"
-					firstAttribute="top"
-					secondItem="1"
-					secondAttribute="top"
-					id="154" />
-				<constraint firstItem="153"
-					firstAttribute="leading"
-					secondItem="1"
-					secondAttribute="leading"
-					id="155" />
-				<constraint firstAttribute="trailing"
-					secondItem="153"
-					secondAttribute="trailing"
-					id="156" />
-				<constraint firstAttribute="bottom"
-					secondItem="153"
-					secondAttribute="bottom"
-					id="157" />
-			</constraints>
-			<point key="canvasLocation"
-				x="82"
-				y="-21" />
-		</view>
-	</objects>
-	<resources>
-		<systemColor name="systemBackgroundColor">
-			<color white="1"
-				alpha="1"
-				colorSpace="custom"
-				customColorSpace="genericGamma22GrayColorSpace" />
-		</systemColor>
-	</resources>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
+            <connections>
+                <outlet property="ActionSheetBottomButton" destination="170" id="name-outlet-170"/>
+                <outlet property="ActionSheetButton" destination="169" id="name-outlet-169"/>
+                <outlet property="AlertButton" destination="171" id="name-outlet-171"/>
+                <outlet property="ConfirmButton" destination="172" id="name-outlet-172"/>
+                <outlet property="DeleteButton" destination="173" id="name-outlet-173"/>
+                <outlet property="LoadingButton" destination="174" id="name-outlet-174"/>
+                <outlet property="LoginButton" destination="BWg-Hj-6Qi" id="bbU-5N-ngo"/>
+                <outlet property="PromptButton" destination="175" id="name-outlet-175"/>
+                <outlet property="SnackbarButton" destination="176" id="name-outlet-176"/>
+                <outlet property="ToastButton" destination="177" id="name-outlet-177"/>
+                <outlet property="view" destination="1" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="153">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="158">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="410"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="165">
+                                    <rect key="frame" x="137" y="10" width="140" height="390"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="169">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                            <state key="normal" title="Action sheet"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="170">
+                                            <rect key="frame" x="0.0" y="40" width="140" height="30"/>
+                                            <state key="normal" title="Action sheet bottom"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="171">
+                                            <rect key="frame" x="0.0" y="80" width="140" height="30"/>
+                                            <state key="normal" title="Alert"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="172">
+                                            <rect key="frame" x="0.0" y="120" width="140" height="30"/>
+                                            <state key="normal" title="Confirm"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                                            <rect key="frame" x="0.0" y="160" width="140" height="30"/>
+                                            <state key="normal" title="Delete"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="174">
+                                            <rect key="frame" x="0.0" y="200" width="140" height="30"/>
+                                            <state key="normal" title="Loading"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWg-Hj-6Qi">
+                                            <rect key="frame" x="0.0" y="240" width="140" height="30"/>
+                                            <state key="normal" title="Login"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="175">
+                                            <rect key="frame" x="0.0" y="280" width="140" height="30"/>
+                                            <state key="normal" title="Prompt"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="176">
+                                            <rect key="frame" x="0.0" y="320" width="140" height="30"/>
+                                            <state key="normal" title="Snackbar"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="177">
+                                            <rect key="frame" x="0.0" y="360" width="140" height="30"/>
+                                            <state key="normal" title="Toast"/>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="250" constant="128" id="164"/>
+                                <constraint firstItem="165" firstAttribute="top" secondItem="158" secondAttribute="top" constant="10" id="166"/>
+                                <constraint firstAttribute="bottom" secondItem="165" secondAttribute="bottom" constant="10" id="167"/>
+                                <constraint firstItem="165" firstAttribute="centerX" secondItem="158" secondAttribute="centerX" id="168"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="158" firstAttribute="top" secondItem="153" secondAttribute="top" id="159"/>
+                        <constraint firstItem="158" firstAttribute="leading" secondItem="153" secondAttribute="leading" id="160"/>
+                        <constraint firstAttribute="trailing" secondItem="158" secondAttribute="trailing" id="161"/>
+                        <constraint firstAttribute="bottom" secondItem="158" secondAttribute="bottom" priority="250" id="162"/>
+                        <constraint firstItem="158" firstAttribute="width" secondItem="153" secondAttribute="width" id="163"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="153" firstAttribute="top" secondItem="1" secondAttribute="top" id="154"/>
+                <constraint firstItem="153" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="155"/>
+                <constraint firstAttribute="trailing" secondItem="153" secondAttribute="trailing" id="156"/>
+                <constraint firstAttribute="bottom" secondItem="153" secondAttribute="bottom" id="157"/>
+            </constraints>
+            <point key="canvasLocation" x="82" y="-21"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
