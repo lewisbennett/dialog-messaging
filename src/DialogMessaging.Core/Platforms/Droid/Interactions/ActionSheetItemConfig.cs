@@ -4,7 +4,7 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the layout to use.
+        ///     Gets or sets the default value for the resource ID of the layout to use.
         /// </summary>
         public static int? LayoutResID { get; set; }
         #endregion

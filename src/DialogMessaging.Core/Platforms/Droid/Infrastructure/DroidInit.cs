@@ -9,7 +9,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
     {
         #region Public Methods
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="messagingService">The messaging service.</param>

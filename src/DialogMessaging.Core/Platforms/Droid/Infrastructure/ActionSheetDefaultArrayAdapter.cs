@@ -12,7 +12,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
     {
         #region Public Methods
         /// <summary>
-        /// Gets a View that displays the data at the specified position in the data set.
+        ///     Gets a View that displays the data at the specified position in the data set.
         /// </summary>
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
@@ -44,6 +44,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Infrastructure
                     return;
 
                 default:
+
                     return;
             }
         }

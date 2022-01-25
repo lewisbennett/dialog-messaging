@@ -4,7 +4,7 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the layout to use.
+        ///     Gets or sets the resource ID of the layout to use.
         /// </summary>
         int? LayoutResID { get; set; }
         #endregion
@@ -14,7 +14,7 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the layout to use.
+        ///     Gets or sets the resource ID of the layout to use.
         /// </summary>
         public int? LayoutResID { get; set; }
         #endregion
@@ -24,7 +24,7 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the resource ID of the layout to use.
+        ///     Gets or sets the resource ID of the layout to use.
         /// </summary>
         public int? LayoutResID { get; set; }
         #endregion

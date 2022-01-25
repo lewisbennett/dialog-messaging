@@ -24,7 +24,7 @@ namespace DialogMessaging.Core.Platforms.Droid
     {
         #region Public Methods
         /// <summary>
-        /// Shows a dialog.
+        ///     Shows a dialog.
         /// </summary>
         /// <param name="dialog">The dialog to show.</param>
         /// <param name="config">The dialog configuration.</param>
@@ -45,7 +45,7 @@ namespace DialogMessaging.Core.Platforms.Droid
 
         #region Protected Methods
         /// <summary>
-        /// Constructs the internal bottom action sheet dialog.
+        ///     Constructs the internal bottom action sheet dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual BottomSheetDialogFragment ConstructActionSheetBottomDialog<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
@@ -55,7 +55,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal action sheet dialog.
+        ///     Constructs the internal action sheet dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructActionSheetDialog<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
@@ -65,7 +65,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal alert dialog.
+        ///     Constructs the internal alert dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructAlertDialog(IAlertConfig config)
@@ -74,7 +74,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal confirm dialog.
+        ///     Constructs the internal confirm dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructConfirmDialog(IConfirmConfig config)
@@ -83,7 +83,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal delete dialog.
+        ///     Constructs the internal delete dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructDeleteDialog(IDeleteConfig config)
@@ -92,7 +92,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal loading dialog.
+        ///     Constructs the internal loading dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructLoadingDialog(ILoadingConfig config)
@@ -101,7 +101,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal login dialog.
+        ///     Constructs the internal login dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructLoginDialog(ILoginConfig config)
@@ -110,7 +110,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal prompt dialog.
+        ///     Constructs the internal prompt dialog.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual AppCompatDialogFragment ConstructPromptDialog(IPromptConfig config)
@@ -119,7 +119,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Constructs the internal snackbar.
+        ///     Constructs the internal snackbar.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected virtual Material_Snackbar ConstructSnackbar(AppCompatActivity appCompatActivity, ISnackbarConfig config)
@@ -178,7 +178,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Finds the view best suited to contain a Snackbar, within the view hierarchy of an Activity.
+        ///     Finds the view best suited to contain a Snackbar, within the view hierarchy of an Activity.
         /// </summary>
         /// <param name="appCompatActivity">The Activity to look for the view within.</param>
         protected virtual View FindSnackbarContainerView(AppCompatActivity appCompatActivity)
@@ -190,7 +190,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents an action sheet based on the provided configuration.
+        ///     Presents an action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentActionSheet<TActionSheetItemConfig>(IActionSheetConfig<TActionSheetItemConfig> config)
@@ -199,7 +199,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a bottom action sheet based on the provided configuration.
+        ///     Presents a bottom action sheet based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentActionSheetBottom<TActionSheetItemConfig>(IActionSheetBottomConfig<TActionSheetItemConfig> config)
@@ -208,7 +208,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents an alert dialog based on the provided configuration.
+        ///     Presents an alert dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentAlert(IAlertConfig config)
@@ -217,7 +217,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a confirm dialog based on the provided configuration.
+        ///     Presents a confirm dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentConfirm(IConfirmConfig config)
@@ -226,7 +226,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a delete dialog based on the provided configuration.
+        ///     Presents a delete dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentDelete(IDeleteConfig config)
@@ -235,7 +235,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a loading dialog based on the provided configuration.
+        ///     Presents a loading dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLoading(ILoadingConfig config)
@@ -244,7 +244,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a login dialog based on the provided configuration.
+        ///     Presents a login dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentLogin(ILoginConfig config)
@@ -253,7 +253,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a prompt dialog based on the provided configuration.
+        ///     Presents a prompt dialog based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override IDisposable PresentPrompt(IPromptConfig config)
@@ -262,7 +262,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents a snackbar based on the provided configuration.
+        ///     Presents a snackbar based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentSnackbar(ISnackbarConfig config)
@@ -279,7 +279,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Presents an toast based on the provided configuration.
+        ///     Presents an toast based on the provided configuration.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         protected override void PresentToast(IToastConfig config)
@@ -308,6 +308,7 @@ namespace DialogMessaging.Core.Platforms.Droid
                                     return;
 
                                 default:
+
                                     return;
                             }
                         });
@@ -321,7 +322,7 @@ namespace DialogMessaging.Core.Platforms.Droid
 
         #region Private Methods
         /// <summary>
-        /// Finds an <see cref="AppCompatDialogFragment" /> from within the current Activity and dismisses it, if available.
+        ///     Finds an <see cref="AppCompatDialogFragment" /> from within the current Activity and dismisses it, if available.
         /// </summary>
         /// <param name="dialogFragmentTag"></param>
         private void FindAndDismissDialog(string dialogFragmentTag)

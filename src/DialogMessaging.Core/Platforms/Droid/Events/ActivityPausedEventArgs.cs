@@ -7,7 +7,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Events
     {
         #region Properties
         /// <summary>
-        /// Gets the paused activity.
+        ///     Gets the paused activity.
         /// </summary>
         public Activity Activity { get; }
         #endregion

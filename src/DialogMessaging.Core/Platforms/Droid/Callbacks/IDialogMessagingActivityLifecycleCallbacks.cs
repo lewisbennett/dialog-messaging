@@ -18,7 +18,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
 
         #region Properties
         /// <summary>
-        /// Gets the current activity.
+        ///     Gets the current activity.
         /// </summary>
         public Activity CurrentActivity { get; }
         #endregion

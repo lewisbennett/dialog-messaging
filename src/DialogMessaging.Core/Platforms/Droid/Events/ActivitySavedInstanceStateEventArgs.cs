@@ -8,12 +8,12 @@ namespace DialogMessaging.Core.Platforms.Droid.Events
     {
         #region Properties
         /// <summary>
-        /// Gets the activity that has saved its instance state.
+        ///     Gets the activity that has saved its instance state.
         /// </summary>
         public Activity Activity { get; }
 
         /// <summary>
-        /// Gets the saved instance state.
+        ///     Gets the saved instance state.
         /// </summary>
         public Bundle OutState { get; }
         #endregion

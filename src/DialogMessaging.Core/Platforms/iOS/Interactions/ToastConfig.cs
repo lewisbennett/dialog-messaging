@@ -6,7 +6,7 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the default value for the duration of the Toast.
+        ///     Gets or sets the default value for the duration of the Toast.
         /// </summary>
         public static TimeSpan? Duration { get; set; }
         #endregion
@@ -16,7 +16,7 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the duration of the toast.
+        ///     Gets or sets the duration of the toast.
         /// </summary>
         TimeSpan? Duration { get; set; }
         #endregion
@@ -26,7 +26,7 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the duration of the toast.
+        ///     Gets or sets the duration of the toast.
         /// </summary>
         public TimeSpan? Duration { get; set; }
         #endregion

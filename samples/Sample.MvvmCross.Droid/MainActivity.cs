@@ -1,8 +1,9 @@
 ﻿using Android.App;
 using Android.OS;
-//using DialogMessaging;
 using MvvmCross.Platforms.Android.Views;
 using Sample.MvvmCross.Core;
+
+//using DialogMessaging;
 
 namespace Sample.MvvmCross.Droid
 {

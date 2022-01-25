@@ -1,7 +1,7 @@
-﻿using DialogMessaging;
+﻿using System;
+using DialogMessaging;
 using DialogMessaging.Interactions;
 using Sample.iOS.Dialogs;
-using System;
 using UIKit;
 
 namespace Sample.iOS

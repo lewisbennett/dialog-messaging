@@ -1,10 +1,10 @@
-﻿using CoreGraphics;
+﻿using System;
+using CoreGraphics;
 using DialogMessaging.Core.Platforms.iOS;
 using DialogMessaging.Core.Platforms.iOS.Attributes;
 using DialogMessaging.Core.Platforms.iOS.Infrastructure;
 using DialogMessaging.Interactions;
 using Foundation;
-using System;
 using UIKit;
 
 namespace Sample.MvvmCross.iOS.Dialogs
@@ -20,7 +20,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
 
         #region Properties
         /// <summary>
-        /// Gets or sets whether the view is currently showing.
+        ///     Gets or sets whether the view is currently showing.
         /// </summary>
         public bool IsShowing { get; set; }
         #endregion
@@ -37,7 +37,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
 
         #region Public Methods
         /// <summary>
-        /// Applies the provided dialog configuration to the view.
+        ///     Applies the provided dialog configuration to the view.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         public void ApplyDialogConfig(IAlertConfig config)
@@ -54,7 +54,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
         }
 
         /// <summary>
-        /// Dismisses the custom dialog.
+        ///     Dismisses the custom dialog.
         /// </summary>
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
         public void Dismiss(Action finishedAction = null)
@@ -65,7 +65,7 @@ namespace Sample.MvvmCross.iOS.Dialogs
         }
 
         /// <summary>
-        /// Shows the custom dialog.
+        ///     Shows the custom dialog.
         /// </summary>
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
         public void Show(Action finishedAction = null)

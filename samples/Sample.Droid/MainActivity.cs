@@ -1,12 +1,13 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
 using AndroidX.AppCompat.App;
-//using DialogMessaging;
 using Sample.Droid.Messaging;
-using System;
 using ViewPump;
+
+//using DialogMessaging;
 
 namespace Sample.Droid
 {
@@ -133,4 +134,3 @@ namespace Sample.Droid
         }
     }
 }
-

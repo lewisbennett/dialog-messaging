@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using MvvmCross.Platforms.Ios.Core;
+using Sample.MvvmCross.Core;
 
 namespace Sample.MvvmCross.iOS
 {
-    public class Setup : MvxIosSetup<Core.App>
+    public class Setup : MvxIosSetup<App>
     {
         protected override ILoggerFactory CreateLogFactory()
         {

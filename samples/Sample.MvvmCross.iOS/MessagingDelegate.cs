@@ -1,7 +1,7 @@
-﻿using DialogMessaging;
+﻿using System;
+using DialogMessaging;
 using DialogMessaging.Interactions;
 using Sample.MvvmCross.iOS.Dialogs;
-using System;
 using UIKit;
 
 namespace Sample.MvvmCross.iOS

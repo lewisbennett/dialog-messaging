@@ -1,10 +1,11 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Graphics;
 using Android.Runtime;
 using DialogMessaging;
 using DialogMessaging.Interactions;
 using Google.Android.Material.Snackbar;
-using System;
+
 //using ViewPump;
 
 namespace Sample.Droid

@@ -4,12 +4,12 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
+        ///     Gets or sets whether the dialog is cancelable.
         /// </summary>
         bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the style to use.
+        ///     Gets or sets the resource ID of the style to use.
         /// </summary>
         int? StyleResID { get; set; }
         #endregion
@@ -19,12 +19,12 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
+        ///     Gets or sets whether the dialog is cancelable.
         /// </summary>
         public bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the style to use.
+        ///     Gets or sets the resource ID of the style to use.
         /// </summary>
         public int? StyleResID { get; set; }
         #endregion
@@ -34,12 +34,12 @@
     {
         #region Properties
         /// <summary>
-        /// Gets or sets whether the dialog is cancelable.
+        ///     Gets or sets whether the dialog is cancelable.
         /// </summary>
         public bool Cancelable { get; set; }
 
         /// <summary>
-        /// Gets or sets the resource ID of the style to use.
+        ///     Gets or sets the resource ID of the style to use.
         /// </summary>
         public int? StyleResID { get; set; }
         #endregion

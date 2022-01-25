@@ -7,7 +7,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Events
     {
         #region Properties
         /// <summary>
-        /// Gets the destroyed activity.
+        ///     Gets the destroyed activity.
         /// </summary>
         public Activity Activity { get; }
         #endregion

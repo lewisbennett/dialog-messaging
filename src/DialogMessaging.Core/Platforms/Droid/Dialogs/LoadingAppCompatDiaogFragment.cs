@@ -24,10 +24,13 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
             switch (e.PropertyName)
             {
                 case nameof(Config.Progress):
+
                     SetProgress();
+
                     return;
 
                 default:
+
                     return;
             }
         }
@@ -71,6 +74,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     return;
 
                 default:
+
                     return;
             }
         }

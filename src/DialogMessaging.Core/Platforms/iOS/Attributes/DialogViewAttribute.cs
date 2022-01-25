@@ -6,7 +6,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Attributes
     {
         #region Properties
         /// <summary>
-        /// Gets the name of the NIB/XIB file associated with the view.
+        ///     Gets the name of the NIB/XIB file associated with the view.
         /// </summary>
         public string NibName { get; }
         #endregion

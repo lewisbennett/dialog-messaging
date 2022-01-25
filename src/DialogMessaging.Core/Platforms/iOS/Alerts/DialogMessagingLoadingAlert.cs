@@ -16,42 +16,42 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
         #region Properties
         /// <summary>
-        /// Gets the alert background.
+        ///     Gets the alert background.
         /// </summary>
         public UIView AlertBackground { get; } = new();
 
         /// <summary>
-        /// Gets the alert background blur.
+        ///     Gets the alert background blur.
         /// </summary>
         public UIVisualEffectView AlertBackgroundBlur { get; } = new();
 
         /// <summary>
-        /// Gets the determinate progress view.
+        ///     Gets the determinate progress view.
         /// </summary>
         public UIProgressView DeterminateProgress { get; } = new(UIProgressViewStyle.Bar);
 
         /// <summary>
-        /// Gets the dimmer background.
+        ///     Gets the dimmer background.
         /// </summary>
         public UIView DimmerBackground { get; } = new();
 
         /// <summary>
-        /// Gets the indeterminate progress view.
+        ///     Gets the indeterminate progress view.
         /// </summary>
         public UIActivityIndicatorView IndeterminateProgress { get; } = new();
 
         /// <summary>
-        /// Gets or sets whether the view is currently showing.
+        ///     Gets or sets whether the view is currently showing.
         /// </summary>
         public bool IsShowing { get; set; }
 
         /// <summary>
-        /// Gets the message label.
+        ///     Gets the message label.
         /// </summary>
         public UILabel MessageLabel { get; } = new();
 
         /// <summary>
-        /// Gets the title label.
+        ///     Gets the title label.
         /// </summary>
         public UILabel TitleLabel { get; } = new();
         #endregion
@@ -62,10 +62,13 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
             switch (e.PropertyName)
             {
                 case nameof(_config.Progress):
+
                     AdjustProgress();
+
                     return;
 
                 default:
+
                     return;
             }
         }
@@ -73,7 +76,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
         #region Public Methods
         /// <summary>
-        /// Applies the provided dialog configuration to the view.
+        ///     Applies the provided dialog configuration to the view.
         /// </summary>
         /// <param name="config">The dialog configuration.</param>
         public void ApplyDialogConfig(ILoadingConfig config)
@@ -99,7 +102,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         }
 
         /// <summary>
-        /// Dismisses the custom dialog.
+        ///     Dismisses the custom dialog.
         /// </summary>
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been dismissed.</param>
         public void Dismiss(Action finishedAction = null)
@@ -110,7 +113,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
         }
 
         /// <summary>
-        /// Shows the custom dialog.
+        ///     Shows the custom dialog.
         /// </summary>
         /// <param name="finishedAction">An optional action to invoke after the custom dialog has been shown.</param>
         public void Show(Action finishedAction = null)
@@ -123,7 +126,7 @@ namespace DialogMessaging.Core.Platforms.iOS.Alerts
 
         #region Lifecycle
         /// <summary>
-        /// Lays out subviews.
+        ///     Lays out subviews.
         /// </summary>
         public override void LayoutSubviews()
         {

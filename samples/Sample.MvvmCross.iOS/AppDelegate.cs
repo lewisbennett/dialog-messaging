@@ -2,13 +2,14 @@
 using DialogMessaging.Interactions;
 using Foundation;
 using MvvmCross.Platforms.Ios.Core;
+using Sample.MvvmCross.Core;
 using Sample.MvvmCross.iOS.Dialogs;
 using UIKit;
 
 namespace Sample.MvvmCross.iOS
 {
     [Register("AppDelegate")]
-    public class AppDelegate : MvxApplicationDelegate<Setup, Core.App>
+    public class AppDelegate : MvxApplicationDelegate<Setup, App>
     {
         public override UIWindow Window { get; set; }
 

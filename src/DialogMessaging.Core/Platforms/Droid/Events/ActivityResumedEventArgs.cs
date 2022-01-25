@@ -7,7 +7,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Events
     {
         #region Properties
         /// <summary>
-        /// Gets the resumed activity.
+        ///     Gets the resumed activity.
         /// </summary>
         public Activity Activity { get; }
         #endregion

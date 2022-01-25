@@ -6,7 +6,7 @@ namespace DialogMessaging.Interactions.Base
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
+        ///     Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
         /// </summary>
         Type CustomViewType { get; set; }
         #endregion
@@ -16,7 +16,7 @@ namespace DialogMessaging.Interactions.Base
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
+        ///     Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
         /// </summary>
         public Type CustomViewType { get; set; }
         #endregion
@@ -26,7 +26,7 @@ namespace DialogMessaging.Interactions.Base
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
+        ///     Gets or sets the <see cref="Type" /> of the custom view to use for the dialog, if any.
         /// </summary>
         public Type CustomViewType { get; set; }
         #endregion

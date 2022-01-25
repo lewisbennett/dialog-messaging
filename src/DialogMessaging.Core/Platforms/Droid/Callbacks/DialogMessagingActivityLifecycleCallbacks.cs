@@ -21,14 +21,14 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
 
         #region Properties
         /// <summary>
-        /// Gets the current activity.
+        ///     Gets the current activity.
         /// </summary>
         public Activity CurrentActivity { get; private set; }
         #endregion
 
         #region Event Handlers
         /// <summary>
-        /// Called when an activity is created.
+        ///     Called when an activity is created.
         /// </summary>
         /// <param name="activity">The activity.</param>
         /// <param name="savedInstanceState">The activity's saved instance state, if any.</param>
@@ -40,7 +40,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity is destroyed.
+        ///     Called when an activity is destroyed.
         /// </summary>
         /// <param name="activity">The activity.</param>
         public virtual void OnActivityDestroyed(Activity activity)
@@ -61,7 +61,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity is paused.
+        ///     Called when an activity is paused.
         /// </summary>
         /// <param name="activity">The activity.</param>
         public virtual void OnActivityPaused(Activity activity)
@@ -70,7 +70,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity is resumed.
+        ///     Called when an activity is resumed.
         /// </summary>
         /// <param name="activity">The activity.</param>
         public virtual void OnActivityResumed(Activity activity)
@@ -81,7 +81,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity saves its instance.
+        ///     Called when an activity saves its instance.
         /// </summary>
         /// <param name="activity">The activity.</param>
         /// <param name="outState">The saved instance.</param>
@@ -91,7 +91,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity is started.
+        ///     Called when an activity is started.
         /// </summary>
         /// <param name="activity">The activity.</param>
         public virtual void OnActivityStarted(Activity activity)
@@ -100,7 +100,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Callbacks
         }
 
         /// <summary>
-        /// Called when an activity is stopped.
+        ///     Called when an activity is stopped.
         /// </summary>
         /// <param name="activity">The activity.</param>
         public virtual void OnActivityStopped(Activity activity)

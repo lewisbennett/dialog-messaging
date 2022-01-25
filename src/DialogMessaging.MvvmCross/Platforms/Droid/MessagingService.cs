@@ -12,19 +12,19 @@ namespace DialogMessaging
     {
         #region Properties
         /// <summary>
-        /// Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
+        ///     Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
         /// </summary>
         public static IDialogMessagingActivityLifecycleCallbacks ActivityLifecycleCallbacks => MessagingServiceCore.ActivityLifecycleCallbacks;
 
         /// <summary>
-        /// Gets the active <see cref="IViewManager" />.
+        ///     Gets the active <see cref="IViewManager" />.
         /// </summary>
         public static IViewManager ViewManager => MessagingServiceCore.ViewManager;
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The current activity.</param>
         public static void Init(AppCompatActivity activity)
@@ -33,7 +33,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
         public static void Init(Application application)
@@ -42,7 +42,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The current activity.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
@@ -52,7 +52,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="activityLifecycleCallbacks">Custom activity lifecycle callbacks.</param>
@@ -62,7 +62,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The current activity.</param>
         /// <param name="messagingService">A custom messaging service.</param>
@@ -72,7 +72,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="messagingService">A custom messaging service.</param>
@@ -82,7 +82,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="activity">The current activity.</param>
         /// <param name="messagingService">A custom messaging service.</param>
@@ -93,7 +93,7 @@ namespace DialogMessaging
         }
 
         /// <summary>
-        /// Initialize the messaging service.
+        ///     Initialize the messaging service.
         /// </summary>
         /// <param name="application">The application.</param>
         /// <param name="messagingService">A custom messaging service.</param>

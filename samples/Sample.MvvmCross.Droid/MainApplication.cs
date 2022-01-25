@@ -1,16 +1,17 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Graphics;
 using Android.Runtime;
 using DialogMessaging;
 using DialogMessaging.Interactions;
 using Google.Android.Material.Snackbar;
 using MvvmCross.Platforms.Android.Views;
-using System;
+using Sample.MvvmCross.Core;
 
 namespace Sample.MvvmCross.Droid
 {
     [Application]
-    public class MainApplication : MvxAndroidApplication<Setup, Core.App>
+    public class MainApplication : MvxAndroidApplication<Setup, App>
     {
         public override void OnCreate()
         {

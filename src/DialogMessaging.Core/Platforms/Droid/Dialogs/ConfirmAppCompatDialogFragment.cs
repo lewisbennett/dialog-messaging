@@ -76,6 +76,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs
                     return;
 
                 default:
+
                     return;
             }
         }

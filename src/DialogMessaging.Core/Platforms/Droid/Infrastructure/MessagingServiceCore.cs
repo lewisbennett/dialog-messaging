@@ -14,19 +14,19 @@ namespace DialogMessaging.Infrastructure
 
         #region Properties
         /// <summary>
-        /// Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
+        ///     Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
         /// </summary>
         public static IDialogMessagingActivityLifecycleCallbacks ActivityLifecycleCallbacks { get; internal set; }
 
         /// <summary>
-        /// Gets the active <see cref="IViewManager" />.
+        ///     Gets the active <see cref="IViewManager" />.
         /// </summary>
         public static IViewManager ViewManager { get; internal set; }
         #endregion
 
         #region Public Methods
         /// <summary>
-        /// Retrieves a saved object using the key stored in a bundle.
+        ///     Retrieves a saved object using the key stored in a bundle.
         /// </summary>
         /// <param name="bundle">The bundle.</param>
         public static T RetrieveInstance<T>(Bundle bundle)
@@ -45,7 +45,7 @@ namespace DialogMessaging.Infrastructure
         }
 
         /// <summary>
-        /// Saves an object, and stores the object key in the bundle.
+        ///     Saves an object, and stores the object key in the bundle.
         /// </summary>
         /// <param name="bundle">The bundle to store the object key inside.</param>
         /// <param name="toSave">The object to save.</param>

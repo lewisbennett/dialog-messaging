@@ -16,7 +16,7 @@ namespace DialogMessaging.Core.Platforms.Droid
     {
         #region Public Methods
         /// <summary>
-        /// Gets the activity that the view belongs to.
+        ///     Gets the activity that the view belongs to.
         /// </summary>
         public static Activity GetActivity(this View view)
         {
@@ -34,7 +34,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Finds all subviews that meet the query.
+        ///     Finds all subviews that meet the query.
         /// </summary>
         public static View[] Find(this View view, Func<View, bool> query)
         {
@@ -53,7 +53,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Safely invoked an action on the UI thread.
+        ///     Safely invoked an action on the UI thread.
         /// </summary>
         /// <param name="action">The action to invoke.</param>
         public static void SafeRunOnUIThread(this Activity activity, Action action)
@@ -72,7 +72,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Gets the InputType as an Android InputTypes.
+        ///     Gets the InputType as an Android InputTypes.
         /// </summary>
         public static InputTypes ToInputTypes(this InputType inputType)
         {
@@ -91,7 +91,7 @@ namespace DialogMessaging.Core.Platforms.Droid
         }
 
         /// <summary>
-        /// Updates the drawables being displayed within the <see cref="EditText" />.
+        ///     Updates the drawables being displayed within the <see cref="EditText" />.
         /// </summary>
         /// <param name="context">Context to load drawables from.</param>
         /// <param name="start">The resource ID for the start drawable.</param>

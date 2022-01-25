@@ -18,7 +18,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
     {
         #region Properties
         /// <summary>
-        /// Gets the configuration for the dialog.
+        ///     Gets the configuration for the dialog.
         /// </summary>
         public TConfig Config { get; internal set; }
         #endregion
@@ -56,6 +56,7 @@ namespace DialogMessaging.Core.Platforms.Droid.Dialogs.Base
                     return;
 
                 default:
+
                     return;
             }
         }

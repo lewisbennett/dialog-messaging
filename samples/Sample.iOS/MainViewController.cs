@@ -1,5 +1,5 @@
-﻿using Sample.iOS.Messaging;
-using System;
+﻿using System;
+using Sample.iOS.Messaging;
 using UIKit;
 
 namespace Sample.iOS

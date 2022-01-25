@@ -6,12 +6,12 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the default value for the duration of the Toast.
+        ///     Gets or sets the default value for the duration of the Toast.
         /// </summary>
         public static ToastLength Duration { get; set; }
 
         /// <summary>
-        /// Gets or sets the default value for the resource ID of the layout to use.
+        ///     Gets or sets the default value for the resource ID of the layout to use.
         /// </summary>
         public static int? LayoutResID { get; set; }
         #endregion
@@ -21,7 +21,7 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the duration of the Toast.
+        ///     Gets or sets the duration of the Toast.
         /// </summary>
         ToastLength Duration { get; set; }
         #endregion
@@ -31,7 +31,7 @@ namespace DialogMessaging.Interactions
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the duration of the Toast.
+        ///     Gets or sets the duration of the Toast.
         /// </summary>
         public ToastLength Duration { get; set; }
         #endregion

@@ -1,7 +1,7 @@
-﻿using Android.Graphics;
+﻿using System;
+using Android.Graphics;
 using DialogMessaging;
 using DialogMessaging.Interactions;
-using System;
 
 namespace Sample.Droid
 {

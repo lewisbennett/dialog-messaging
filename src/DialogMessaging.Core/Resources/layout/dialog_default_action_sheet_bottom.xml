@@ -1,36 +1,36 @@
 ﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="?android:attr/dialogPreferredPadding"
-    android:background="?android:attr/colorBackground">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        app:DialogElement="Title" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        app:DialogElement="Message" />
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:DialogElement="ItemsSource" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_gravity="end"
-        android:padding="4dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:textColor="?attr/colorAccent"
-        android:textAllCaps="true"
-        app:DialogElement="ButtonSecondary" />
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="?android:attr/dialogPreferredPadding"
+	android:background="?android:attr/colorBackground">
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:textColor="?android:attr/textColorPrimary"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		app:DialogElement="Title" />
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:textColor="?android:attr/textColorPrimary"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		app:DialogElement="Message" />
+	<ListView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:DialogElement="ItemsSource" />
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:layout_gravity="end"
+		android:padding="4dp"
+		android:foreground="?android:attr/selectableItemBackground"
+		android:textColor="?attr/colorAccent"
+		android:textAllCaps="true"
+		app:DialogElement="ButtonSecondary" />
 </LinearLayout>
