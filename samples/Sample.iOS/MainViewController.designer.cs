@@ -9,96 +9,95 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace Sample.iOS
+namespace Sample.iOS;
+
+[Register ("MainViewController")]
+partial class MainViewController
 {
-    [Register ("MainViewController")]
-    partial class MainViewController
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton ActionSheetBottomButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton ActionSheetButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton AlertButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton ConfirmButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton DeleteButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton LoadingButton { get; set; }
+
+    [Outlet]
+    UIKit.UIButton LoginButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton PromptButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton SnackbarButton { get; set; }
+
+    [Outlet]
+    [GeneratedCode ("iOS Designer", "1.0")]
+    UIKit.UIButton ToastButton { get; set; }
+
+    void ReleaseDesignerOutlets ()
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton ActionSheetBottomButton { get; set; }
+        if (ActionSheetBottomButton != null) {
+            ActionSheetBottomButton.Dispose ();
+            ActionSheetBottomButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton ActionSheetButton { get; set; }
+        if (ActionSheetButton != null) {
+            ActionSheetButton.Dispose ();
+            ActionSheetButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton AlertButton { get; set; }
+        if (AlertButton != null) {
+            AlertButton.Dispose ();
+            AlertButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton ConfirmButton { get; set; }
+        if (ConfirmButton != null) {
+            ConfirmButton.Dispose ();
+            ConfirmButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton DeleteButton { get; set; }
+        if (DeleteButton != null) {
+            DeleteButton.Dispose ();
+            DeleteButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton LoadingButton { get; set; }
+        if (LoadingButton != null) {
+            LoadingButton.Dispose ();
+            LoadingButton = null;
+        }
 
-        [Outlet]
-        UIKit.UIButton LoginButton { get; set; }
+        if (PromptButton != null) {
+            PromptButton.Dispose ();
+            PromptButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton PromptButton { get; set; }
+        if (SnackbarButton != null) {
+            SnackbarButton.Dispose ();
+            SnackbarButton = null;
+        }
 
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton SnackbarButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton ToastButton { get; set; }
-
-        void ReleaseDesignerOutlets ()
-        {
-            if (ActionSheetBottomButton != null) {
-                ActionSheetBottomButton.Dispose ();
-                ActionSheetBottomButton = null;
-            }
-
-            if (ActionSheetButton != null) {
-                ActionSheetButton.Dispose ();
-                ActionSheetButton = null;
-            }
-
-            if (AlertButton != null) {
-                AlertButton.Dispose ();
-                AlertButton = null;
-            }
-
-            if (ConfirmButton != null) {
-                ConfirmButton.Dispose ();
-                ConfirmButton = null;
-            }
-
-            if (DeleteButton != null) {
-                DeleteButton.Dispose ();
-                DeleteButton = null;
-            }
-
-            if (LoadingButton != null) {
-                LoadingButton.Dispose ();
-                LoadingButton = null;
-            }
-
-            if (PromptButton != null) {
-                PromptButton.Dispose ();
-                PromptButton = null;
-            }
-
-            if (SnackbarButton != null) {
-                SnackbarButton.Dispose ();
-                SnackbarButton = null;
-            }
-
-            if (ToastButton != null) {
-                ToastButton.Dispose ();
-                ToastButton = null;
-            }
+        if (ToastButton != null) {
+            ToastButton.Dispose ();
+            ToastButton = null;
         }
     }
 }

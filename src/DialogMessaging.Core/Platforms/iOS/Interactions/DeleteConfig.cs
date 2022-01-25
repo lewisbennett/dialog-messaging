@@ -1,40 +1,39 @@
 ﻿using System;
 
-namespace DialogMessaging.Interactions
+namespace DialogMessaging.Interactions;
+
+public static partial class DeleteConfigDefaults
 {
-    public static partial class DeleteConfigDefaults
-    {
-        #region Properties
-        /// <summary>
-        ///     Gets or sets the default <see cref="Type" /> of the custom view to use for the dialog, if any.
-        /// </summary>
-        public static Type CustomViewType { get; set; }
-        #endregion
-    }
+    #region Properties
+    /// <summary>
+    ///     Gets or sets the default <see cref="Type" /> of the custom view to use for the dialog, if any.
+    /// </summary>
+    public static Type CustomViewType { get; set; }
+    #endregion
+}
 
-    public partial interface IDeleteConfig
-    {
-    }
+public partial interface IDeleteConfig
+{
+}
 
-    public partial class DeleteConfig
+public partial class DeleteConfig
+{
+    #region Constructors
+    public DeleteConfig()
+        : base()
     {
-        #region Constructors
-        public DeleteConfig()
-            : base()
-        {
-            CustomViewType = DeleteConfigDefaults.CustomViewType;
-        }
-        #endregion
+        CustomViewType = DeleteConfigDefaults.CustomViewType;
     }
+    #endregion
+}
 
-    public partial class DeleteAsyncConfig
+public partial class DeleteAsyncConfig
+{
+    #region Constructors
+    public DeleteAsyncConfig()
+        : base()
     {
-        #region Constructors
-        public DeleteAsyncConfig()
-            : base()
-        {
-            CustomViewType = DeleteConfigDefaults.CustomViewType;
-        }
-        #endregion
+        CustomViewType = DeleteConfigDefaults.CustomViewType;
     }
+    #endregion
 }

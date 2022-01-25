@@ -1,67 +1,66 @@
-﻿using Android.OS;
+﻿using System.Collections.Generic;
+using Android.OS;
 using DialogMessaging.Core.Platforms.Droid.Callbacks;
 using DialogMessaging.Core.Platforms.Droid.ViewManager;
-using System.Collections.Generic;
 
-namespace DialogMessaging.Infrastructure
+namespace DialogMessaging.Infrastructure;
+
+public static partial class MessagingServiceCore
 {
-    public static partial class MessagingServiceCore
+    #region Fields
+    private static long _savedInstanceCounter;
+    private static readonly Dictionary<long, object> _savedInstances = new();
+    #endregion
+
+    #region Properties
+    /// <summary>
+    ///     Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
+    /// </summary>
+    public static IDialogMessagingActivityLifecycleCallbacks ActivityLifecycleCallbacks { get; internal set; }
+
+    /// <summary>
+    ///     Gets the active <see cref="IViewManager" />.
+    /// </summary>
+    public static IViewManager ViewManager { get; internal set; }
+    #endregion
+
+    #region Public Methods
+    /// <summary>
+    ///     Retrieves a saved object using the key stored in a bundle.
+    /// </summary>
+    /// <param name="bundle">The bundle.</param>
+    public static T RetrieveInstance<T>(Bundle bundle)
+        where T : class
     {
-        #region Fields
-        private static long _savedInstanceCounter;
-        private static readonly Dictionary<long, object> _savedInstances = new();
-        #endregion
+        var objectKey = bundle?.GetLong(SavedInstanceBundleKey) ?? -1;
 
-        #region Properties
-        /// <summary>
-        ///     Gets the active <see cref="IDialogMessagingActivityLifecycleCallbacks" />.
-        /// </summary>
-        public static IDialogMessagingActivityLifecycleCallbacks ActivityLifecycleCallbacks { get; internal set; }
-
-        /// <summary>
-        ///     Gets the active <see cref="IViewManager" />.
-        /// </summary>
-        public static IViewManager ViewManager { get; internal set; }
-        #endregion
-
-        #region Public Methods
-        /// <summary>
-        ///     Retrieves a saved object using the key stored in a bundle.
-        /// </summary>
-        /// <param name="bundle">The bundle.</param>
-        public static T RetrieveInstance<T>(Bundle bundle)
-            where T : class
+        if (_savedInstances.TryGetValue(objectKey, out var saved))
         {
-            var objectKey = bundle?.GetLong(SavedInstanceBundleKey) ?? -1;
+            _savedInstances.Remove(objectKey);
 
-            if (_savedInstances.TryGetValue(objectKey, out object saved))
-            {
-                _savedInstances.Remove(objectKey);
-
-                return saved as T;
-            }
-
-            return null;
+            return saved as T;
         }
 
-        /// <summary>
-        ///     Saves an object, and stores the object key in the bundle.
-        /// </summary>
-        /// <param name="bundle">The bundle to store the object key inside.</param>
-        /// <param name="toSave">The object to save.</param>
-        public static void SaveInstance<T>(Bundle bundle, T toSave)
-            where T : class
-        {
-            _savedInstances[_savedInstanceCounter] = toSave;
-
-            bundle.PutLong(SavedInstanceBundleKey, _savedInstanceCounter);
-
-            _savedInstanceCounter++;
-        }
-        #endregion
-
-        #region Constant Values
-        public const string SavedInstanceBundleKey = "saved_instance_bundle_key";
-        #endregion
+        return null;
     }
+
+    /// <summary>
+    ///     Saves an object, and stores the object key in the bundle.
+    /// </summary>
+    /// <param name="bundle">The bundle to store the object key inside.</param>
+    /// <param name="toSave">The object to save.</param>
+    public static void SaveInstance<T>(Bundle bundle, T toSave)
+        where T : class
+    {
+        _savedInstances[_savedInstanceCounter] = toSave;
+
+        bundle.PutLong(SavedInstanceBundleKey, _savedInstanceCounter);
+
+        _savedInstanceCounter++;
+    }
+    #endregion
+
+    #region Constant Values
+    public const string SavedInstanceBundleKey = "saved_instance_bundle_key";
+    #endregion
 }

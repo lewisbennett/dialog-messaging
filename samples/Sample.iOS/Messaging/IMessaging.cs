@@ -1,25 +1,24 @@
-﻿namespace Sample.iOS.Messaging
+﻿namespace Sample.iOS.Messaging;
+
+public interface IMessaging
 {
-    public interface IMessaging
-    {
-        void ActionSheet();
+    void ActionSheet();
 
-        void ActionSheetBottom();
+    void ActionSheetBottom();
 
-        void Alert();
+    void Alert();
 
-        void Confirm();
+    void Confirm();
 
-        void Delete();
+    void Delete();
 
-        void Loading();
+    void Loading();
 
-        void Login();
+    void Login();
 
-        void Prompt();
+    void Prompt();
 
-        void Snackbar();
+    void Snackbar();
 
-        void Toast();
-    }
+    void Toast();
 }

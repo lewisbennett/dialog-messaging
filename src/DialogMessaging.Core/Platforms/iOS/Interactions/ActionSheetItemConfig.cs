@@ -1,40 +1,39 @@
 ﻿using System;
 
-namespace DialogMessaging.Interactions
+namespace DialogMessaging.Interactions;
+
+public static partial class ActionSheetItemConfigDefaults
 {
-    public static partial class ActionSheetItemConfigDefaults
-    {
-        #region Properties
-        /// <summary>
-        ///     Gets or sets the default <see cref="Type" /> of the custom view to use for the dialog, if any.
-        /// </summary>
-        public static Type CustomViewType { get; set; }
-        #endregion
-    }
+    #region Properties
+    /// <summary>
+    ///     Gets or sets the default <see cref="Type" /> of the custom view to use for the dialog, if any.
+    /// </summary>
+    public static Type CustomViewType { get; set; }
+    #endregion
+}
 
-    public partial interface IActionSheetItemConfig
-    {
-    }
+public partial interface IActionSheetItemConfig
+{
+}
 
-    public partial class ActionSheetItemConfig
+public partial class ActionSheetItemConfig
+{
+    #region Constructors
+    public ActionSheetItemConfig()
+        : base()
     {
-        #region Constructors
-        public ActionSheetItemConfig()
-            : base()
-        {
-            CustomViewType = ActionSheetItemConfigDefaults.CustomViewType;
-        }
-        #endregion
+        CustomViewType = ActionSheetItemConfigDefaults.CustomViewType;
     }
+    #endregion
+}
 
-    public partial class ActionSheetItemAsyncConfig
+public partial class ActionSheetItemAsyncConfig
+{
+    #region Constructors
+    public ActionSheetItemAsyncConfig()
+        : base()
     {
-        #region Constructors
-        public ActionSheetItemAsyncConfig()
-            : base()
-        {
-            CustomViewType = ActionSheetItemConfigDefaults.CustomViewType;
-        }
-        #endregion
+        CustomViewType = ActionSheetItemConfigDefaults.CustomViewType;
     }
+    #endregion
 }
