@@ -19,11 +19,11 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- script: msbuild -p:$(BuildConfiguration)
+- script: msbuild -p:Configuration=$(BuildConfiguration)
   workingDirectory: src/DialogMessaging
   displayName: Build DialogMessaging
 
-- script: msbuild -p:$(BuildConfiguration)
+- script: msbuild -p:Configuration=$(BuildConfiguration)
   workingDirectory: src/DialogMessaging.MvvmCross
   displayName: Build DialogMessaging.MvvmCross
 
