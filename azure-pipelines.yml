@@ -5,9 +5,6 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
 - task: NuGetToolInstaller@1
 
@@ -15,15 +12,15 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
-    command: 'build'
-    projects: '\src\DialogMessaging\DialogMessaging.csproj;\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj'
-    arguments: '-c $(buildConfiguration)'
+    command: 'pack'
+    packagesToPack: '/src/DialogMessaging/DialogMessaging.csproj;/src/DialogMessaging.MvvmCross/DialogMessaging.MvvmCross.csproj'
+    versioningScheme: 'off'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '\src\DialogMessaging\bin\$(buildConfiguration)\*.nupkg;\src\DialogMessaging.MvvmCross\bin\$(buildConfiguration)\*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
