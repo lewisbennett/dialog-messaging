@@ -19,11 +19,13 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- task: MSBuild@1
-  inputs:
-    solution: 'src/DialogMessaging/DialogMessaging.csproj;src/DialogMessaging.MvvmCross/DialogMessaging.MvvmCross.csproj'
-    configuration: '$(BuildConfiguration)'
-    clean: true
+- script: msbuild -p:$(BuildConfiguration)
+  workingDirectory: src/DialogMessaging
+  displayName: Build DialogMessaging
+
+- script: msbuild -p:$(BuildConfiguration)
+  workingDirectory: src/DialogMessaging.MvvmCross
+  displayName: Build DialogMessaging.MvvmCross
 
 - script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
   workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
