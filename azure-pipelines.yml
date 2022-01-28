@@ -12,15 +12,18 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '/src/DialogMessaging/DialogMessaging.csproj;/src/DialogMessaging.MvvmCross/DialogMessaging.MvvmCross.csproj'
-    versioningScheme: 'off'
+- script: dotnet build -c $(BuildConfiguration)
+  workingDirectory: src/DialogMessaging
+  displayName: Build DialogMessaging
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
+- script: dotnet build -c $(BuildConfiguration)
+  workingDirectory: src/DialogMessaging.MvvmCross
+  displayName: Build DialogMessaging.MvvmCross
+
+- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
+  displayName: Push DialogMessaging
+
+- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
+  displayName: Push DialogMessaging.MvvmCross
