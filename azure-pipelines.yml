@@ -19,6 +19,13 @@ steps:
   inputs:
     restoreSolution: '**/*.sln'
 
+- task: VSBuild@1
+  inputs:
+    solution: '**\*.sln'
+    vsVersion: '17.0'
+    configuration: '$(BuildConfiguration)'
+    clean: true
+
 - script: msbuild -p:Configuration=$(BuildConfiguration)
   workingDirectory: src/DialogMessaging
   displayName: Build DialogMessaging
