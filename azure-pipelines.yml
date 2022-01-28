@@ -24,6 +24,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: 'src\DialogMessaging\**.*.nupkg;src\DialogMessaging.MvvmCross\**.*.nupkg'
+    packagesToPush: 'src\DialogMessaging\**\*.nupkg;src\DialogMessaging.MvvmCross\**\*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
