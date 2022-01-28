@@ -13,17 +13,17 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: 'DialogMessaging.sln'
+    restoreSolution: '**/*.sln'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
-    command: 'pack'
-    packagesToPack: 'src\DialogMessaging\DialogMessaging.csproj;src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj'
-    versioningScheme: 'off'
+    command: 'build'
+    projects: '\src\DialogMessaging\DialogMessaging.csproj;\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.csproj'
+    arguments: '-c $(buildConfiguration)'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+    packagesToPush: '\src\DialogMessaging\bin\$(buildConfiguration)\*.nupkg;\src\DialogMessaging.MvvmCross\bin\$(buildConfiguration)\*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
