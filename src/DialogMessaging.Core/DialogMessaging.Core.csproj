@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release;CI</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -23,6 +24,10 @@
 
 	<PropertyGroup Condition=" '$(Configuration)'=='Release' ">
 		<DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.Core\DialogMessaging.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='CI'">
+	  <DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.Core\DialogMessaging.Core.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

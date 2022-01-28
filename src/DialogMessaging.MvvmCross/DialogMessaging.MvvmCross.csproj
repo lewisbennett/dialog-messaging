@@ -1,9 +1,10 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
 	<PropertyGroup>
-		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release'">high</GitInfoReportImportance>
+		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release' or '$(Configuration)'=='CI'">high</GitInfoReportImportance>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
+		<Configurations>Debug;Release;CI</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -32,16 +33,12 @@
 		<PackageIconUrl />
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$(GitBranch) == 'develop' or $(GitBranch) == 'master'">
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	</PropertyGroup>
-
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
 		<DebugType>full</DebugType>
 		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+	<PropertyGroup Condition=" '$(Configuration)'=='Release' or '$(Configuration)'=='CI'">
 		<DebugType>pdbonly</DebugType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.xml</DocumentationFile>
@@ -81,9 +78,11 @@
 		<PropertyGroup>
 			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>
 			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</Version>
+			<Version Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitBranch)-$(GitCommit)</Version>
 
 			<PackageVersion Condition="$(GitBranch) == 'master'">$(GitBaseTag)</PackageVersion>
 			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitBranch)-$(GitCommit)</PackageVersion>
 		</PropertyGroup>
 	</Target>
 
