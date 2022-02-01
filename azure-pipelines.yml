@@ -1,9 +1,13 @@
 trigger:
 - master
 - develop
+- working
 
 pool:
   vmImage: 'windows-2022'
+
+variables:
+  isWorkingBranch: $[eq(variables['Build.SourceBranchName'], 'working')]
 
 steps:
 
@@ -20,13 +24,26 @@ steps:
     restoreSolution: '**/*.sln'
 
 - task: VSBuild@1
-- task: VSBuild@1
   inputs:
     solution: '**\*.sln'
     vsVersion: '17.0'
     msbuildArgs: '/p:GitBranch=$(Build.SourceBranchName)'
     configuration: '$(BuildConfiguration)'
     clean: true
+
+#- task: NuGetCommand@2
+#  condition: eq(variables.isWorkingBranch, 'true')
+#  inputs:
+#    command: 'push'
+#    packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
+#    nuGetFeedType: 'internal'
+#    publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
+
+- script: echo STAND-IN FOR INTERNAL NUGET PUSHING
+  condition: eq(variables.isWorkingBranch, 'true')
+
+- script: echo STAND-IN FOR NORMAL NUGET PUSHING
+  condition: eq(variables.isWorkingBranch, 'false')
 
 #- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
 #  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
