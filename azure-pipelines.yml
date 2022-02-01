@@ -31,24 +31,20 @@ steps:
     configuration: '$(BuildConfiguration)'
     clean: true
 
-#- task: NuGetCommand@2
-#  condition: eq(variables.isWorkingBranch, 'true')
-#  inputs:
-#    command: 'push'
-#    packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
-#    nuGetFeedType: 'internal'
-#    publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
-
-- script: echo STAND-IN FOR INTERNAL NUGET PUSHING
+- task: NuGetCommand@2
   condition: eq(variables.isWorkingBranch, 'true')
+  inputs:
+    command: 'push'
+    packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
 
-- script: echo STAND-IN FOR NORMAL NUGET PUSHING
+- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
   condition: eq(variables.isWorkingBranch, 'false')
+  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
+  displayName: Push DialogMessaging
 
-#- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
-#  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
-#  displayName: Push DialogMessaging
-
-#- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
-#  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
-#  displayName: Push DialogMessaging.MvvmCross
+- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+  condition: eq(variables.isWorkingBranch, 'false')
+  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
+  displayName: Push DialogMessaging.MvvmCross
