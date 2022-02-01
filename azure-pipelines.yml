@@ -7,7 +7,8 @@ pool:
   vmImage: 'windows-2022'
 
 variables:
-  isWorkingBranch: $[eq(variables['Build.SourceBranchName'], 'working')]
+  pushPrivate: $[eq(variables['Build.SourceBranchName'], 'working')]
+  pushPublic: $[or(eq(variables['Build.SourceBranchName'], 'master'), eq(variables['Build.SourceBranchName'], 'develop'))]
 
 steps:
 
@@ -32,7 +33,7 @@ steps:
     clean: true
 
 - task: NuGetCommand@2
-  condition: eq(variables.isWorkingBranch, 'true')
+  condition: eq(variables.pushPrivate, 'true')
   inputs:
     command: 'push'
     packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
@@ -40,7 +41,7 @@ steps:
     publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
 
 - task: NuGetCommand@2
-  condition: eq(variables.isWorkingBranch, 'false')
+  condition: eq(variables.pushPublic, 'true')
   inputs:
     command: 'push'
     packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
