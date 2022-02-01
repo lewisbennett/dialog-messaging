@@ -39,12 +39,10 @@ steps:
     nuGetFeedType: 'internal'
     publishVstsFeed: '12a53b34-f558-4977-8856-90084888c990'
 
-- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+- task: NuGetCommand@2
   condition: eq(variables.isWorkingBranch, 'false')
-  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
-  displayName: Push DialogMessaging
-
-- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
-  condition: eq(variables.isWorkingBranch, 'false')
-  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
-  displayName: Push DialogMessaging.MvvmCross
+  inputs:
+    command: 'push'
+    packagesToPush: 'src/DialogMessaging/bin/$(BuildConfiguration)/*.nupkg;src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet - Public'
