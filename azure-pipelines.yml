@@ -20,16 +20,18 @@ steps:
     restoreSolution: '**/*.sln'
 
 - task: VSBuild@1
+- task: VSBuild@1
   inputs:
     solution: '**\*.sln'
     vsVersion: '17.0'
+    msbuildArgs: '/p:GitBranch=$(Build.SourceBranchName)'
     configuration: '$(BuildConfiguration)'
     clean: true
 
-- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
-  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
-  displayName: Push DialogMessaging
+#- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+#  workingDirectory: src/DialogMessaging/bin/$(BuildConfiguration)
+#  displayName: Push DialogMessaging
 
-- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
-  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
-  displayName: Push DialogMessaging.MvvmCross
+#- script: dotnet nuget push *.nupkg --api-key $(NuGetApiKey) --source $(NuGetSource)
+#  workingDirectory: src/DialogMessaging.MvvmCross/bin/$(BuildConfiguration)
+#  displayName: Push DialogMessaging.MvvmCross
