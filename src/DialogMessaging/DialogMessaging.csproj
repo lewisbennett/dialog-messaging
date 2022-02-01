@@ -77,12 +77,12 @@
 	<Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec;_GetProjectVersion" DependsOnTargets="GitVersion">
 		<PropertyGroup>
 			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>
-			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</Version>
-			<Version Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitBranch)-$(GitCommit)</Version>
+			<Version Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommits)</Version>
+			<Version Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitCommits)-$(GitCommit)</Version>
 
 			<PackageVersion Condition="$(GitBranch) == 'master'">$(GitBaseTag)</PackageVersion>
-			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommit)</PackageVersion>
-			<PackageVersion Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitBranch)-$(GitCommit)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) == 'develop'">$(GitBaseTag)-alpha-$(GitCommits)</PackageVersion>
+			<PackageVersion Condition="$(GitBranch) != 'master' and $(GitBranch) != 'develop'">$(GitBaseTag)-alpha-$(GitCommits)-$(GitCommit)</PackageVersion>
 		</PropertyGroup>
 	</Target>
 
