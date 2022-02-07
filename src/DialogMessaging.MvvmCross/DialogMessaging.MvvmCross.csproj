@@ -1,38 +1,38 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
+	<!-- Properties for all build configurations. -->
 	<PropertyGroup>
 		<GitInfoReportImportance Condition="'$(Configuration)' == 'Release' or '$(Configuration)'=='CI'">high</GitInfoReportImportance>
+		
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release;CI</Configurations>
-	</PropertyGroup>
 
-	<PropertyGroup>
+		<!-- Include project references in the built package. Required so that DialogMessaging.Core is included in the package. -->
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-	</PropertyGroup>
 
-	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
-		<ItemGroup>
-			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-		</ItemGroup>
-	</Target>
-
-	<PropertyGroup>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
 		<Description>A customizable, cross platform, dialog messaging service for Xamarin.Android and Xamarin.iOS, compatible with MvvmCross.</Description>
 		<PackageProjectUrl>https://github.com/lewisbennett/dialog-messaging</PackageProjectUrl>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/lewisbennett/dialog-messaging</RepositoryUrl>
 		<NoWarn>1701;1702;1591;1573</NoWarn>
-		<PackageIcon>Icon.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIconUrl />
-	</PropertyGroup>
 
+		<!-- Included in item group below. -->
+		<PackageIcon>Icon.png</PackageIcon>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	
+	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+	
 	<PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
 		<DebugType>full</DebugType>
 		<DebugSymbols>true</DebugSymbols>
@@ -41,21 +41,22 @@
 	<PropertyGroup Condition=" '$(Configuration)'=='Release' or '$(Configuration)'=='CI'">
 		<DebugType>pdbonly</DebugType>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.MvvmCross\DialogMessaging.MvvmCross.xml</DocumentationFile>
+		<DocumentationFile>DialogMessaging.MvvmCross.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<!-- Items to include in the package for all build configurations. -->
 	<ItemGroup>
 		<None Include="..\..\Assets\Icon.png">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
+			<PackagePath>.</PackagePath>
 		</None>
 		<None Include="..\..\LICENSE">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
+			<PackagePath>.</PackagePath>
 		</None>
 		<None Include="..\..\README.md">
 			<Pack>True</Pack>
-			<PackagePath></PackagePath>
+			<PackagePath>.</PackagePath>
 		</None>
 		<Compile Include="Platforms\Shared\**\*.cs" />
 		<ProjectReference Include="..\DialogMessaging.Core\DialogMessaging.Core.csproj" PrivateAssets="All" />
@@ -66,14 +67,17 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<!-- Items to include in the package for Android build configurations. -->
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 		<Compile Include="Platforms\Droid\**\*.cs" />
 	</ItemGroup>
 
+	<!-- Items to include in the package for iOS build configurations. -->
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
 		<Compile Include="Platforms\iOS\**\*.cs" />
 	</ItemGroup>
 
+	<!-- NuGet package properties for use with GitInfo. -->
 	<Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec;_GetProjectVersion" DependsOnTargets="GitVersion">
 		<PropertyGroup>
 			<Version Condition="$(GitBranch) == 'master'">$(GitBaseTag)</Version>

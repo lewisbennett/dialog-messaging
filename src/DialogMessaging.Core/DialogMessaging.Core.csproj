@@ -1,12 +1,11 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
+	<!-- Properties for all build configurations. -->
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;xamarin.ios10;monoandroid10.0</TargetFrameworks>
 		<LangVersion>10</LangVersion>
 		<Configurations>Debug;Release;CI</Configurations>
-	</PropertyGroup>
 
-	<PropertyGroup>
 		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
 		<Authors>Lewis Bennett</Authors>
@@ -22,25 +21,24 @@
 		<DebugSymbols>true</DebugSymbols>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+	<PropertyGroup Condition=" '$(Configuration)'=='Release' or '$(Configuration)'=='CI'">
 		<DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.Core\DialogMessaging.Core.xml</DocumentationFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)'=='CI'">
-	  <DocumentationFile>D:\Projects\.GitHub\dialog-messaging\src\DialogMessaging.Core\DialogMessaging.Core.xml</DocumentationFile>
-	</PropertyGroup>
-
+	<!-- Items to include in the package for all build configurations. -->
 	<ItemGroup>
 		<None Include="Resources\**\*.xml" />
 		<Compile Include="Platforms\Shared\**\*.cs" />
 	</ItemGroup>
 
+	<!-- Items to include in the package for Android build configurations. -->
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
 		<Compile Include="Platforms\Droid\**\*.cs" />
 		<AndroidResource Include="Resources\**\*.xml" />
 		<PackageReference Include="Xamarin.Google.Android.Material" Version="1.4.0.4" />
 	</ItemGroup>
 
+	<!-- Items to include in the package for iOS build configurations. -->
 	<ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
 		<Compile Include="Platforms\iOS\**\*.cs" />
 	</ItemGroup>
